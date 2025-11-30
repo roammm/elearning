@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
+class AdminUserSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        $email = 'admin@elearning.test';
+        $exists = DB::table('users')->where('email', $email)->exists();
+        if (! $exists) {
+            DB::table('users')->insert([
+                'name' => 'Admin',
+                'email' => $email,
+                'phone' => '0000000000',
+                'password' => Hash::make('root'),
+            ]);
+        }
+    }
+}
+
+
