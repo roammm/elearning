@@ -40,7 +40,7 @@
         .level-title{font-weight:700;color:#1f2937;margin-bottom:8px}
         .level-desc{color:#6b7280;font-size:14px;line-height:1.5}
         .formats{text-align:left}
-        .formats h3{font-size:24px;font-weight:700;color:#1f2937;margin-bottom:24px}
+        .formats h2 {font-size:36px;font-weight:800;color:#1f2937;margin-bottom:16px;text-align:left}
         .format-item{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:16px;background:#f8fafc;border-radius:8px}
         .format-icon{width:40px;height:40px;background:#0ea5e9;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
         .format-content .title{font-weight:600;color:#1f2937;margin-bottom:4px}
@@ -58,15 +58,14 @@
         .contact-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:32px}
         .contact-card{background:#fff;padding:24px;border-radius:12px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,0.1);border:1px solid #f3f4f6}
         .contact-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:20px;color:#fff}
-        .contact-icon.email{background:#0ea5e9}
-        .contact-icon.whatsapp{background:#22c55e}
-        .contact-icon.website{background:#22c55e}
-        .contact-icon.instagram{background:#e11d48}
         .contact-title{font-size:16px;font-weight:600;color:#1f2937;margin-bottom:4px}
         .contact-desc{color:#6b7280;font-size:14px}
         .footer{text-align:center;padding:24px 0;color:#9ca3af;font-size:14px}
         @media (max-width:1024px){.hero{grid-template-columns:1fr;gap:40px}.features{grid-template-columns:1fr}.training-levels{grid-template-columns:1fr;gap:40px}.suitable-cards{grid-template-columns:repeat(2,1fr)}.contact-cards{grid-template-columns:repeat(2,1fr)}}
         @media (max-width:768px){.hero h1{font-size:32px}.hero p{font-size:16px}.hero-buttons{flex-direction:column}.section-title{font-size:28px}.cta h2{font-size:28px}.suitable-cards{grid-template-columns:1fr}.contact-cards{grid-template-columns:1fr}}
+        .format-icon img{width:56px;height:56px;object-fit:contain;}
+        .format-content .title{font-size:20px;font-weight:700;color:#1f2937;margin-bottom:6px;}
+        .format-content .desc{font-size:16px;color:#6b7280;line-height:1.6;}
     </style>
 </head>
 <body>
@@ -100,22 +99,30 @@
             <p class="section-subtitle">Pelatihan terapis perilaku dengan standar nasional dan internasional</p>
             <div class="features">
                 <div class="feature-card">
-                    <div class="feature-icon">📚</div>
+                    <div class="feature-icon" style="background: none;">
+                        <img src="/img/books.gif" alt="Books" style="width: 64px; height: 64px; object-fit: contain;">
+                    </div>
                     <div class="feature-title">Kurikulum Evidence-Based</div>
                     <div class="feature-desc">Materi dan praktik berbasis penelitian ilmiah Applied Behavior Analysis (ABA), bukan hanya teori</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🏆</div>
+                    <div class="feature-icon" style="background: none;">
+                        <img src="/img/certificate.gif" alt="Sertifikat" style="width: 64px; height: 64px; object-fit: contain;">
+                    </div>
                     <div class="feature-title">Sertifikasi Nasional</div>
                     <div class="feature-desc">Berhubung dengan LSK TPIBK & Dirjen Vokasi Kemendikbudristek untuk sertifikasi terapis profesional</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">👨‍🏫</div>
+                    <div class="feature-icon" style="background: none;">
+                        <img src="/img/certificate-trainer.gif" alt="Trainer Bersertifikat" style="width: 64px; height: 64px; object-fit: contain;">
+                    </div>
                     <div class="feature-title">Trainer Berlisensi</div>
                     <div class="feature-desc">Dibimbing oleh psikolog dan behavior analyst dengan pengalaman lebih dari 25 tahun</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon" style="background: none;">
+                        <img src="/img/report.gif" alt="Evaluasi Terukur" style="width: 64px; height: 64px; object-fit: contain;">
+                    </div>
                     <div class="feature-title">Evaluasi Terukur</div>
                     <div class="feature-desc">Setiap jenjang memiliki learning outcome, rubrik penilaian, dan evaluasi kompetensi yang jelas</div>
                 </div>
@@ -149,23 +156,29 @@
                 </ul>
             </div>
             <div class="formats">
-                <h3>Format Pelatihan Fleksibel</h3>
-                <div class="format-item">
-                    <div class="format-icon">💻</div>
+                <h2>Format Pelatihan Fleksibel</h2>
+                <div class="format-item rounded-lg">
+                    <div class="format-icon" style="background: none;">
+                        <img src="/img/online-study.png" alt="Full Onsite Training" style="width: 40px; height: 40px; object-fit: contain;">
+                    </div>
                     <div class="format-content">
                         <div class="title">Online Training</div>
                         <div class="desc">Belajar interaktif melalui platform digital dengan video case & diskusi</div>
                     </div>
                 </div>
                 <div class="format-item">
-                    <div class="format-icon">🏢</div>
+                    <div class="format-icon" style="background: none;">
+                        <img src="/img/offline-study.png" alt="Full Onsite Training" style="width: 40px; height: 40px; object-fit: contain;">
+                    </div>
                     <div class="format-content">
                         <div class="title">Full Onsite Training</div>
                         <div class="desc">Pelatihan tatap muka di lokasi mitra dengan praktik langsung</div>
                     </div>
                 </div>
                 <div class="format-item">
-                    <div class="format-icon">🧩</div>
+                    <div class="format-icon" style="background: none;">
+                        <img src="/img/mix-study.png" alt="Full Onsite Training" style="width: 40px; height: 40px; object-fit: contain;">
+                    </div>
                     <div class="format-content">
                         <div class="title">Mix Training (Online + Onsite)</div>
                         <div class="desc">Kombinasi teori daring dan praktik lapangan - Fleksibel & Nyata</div>
@@ -177,7 +190,6 @@
         <!-- Suitable For Section -->
         <div class="suitable-for">
             <h2 class="section-title">Siapa yang Cocok Mengikuti Pelatihan?</h2>
-            <p class="section-subtitle">ABATI terbuka untuk berbagai latar belakang yang ingin menjadi terapis profesional</p>
             <div class="suitable-cards">
                 <div class="suitable-card">
                     <div class="suitable-icon">✓</div>
@@ -237,26 +249,33 @@
         <div class="contact">
             <h2 class="section-title">Hubungi Kami</h2>
             <p class="section-subtitle">Siap memulai perjalanan menjadi terapis ABA profesional? Hubungi kami untuk informasi lebih lanjut</p>
-            <div class="contact-cards">
-                <div class="contact-card">
-                    <div class="contact-icon email">📧</div>
-                    <div class="contact-title">Email</div>
-                    <div class="contact-desc">info@abati.id</div>
+            <div class="flex justify-center gap-6">
+                <div class="contact-card w-80">
+                    <a href="#">
+                        <div class="contact-icon email bg-white">
+                            <img src="/img/gmail.png" alt="Email" class="w-12 h-12 object-contain mx-auto">
+                        </div>
+                        <div class="contact-title">Email</div>
+                        <div class="contact-desc">info@abati.id</div>
+                    </a>
                 </div>
-                <div class="contact-card">
-                    <div class="contact-icon whatsapp">📱</div>
-                    <div class="contact-title">WhatsApp</div>
-                    <div class="contact-desc">+62 812-3456-7890</div>
+                <div class="contact-card w-80">
+                    <a href="#">
+                        <div class="contact-icon whatsapp bg-white">
+                            <img src="/img/whatsapp.png" alt="WhatsApp" class="w-12 h-12 object-contain mx-auto">
+                        </div>
+                        <div class="contact-title">WhatsApp</div>
+                        <div class="contact-desc">+62 812-3456-7890</div>
+                    </a>
                 </div>
-                <div class="contact-card">
-                    <div class="contact-icon website">🌐</div>
-                    <div class="contact-title">Website</div>
-                    <div class="contact-desc">www.abati.id</div>
-                </div>
-                <div class="contact-card">
-                    <div class="contact-icon instagram">📷</div>
-                    <div class="contact-title">Instagram</div>
-                    <div class="contact-desc">@abati_indonesia</div>
+                <div class="contact-card w-80">
+                    <a href="#">
+                        <div class="contact-icon instagram bg-white">
+                            <img src="/img/instagram.png" alt="Instagram" class="w-12 h-12 object-contain mx-auto">
+                        </div>
+                        <div class="contact-title">Instagram</div>
+                        <div class="contact-desc">@abati_indonesia</div>
+                    </a>
                 </div>
             </div>
         </div>

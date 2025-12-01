@@ -37,7 +37,6 @@
         <div class="w-full max-w-md">
             <!-- Logo and Title -->
             <div class="text-center mb-8">
-                <div class="mx-auto w-20 h-20 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-4xl mb-6">🎓</div>
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">Daftar Akun Baru</h1>
                 <p class="text-gray-600">Mulai perjalanan pembelajaran Anda</p>
             </div>
@@ -111,8 +110,12 @@
                                 </svg>
                             </div>
                             <input type="password" id="password" name="password" 
-                                   class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('password') border-red-500 @enderror" 
-                                   placeholder="••••••••" required>
+                                class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('password') border-red-500 @enderror"
+                                placeholder="••••••••" required>
+                            <button type="button" onclick="togglePasswordVisibility('password', this)" class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400">
+                                <img id="eye-open" src="/img/eye-open.svg" alt="Show" class="h-5 w-5" style="display:inline;">
+                                <img id="eye-off" src="/img/eye-close.svg" alt="Hide" class="h-5 w-5 hidden" style="display:none;">
+                            </button>
                         </div>
                         @error('password')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -129,8 +132,12 @@
                                 </svg>
                             </div>
                             <input type="password" id="password_confirmation" name="password_confirmation" 
-                                   class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                   placeholder="••••••••" required>
+                                class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                                placeholder="••••••••" required>
+                            <button type="button" onclick="togglePasswordVisibility('password_confirmation', this)" class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400">
+                                <img id="eye-open" src="/img/eye-open.svg" alt="Show" class="h-5 w-5" style="display:inline;">
+                                <img id="eye-off" src="/img/eye-close.svg" alt="Hide" class="h-5 w-5 hidden" style="display:none;">
+                            </button>
                         </div>
                     </div>
 
@@ -173,5 +180,25 @@
             </div>
         </div>
     </main>
+    <script>
+function togglePasswordVisibility(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const eyeOpen = btn.querySelector('#eye-open');
+    const eyeOff = btn.querySelector('#eye-off');
+    if (input.type === 'password') {
+        input.type = 'text';
+        eyeOpen.classList.add('hidden');
+        eyeOff.classList.remove('hidden');
+        eyeOpen.style.display = 'none';
+        eyeOff.style.display = 'inline';
+    } else {
+        input.type = 'password';
+        eyeOff.classList.add('hidden');
+        eyeOpen.classList.remove('hidden');
+        eyeOff.style.display = 'none';
+        eyeOpen.style.display = 'inline';
+    }
+}
+</script>
 </body>
 </html>
