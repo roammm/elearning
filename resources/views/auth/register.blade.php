@@ -17,12 +17,16 @@
     <!-- Header -->
     <header class="bg-white/80 backdrop-blur border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="{{ route('home') }}" class="flex items-center gap-3">
-                <div class="h-9 w-9 rounded-xl bg-blue-600 grid place-items-center text-white text-lg font-bold">🎓</div>
-                <span class="text-xl font-semibold text-gray-800">MediLearn</span>
+            <a href="{{ route('home') }}" class="flex items-center">
+                <img 
+                    src="/img/logo-ABATi.png" 
+                    alt="Logo ABATI"
+                    class="h-16 w-16 object-contain"
+                    style="border:none;background:none;"
+                >
             </a>
             <div class="flex items-center gap-3">
-                <a href="{{ route('login') }}" class="text-gray-700 hover:text-gray-900">Login</a>
+                <a href="{{ route('login') }}" class="px-4 py-2 text-blue-600 font-medium bg-white rounded-lg border border-blue-200">Login</a>
                 <a href="{{ route('register') }}" class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700">Register</a>
             </div>
         </div>
