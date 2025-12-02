@@ -17,9 +17,13 @@
     <!-- Header -->
     <header class="bg-white/80 backdrop-blur border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="{{ route('home') }}" class="flex items-center gap-3">
-                <div class="h-9 w-9 rounded-xl bg-blue-600 grid place-items-center text-white text-lg font-bold">🎓</div>
-                <span class="text-xl font-semibold text-gray-800">MediLearn</span>
+            <a href="{{ route('home') }}" class="flex items-center">
+                <img 
+                    src="/img/logo-ABATi.png" 
+                    alt="Logo ABATI"
+                    class="h-16 w-16 object-contain"
+                    style="border:none;background:none;"
+                >
             </a>
             <div class="flex items-center gap-3">
                 <a href="{{ route('login') }}" class="px-4 py-2 text-blue-600 font-medium bg-white rounded-lg border border-blue-200">Login</a>
@@ -33,7 +37,6 @@
         <div class="w-full max-w-md">
             <!-- Logo and Title -->
             <div class="text-center mb-8">
-                <div class="mx-auto w-20 h-20 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-4xl mb-6">🎓</div>
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">Selamat Datang Kembali</h1>
                 <p class="text-gray-600">Login untuk melanjutkan pembelajaran Anda</p>
             </div>
@@ -71,8 +74,12 @@
                                 </svg>
                             </div>
                             <input type="password" id="password" name="password" 
-                                   class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('password') border-red-500 @enderror" 
-                                   placeholder="••••••••" required>
+                                class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('password') border-red-500 @enderror"
+                                placeholder="••••••••" required>
+                            <button type="button" onclick="togglePasswordVisibility('password', this)" class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400">
+                                <img id="eye-open" src="/img/eye-open.svg" alt="Show" class="h-5 w-5" style="display:inline;">
+                                <img id="eye-off" src="/img/eye-close.svg" alt="Hide" class="h-5 w-5 hidden" style="display:none;">
+                            </button>
                         </div>
                         @error('password')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -118,5 +125,25 @@
             </div>
         </div>
     </main>
+    <script>
+function togglePasswordVisibility(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const eyeOpen = btn.querySelector('#eye-open');
+    const eyeOff = btn.querySelector('#eye-off');
+    if (input.type === 'password') {
+        input.type = 'text';
+        eyeOpen.classList.add('hidden');
+        eyeOff.classList.remove('hidden');
+        eyeOpen.style.display = 'none';
+        eyeOff.style.display = 'inline';
+    } else {
+        input.type = 'password';
+        eyeOff.classList.add('hidden');
+        eyeOpen.classList.remove('hidden');
+        eyeOff.style.display = 'none';
+        eyeOpen.style.display = 'inline';
+    }
+}
+</script>
 </body>
 </html>
