@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Quizzes - Admin</title>
+    @vite(['resources/css/app.css','resources/js/app.js'])
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body{font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; background:#f5f7fb; margin:0; padding:0}
+        .container{max-width:1200px;margin:0 auto;padding:0 24px}
+        .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;padding-top:40px}
+        .page-title{font-size:32px;font-weight:800;color:#1f2937;margin-bottom:8px}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;background:#2563eb;color:#fff;border:none;border-radius:8px;text-decoration:none;font-weight:500;cursor:pointer;transition:background 0.2s}
+        .btn:hover{background:#1d4ed8}
+        .btn-danger{background:#ef4444}
+        .btn-danger:hover{background:#dc2626}
+        .btn-secondary{background:#6b7280}
+        .btn-secondary:hover{background:#4b5563}
+        .card{background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,0.1);transition:box-shadow 0.2s}
+        .card:hover{box-shadow:0 4px 6px rgba(0,0,0,0.1)}
+        .card-title{font-size:20px;font-weight:700;color:#1f2937;margin-bottom:8px}
+        .card-meta{color:#6b7280;font-size:14px;margin-bottom:16px}
+        .card-actions{display:flex;gap:8px;flex-wrap:wrap}
+        .alert{padding:16px;border-radius:8px;margin-bottom:24px}
+        .alert-success{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
+        .badge{display:inline-block;padding:4px 12px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:12px;font-weight:500}
+        @media (max-width:640px){.container{padding:0 16px}.page-header{flex-direction:column;align-items:flex-start;gap:16px}}
+    </style>
+</head>
+<body>
+    @include('navbar')
+
+    <div class="container" style="padding-top:100px">
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Manage Quizzes - {{ $course->title }}</h1>
+                <p style="color:#6b7280">Pilih quiz untuk mengelola soalnya</p>
+            </div>
+            <a href="{{ route('admin.quizzes.create', $course) }}" class="btn">+ Tambah Quiz</a>
+        </div>
+
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        @forelse($quizGroups as $group)
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div style="flex:1">
+                    <div class="card-title">{{ $group['name'] }}</div>
+                    <div class="card-meta">
+                        <span class="badge">{{ $group['questions_count'] }} Soal</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="{{ route('admin.quizzes.questions', ['course' => $course->id, 'quizName' => urlencode($group['name'])]) }}" class="btn">Kelola Soal</a>
+                </div>
+            </div>
+        </div>
+        @empty
+        <div class="card">
+            <p style="color:#6b7280;text-align:center;padding:40px">Belum ada quiz. <a href="{{ route('admin.quizzes.create', $course) }}" style="color:#2563eb">Tambah quiz pertama</a></p>
+        </div>
+        @endforelse
+
+        <div style="margin-top:32px">
+            <a href="{{ route('admin.courses') }}" class="btn btn-secondary">← Kembali ke Courses</a>
+        </div>
+    </div>
+</body>
+</html>

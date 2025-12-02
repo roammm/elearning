@@ -13,6 +13,9 @@
             <a href="{{ route('elearning') }}" class="text-gray-700 hover:text-gray-900 font-medium">E-Learning</a>
             <a href="{{ route('leaderboard') }}" class="text-gray-700 hover:text-gray-900 font-medium">Leaderboard</a>
             <a href="{{ route('profile') }}" class="text-gray-700 hover:text-gray-900 font-medium">Profile</a>
+            @if(auth()->user()->role === 'admin')
+                <a href="{{ route('admin.index') }}" class="text-gray-700 hover:text-gray-900 font-medium">Admin</a>
+            @endif
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="inline-flex items-center px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700">Logout</button>

@@ -18,5 +18,8 @@ class DatabaseSeeder extends Seeder
 
         // Buat admin default
         $this->call([AdminUserSeeder::class]);
+
+        // Seed VB-MAPP course
+        $this->call([VBMAPPCourseSeeder::class]);
     }
 }

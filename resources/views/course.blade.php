@@ -105,31 +105,13 @@
                 @endif
             </div>
 
-            @if(!empty($course['quiz']))
-                <div class="card" style="margin-top:16px;padding:16px">
-                    <div style="font-weight:700;margin-bottom:12px">Kuis Akhir Modul</div>
-                    <form id="quiz-form" method="POST" action="{{ route('course.quiz.submit', $slug) }}">
-                        @csrf
-                        @foreach($course['quiz'] as $index => $quiz)
-                            <div style="margin-bottom:20px">
-                                <p style="font-weight:600;margin-bottom:8px">{{ $index + 1 }}. {{ $quiz['question'] }}</p>
-                                @foreach($quiz['options'] as $option)
-                                    <label style="display:block;margin-bottom:6px">
-                                        <input type="radio"
-                                               name="question{{ $index }}"
-                                               value="{{ $option }}"
-                                               @checked(old("question{$index}") === $option)
-                                               @if($loop->first) required @endif>
-                                        {{ $option }}
-                                    </label>
-                                @endforeach
-                                @error("question{$index}")
-                                    <div style="color:#dc2626;font-size:12px">{{ $message }}</div>
-                                @enderror
+            @if(!empty($course['quiz']) && count($course['quiz']) > 0)
+                <div class="card" style="margin-top:16px;padding:16px;display:flex;align-items:center;justify-content:space-between">
+                    <div>
+                        <div style="font-weight:700">Kuis Akhir Modul</div>
+                        <div style="color:#64748b;font-size:12px">Selesaikan kuis untuk mendapatkan sertifikat</div>
                             </div>
-                        @endforeach
-                        <button type="submit" class="btn">Kumpulkan Jawaban</button>
-                    </form>
+                    <a class="btn" href="{{ route('course.quiz.show', $slug) }}">Mulai Kuis</a>
                 </div>
             @endif
         @else
@@ -151,13 +133,15 @@
                 @endforeach
             </div>
 
+            @if(!empty($course['quiz']) && count($course['quiz']) > 0)
             <div class="card" style="margin-top:16px;padding:14px;display:flex;align-items:center;justify-content:space-between">
                 <div>
                     <div style="font-weight:700">Kuis Akhir Modul</div>
                     <div style="color:#64748b;font-size:12px">Selesaikan kuis untuk mendapatkan sertifikat</div>
                 </div>
-                <a class="btn" href="#">Mulai Kuis</a>
+                    <a class="btn" href="{{ route('course.quiz.show', $slug) }}">Mulai Kuis</a>
             </div>
+            @endif
         @endif
     </div>
 </body>

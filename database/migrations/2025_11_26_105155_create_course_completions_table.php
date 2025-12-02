@@ -21,10 +21,8 @@ return new class extends Migration
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
             $table->unique(['user_id', 'course_slug']);
-            $table->foreign('user_id')
-                ->references('user_id')
-                ->on('users')
-                ->cascadeOnDelete();
+            // Foreign key removed temporarily to avoid constraint issues
+            // Can be added later if needed: $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 

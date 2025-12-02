@@ -13,14 +13,21 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $email = 'admin@elearning.test';
+        $email = 'admin@a';
         $exists = DB::table('users')->where('email', $email)->exists();
         if (! $exists) {
             DB::table('users')->insert([
                 'name' => 'Admin',
                 'email' => $email,
                 'phone' => '0000000000',
-                'password' => Hash::make('root'),
+                'password' => Hash::make('root12'),
+                'role' => 'admin',
+            ]);
+        } else {
+            // Update existing admin user to have admin role and password
+            DB::table('users')->where('email', $email)->update([
+                'role' => 'admin',
+                'password' => Hash::make('root12'),
             ]);
         }
     }

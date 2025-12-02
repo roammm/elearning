@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\CourseCompletion;
+use App\Models\Quiz;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,6 +28,39 @@ class HomeController extends Controller
      */
     public function elearning(): View
     {
+        // Load courses from database
+        $courses = Course::all();
+        
+        $modules = $courses->map(function ($course) {
+            // Get progress from completions if user is logged in
+            $progress = 0;
+            if (Auth::check()) {
+                $completion = CourseCompletion::where('user_id', Auth::id())
+                    ->where('course_slug', $course->slug)
+                    ->first();
+                $progress = $completion ? $completion->percentage : 0;
+            }
+
+            // Determine badge and metadata based on course type
+            $badge = 'VB-MAPP'; // Default or extract from title
+            if (stripos($course->title, 'VB-MAPP') !== false) {
+                $badge = 'VB-MAPP';
+            }
+
+            return [
+                'title' => $course->title,
+                'desc' => $course->subtitle ?? 'Materi lengkap dalam bentuk presentasi interaktif',
+                'hours' => $course->type === 'ppt' ? 'Self-paced' : 'Self-paced',
+                'lessons' => $course->type === 'ppt' ? 'PowerPoint' : 'Chapter',
+                'progress' => $progress,
+                'badge' => $badge,
+                'cta' => 'Buka Materi',
+                'slug' => $course->slug
+            ];
+        })->toArray();
+
+        // Fallback to hardcoded if no courses in database
+        if (empty($modules)) {
         $modules = [
             [
                 'title' => 'VB-MAPP - Verbal Behavior Program',
@@ -38,6 +73,7 @@ class HomeController extends Controller
                 'slug' => 'vb-mapp'
             ],
         ];
+        }
 
         return view('elearning', ['modules' => $modules]);
     }
@@ -200,10 +236,93 @@ class HomeController extends Controller
     }
 
     /**
+     * Display quiz page for a course.
+     */
+    public function showQuiz(string $slug): View
+    {
+        // Try to load from database first
+        $courseModel = Course::where('slug', $slug)->with('quizzes')->first();
+        
+        if ($courseModel) {
+            $quizzes = $courseModel->quizzes->sortBy('order')->values();
+            
+            if ($quizzes->isEmpty()) {
+                abort(404, 'Quiz tidak ditemukan untuk course ini.');
+            }
+
+            return view('quiz', [
+                'course' => [
+                    'title' => $courseModel->title,
+                    'slug' => $courseModel->slug,
+                ],
+                'quizzes' => $quizzes->map(function ($quiz) {
+                    return [
+                        'question' => $quiz->question,
+                        'options' => $quiz->options,
+                        'answer' => $quiz->answer,
+                    ];
+                })->toArray(),
+                'slug' => $slug,
+            ]);
+        } else {
+            // Fallback to catalog (hardcoded)
+            $catalog = $this->getCatalog();
+            if (! isset($catalog[$slug])) {
+                abort(404);
+            }
+
+            $course = $catalog[$slug];
+            $quiz = $course['quiz'] ?? [];
+            if (empty($quiz)) {
+                abort(404, 'Quiz tidak ditemukan untuk course ini.');
+            }
+
+            return view('quiz', [
+                'course' => [
+                    'title' => $course['title'],
+                    'slug' => $slug,
+                ],
+                'quizzes' => $quiz,
+                'slug' => $slug,
+            ]);
+        }
+    }
+
+    /**
      * Persist quiz score and redirect back to the course page.
      */
     public function submitQuiz(Request $request, string $slug): RedirectResponse
     {
+        // Try to load from database first
+        $courseModel = Course::where('slug', $slug)->with('quizzes')->first();
+        
+        if ($courseModel) {
+            // Use database quizzes
+            $quizzes = $courseModel->quizzes->sortBy('order')->values();
+            
+            if ($quizzes->isEmpty()) {
+                abort(404, 'Quiz tidak ditemukan untuk course ini.');
+            }
+
+            $rules = [];
+            foreach ($quizzes as $index => $_question) {
+                $rules["question{$index}"] = ['required', 'string'];
+            }
+            $validated = $request->validate($rules, [
+                'required' => 'Pertanyaan ini wajib dijawab.',
+            ]);
+
+            $score = 0;
+            foreach ($quizzes as $index => $quiz) {
+                if (($validated["question{$index}"] ?? null) === $quiz->answer) {
+                    $score++;
+                }
+            }
+
+            $total = $quizzes->count();
+            $percentage = $total > 0 ? round(($score / $total) * 100) : 0;
+        } else {
+            // Fallback to catalog (hardcoded)
         $catalog = $this->getCatalog();
         if (! isset($catalog[$slug])) {
             abort(404);
@@ -232,6 +351,7 @@ class HomeController extends Controller
 
         $total = count($quiz);
         $percentage = $total > 0 ? round(($score / $total) * 100) : 0;
+        }
 
         CourseCompletion::updateOrCreate(
             [
@@ -311,13 +431,60 @@ class HomeController extends Controller
     }
 
     /**
-     * Provide catalog data (single source of truth).
-     */
-    /**
-     * Provide catalog data (single VB-MAPP course).
+     * Provide catalog data (loads from database first, fallback to hardcoded).
      */
     private function getCatalog(): array
     {
+        $catalog = [];
+        
+        // Load courses from database
+        $courses = Course::with(['quizzes' => function ($query) {
+            $query->orderBy('order');
+        }, 'chapters' => function ($query) {
+            $query->orderBy('order')->with('parts');
+        }])->get();
+
+        foreach ($courses as $course) {
+            // Transform chapters to array format
+            $chapters = $course->chapters->map(function ($chapter) {
+                $parts = $chapter->parts->map(function ($part) {
+                    return [
+                        'title' => $part->title,
+                        'content' => $part->content ?? [],
+                    ];
+                })->toArray();
+
+                return [
+                    'title' => $chapter->title,
+                    'desc' => $chapter->description ?? '',
+                    'duration' => 'Self-paced',
+                    'done' => false, // TODO: Implement progress tracking
+                    'parts' => $parts,
+                ];
+            })->toArray();
+
+            // Transform quizzes to array format
+            $quizzes = $course->quizzes->map(function ($quiz) {
+                return [
+                    'question' => $quiz->question,
+                    'options' => $quiz->options,
+                    'answer' => $quiz->answer,
+                ];
+            })->toArray();
+
+            $catalog[$course->slug] = [
+                'title' => $course->title,
+                'subtitle' => $course->subtitle ?? '',
+                'chapters' => $chapters,
+                'type' => $course->type ?? 'standard',
+                'file' => $course->file,
+                'pdf' => $course->pdf,
+                'quiz' => $quizzes,
+            ];
+        }
+
+        // Fallback to hardcoded data if database is empty
+        if (empty($catalog)) {
         return [
             'vb-mapp' => [
                 'title' => 'Verbal Behavior - Milestone Assessment and Placement Program (VB-MAPP)',
@@ -380,6 +547,9 @@ class HomeController extends Controller
                 ],
             ],
         ];
+        }
+
+        return $catalog;
     }
     /**
      * Aggregate leaderboard entries for reuse.
