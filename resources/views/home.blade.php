@@ -9,64 +9,252 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body{font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji'; background:#ffffff; margin:0; padding:0}
+    /* ============================
+    GLOBAL STYLE (dari style 1)
+    ============================ */
+        body{
+            font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',
+            Arial,'Noto Sans','Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+            background:#ffffff;margin:0;padding:0
+        }
         .container{max-width:1200px;margin:0 auto;padding:0 24px}
-        .hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:80px 0;margin-bottom:80px}
-        .hero-content .label{background:#e0f2fe;color:#0369a1;padding:8px 16px;border-radius:20px;font-size:14px;font-weight:500;display:inline-block;margin-bottom:24px}
+
+        /* HERO */
+        .hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+            padding:80px 0;margin-bottom:80px}
+        .hero-content .label{background:#e0f2fe;color:#0369a1;padding:8px 16px;border-radius:20px;
+            font-size:14px;font-weight:500;display:inline-block;margin-bottom:24px}
         .hero-content h1{font-size:48px;font-weight:800;color:#1f2937;margin-bottom:24px;line-height:1.2}
         .hero-content h1 .highlight{color:#0ea5e9}
         .hero-content p{font-size:18px;color:#6b7280;margin-bottom:32px;line-height:1.6}
+
         .hero-buttons{display:flex;gap:16px}
-        .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:8px;font-weight:600;text-decoration:none;transition:all 0.2s}
-        .btn-primary{background:#0ea5e9;color:#fff;border:none}
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+            padding:12px 24px;border-radius:8px;font-weight:600;text-decoration:none;transition:all 0.2s}
+        .btn-primary{background:#0ea5e9;color:#fff}
         .btn-primary:hover{background:#0284c7}
         .btn-secondary{background:transparent;color:#0ea5e9;border:2px solid #0ea5e9}
         .btn-secondary:hover{background:#f0f9ff}
         .hero-image{width:100%;height:400px;border-radius:12px;object-fit:cover}
+
+        /* SECTION GLOBAL */
         .section{margin-bottom:80px}
         .section-title{font-size:36px;font-weight:800;color:#1f2937;text-align:center;margin-bottom:16px}
-        .section-subtitle{font-size:18px;color:#6b7280;text-align:center;margin-bottom:48px}
+        .section-subtitle{font-size:18px;color:#6b7280;text-align:center;margin-bottom:48px; max-width:800px;line-height:1.6}
+
+        /* FEATURES */
         .features{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:80px}
-        .feature-card{background:#fff;padding:32px;border-radius:12px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,0.1);border:1px solid #f3f4f6}
-        .feature-icon{width:64px;height:64px;background:#0ea5e9;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:24px;color:#fff}
+        .feature-card{background:#fff;padding:32px;border-radius:12px;text-align:center;
+            box-shadow:0 4px 6px rgba(0,0,0,0.1);border:1px solid #f3f4f6}
+
+        .feature-icon{width:64px;height:64px;background:#0ea5e9;border-radius:12px;display:flex;
+            align-items:center;justify-content:center;margin:0 auto 16px;font-size:24px;color:#fff}
+
         .feature-title{font-size:20px;font-weight:700;margin-bottom:12px;color:#1f2937}
         .feature-desc{color:#6b7280;line-height:1.6;font-size:14px}
+
+        /* TRAINING LEVELS */
         .training-levels{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-bottom:80px}
         .levels-content h2{font-size:36px;font-weight:800;color:#1f2937;margin-bottom:16px;text-align:left}
         .levels-content p{font-size:18px;color:#6b7280;margin-bottom:32px;line-height:1.6;text-align:left}
+
         .levels-list{list-style:none;padding:0}
-        .levels-list li{display:flex;align-items:flex-start;gap:12px;margin-bottom:24px;font-size:16px;color:#374151;text-align:left}
+        .levels-list li{display:flex;align-items:flex-start;gap:12px;margin-bottom:24px;font-size:16px;color:#374151}
         .levels-list li::before{content:'✓';color:#22c55e;font-weight:bold;font-size:18px;margin-top:2px}
+
         .level-title{font-weight:700;color:#1f2937;margin-bottom:8px}
         .level-desc{color:#6b7280;font-size:14px;line-height:1.5}
+
+        /* FORMATS */
         .formats{text-align:left}
-        .formats h2 {font-size:36px;font-weight:800;color:#1f2937;margin-bottom:16px;text-align:left}
-        .format-item{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:16px;background:#f8fafc;border-radius:8px}
-        .format-icon{width:40px;height:40px;background:#0ea5e9;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
-        .format-content .title{font-weight:600;color:#1f2937;margin-bottom:4px}
-        .format-content .desc{color:#6b7280;font-size:14px;line-height:1.4}
-        .suitable-for{background:#f0f9ff;padding:40px;border-radius:16px;margin-bottom:80px}
-        .suitable-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:32px}
-        .suitable-card{background:#fff;padding:24px;border-radius:12px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
-        .suitable-icon{width:48px;height:48px;background:#0ea5e9;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;color:#fff;font-size:20px}
-        .suitable-title{font-size:16px;font-weight:600;color:#1f2937;line-height:1.3}
+        .formats h2{font-size:36px;font-weight:800;color:#1f2937;margin-bottom:16px;text-align:left}
+
+        .format-item{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:16px;
+            background:#f8fafc;border-radius:8px}
+
+        .format-icon{width:40px;height:40px;background:#0ea5e9;border-radius:50%;
+            display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
+
+        .format-icon img{width:56px;height:56px;object-fit:contain;}
+        .format-content .title{font-size:20px;font-weight:700;color:#1f2937;margin-bottom:6px}
+        .format-content .desc{font-size:16px;color:#6b7280;line-height:1.6}
+
+        /* =======================================================
+        SUITABLE SECTION
+        ======================================================= */
+        .suitable-for{
+            max-width:1200px;
+            margin:0 auto;
+            padding:60px 20px;
+            text-align:center;
+            background:#f0f9ff;
+            border-radius:16px;
+            margin-bottom:80px;
+        }
+
+        .suitable-cards{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:40px;
+        }
+
+        .suitable-card{
+            background:#ffffff;
+            border:1px solid #f3f4f6;
+            border-radius:20px;
+            padding:32px;
+            text-align:left;
+            box-shadow:0 10px 40px rgba(0,0,0,0.05);
+            transition:all .3s ease;
+        }
+
+        .suitable-card:hover{
+            transform:translateY(-10px);
+            box-shadow:0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .card-image-wrapper{
+            width:100%;
+            aspect-ratio:16/9;
+            background:#f9fafb;
+            border-radius:12px;
+            overflow:hidden;
+            margin-bottom:24px;
+            position:relative;
+        }
+
+        .card-image-wrapper img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            transition:transform .5s ease;
+        }
+
+        .suitable-card:hover .card-image-wrapper img{
+            transform:scale(1.05);
+        }
+
+        .suitable-title{
+            font-size:22px;
+            font-weight:700;
+            color:#1f2937;
+            margin-bottom:12px;
+            line-height:1.4;
+        }
+
+        .suitable-desc{
+            color:#6b7280;
+            font-size:16px;
+            line-height:1.7;
+        }
+
+        /* =======================================================
+        ALSO SUITABLE SECTION (Baru, tidak bentrok!)
+        ======================================================= */
+        .also-section{
+            max-width:1200px;
+            margin:0 auto;
+            padding:60px 20px;
+            text-align:center;
+        }
+
+        .also-title{
+            font-size:36px;
+            font-weight:800;
+            color:#111827;
+            margin-bottom:16px;
+        }
+
+        .also-subtitle{
+            font-size:18px;
+            color:#6b7280;
+            max-width:700px;
+            margin:0 auto 40px auto;
+            line-height:1.6;
+        }
+
+        .also-grid{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:28px;
+        }
+
+        .also-card{
+            background:#ffffff;
+            padding:28px;
+            border-radius:16px;
+            border:1px solid #f3f4f6;
+            box-shadow:0 6px 16px rgba(0,0,0,0.05);
+            transition:0.25s ease;
+        }
+
+        .also-card:hover{
+            transform:translateY(-6px);
+            box-shadow:0 12px 24px rgba(0,0,0,0.1);
+        }
+
+        .also-icon{
+            width:52px;
+            height:52px;
+            border-radius:12px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:22px;
+            color:#fff;
+            margin:0 auto 16px;
+        }
+
+        .also-card-title{
+            font-size:18px;
+            font-weight:600;
+            color:#1f2937;
+            line-height:1.4;
+        }
+
         .cta{background:linear-gradient(135deg,#0ea5e9 0%,#22c55e 100%);color:#fff;padding:80px 0;text-align:center;border-radius:16px;margin-bottom:40px}
         .cta h2{font-size:36px;font-weight:800;margin-bottom:16px}
         .cta p{font-size:18px;opacity:0.9;margin-bottom:32px}
         .cta .btn{background:#fff;color:#0ea5e9;padding:16px 32px;font-size:16px;font-weight:600;border:1px solid #e5e7eb}
+
+        /* contact card */
         .contact{text-align:center;margin-bottom:40px}
         .contact-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:32px}
         .contact-card{background:#fff;padding:24px;border-radius:12px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,0.1);border:1px solid #f3f4f6}
         .contact-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:20px;color:#fff}
         .contact-title{font-size:16px;font-weight:600;color:#1f2937;margin-bottom:4px}
         .contact-desc{color:#6b7280;font-size:14px}
-        .footer{text-align:center;padding:24px 0;color:#9ca3af;font-size:14px}
-        @media (max-width:1024px){.hero{grid-template-columns:1fr;gap:40px}.features{grid-template-columns:1fr}.training-levels{grid-template-columns:1fr;gap:40px}.suitable-cards{grid-template-columns:repeat(2,1fr)}.contact-cards{grid-template-columns:repeat(2,1fr)}}
-        @media (max-width:768px){.hero h1{font-size:32px}.hero p{font-size:16px}.hero-buttons{flex-direction:column}.section-title{font-size:28px}.cta h2{font-size:28px}.suitable-cards{grid-template-columns:1fr}.contact-cards{grid-template-columns:1fr}}
-        .format-icon img{width:56px;height:56px;object-fit:contain;}
-        .format-content .title{font-size:20px;font-weight:700;color:#1f2937;margin-bottom:6px;}
-        .format-content .desc{font-size:16px;color:#6b7280;line-height:1.6;}
+
+        /* Responsive */
+        @media (max-width:1024px){
+            .also-grid{
+                grid-template-columns:repeat(2,1fr);
+            }
+        }
+
+        @media (max-width:640px){
+            .also-grid{
+                grid-template-columns:1fr;
+            }
+            .also-title{font-size:28px}
+        }
+
+        /* MOBILE */
+        @media (max-width:768px){
+            .suitable-cards{
+                grid-template-columns:1fr;
+                gap:24px;
+            }
+            .section-title{font-size:28px}
+            .suitable-card{padding:24px}
+            .hero{grid-template-columns:1fr;gap:40px}
+            .hero h1{font-size:32px}
+            .hero p{font-size:16px}
+            .hero-buttons{flex-direction:column}
+        }
+
     </style>
+
 </head>
 <body>
     @include('navbar')
@@ -189,54 +377,78 @@
 
         <!-- Suitable For Section -->
         <div class="suitable-for">
-            <h2 class="section-title">Siapa yang Cocok Mengikuti Pelatihan?</h2>
+            <h2 class="also-title">Aselerasi Karir Terapis Anda Bersama ABATI</h2>
+            <p class="also-subtitle">Kami mengombinasikan kurikulum berstandar nasional dengan ekosistem praktik nyata untuk mencetak tenaga profesional yang siap kerja dan kompeten.</p>
             <div class="suitable-cards">
                 <div class="suitable-card">
-                    <div class="suitable-icon">✓</div>
-                    <div class="suitable-title">Terhubung dengan standar nasional kompetensi terapis perilaku</div>
+                    <div class="card-image-wrapper">
+                        <img src="/img/gambar-1.png" alt="Sertifikasi Kompetensi Nasional">
+                    </div>
+                    <div class="suitable-title">Standar Kompetensi Nasional Terakreditasi</div>
+                    <div class="suitable-desc">Kurikulum kami disusun mengikuti standar kompetensi nasional, memastikan Anda mendapatkan kualifikasi resmi yang diakui oleh industri dan lembaga profesional.</div>
                 </div>
                 <div class="suitable-card">
-                    <div class="suitable-icon">✓</div>
-                    <div class="suitable-title">Format pelatihan fleksibel: Online, Onsite, atau Mix Training</div>
+                    <div class="card-image-wrapper">
+                        <img src="/img/gambar-2.png" alt="Metode Belajar Fleksibel">
+                    </div>
+                    <div class="suitable-title">Metode Belajar Fleksibel: Online & Offline</div>
+                    <div class="suitable-desc">Sesuaikan cara belajar dengan kesibukan Anda. Pilih kelas Online interaktif, Onsite tatap muka, atau Hybrid tanpa mengurangi kualitas materi yang diterima.</div>
                 </div>
                 <div class="suitable-card">
-                    <div class="suitable-icon">✓</div>
-                    <div class="suitable-title">Kesempatan magang & supervisi langsung di klinik mitra</div>
+                    <div class="card-image-wrapper">
+                        <img src="/img/gambar-3.png" alt="Magang dan Supervisi Klinis">
+                    </div>
+                    <div class="suitable-title">Magang & Supervisi Klinis Terpadu</div>
+                    <div class="suitable-desc">Dapatkan pengalaman tangan pertama menangani kasus nyata. Program magang kami didampingi langsung oleh praktisi ahli di jaringan klinik mitra terpercaya.</div>
                 </div>
                 <div class="suitable-card">
-                    <div class="suitable-icon">✓</div>
-                    <div class="suitable-title">Jaringan profesional alumni terapis ABA se-Indonesia</div>
+                    <div class="card-image-wrapper">
+                        <img src="/img/gambar-4.png" alt="Komunitas Alumni Luas">
+                    </div>
+                    <div class="suitable-title">Akses Jaringan Alumni Profesional</div>
+                    <div class="suitable-desc">Bergabunglah dengan ekosistem alumni terbesar se-Indonesia. Buka peluang kolaborasi, diskusi kasus, hingga informasi lowongan kerja eksklusif.</div>
                 </div>
             </div>
         </div>
 
         <!-- Also Suitable For Section -->
-        <div class="section">
-            <h2 class="section-title">Juga Cocok Untuk</h2>
-            <p class="section-subtitle">Berbagai profesi dan latar belakang yang ingin berkontribusi</p>
-            <div class="suitable-cards">
-                <div class="suitable-card">
-                    <div class="suitable-icon" style="background:#fbbf24">👤</div>
-                    <div class="suitable-title">Calon Terapis Perilaku</div>
+        <section class="also-section">
+            <h2 class="also-title">Juga Cocok Untuk</h2>
+            <p class="also-subtitle">Berbagai profesi dan latar belakang yang ingin berkontribusi</p>
+
+            <div class="also-grid">
+                <div class="also-card">
+                    <div class="also-icon" style="background:#fbbf24">👤</div>
+                    <h3 class="also-card-title">Calon Terapis Perilaku</h3>
                 </div>
-                <div class="suitable-card">
-                    <div class="suitable-icon" style="background:#0ea5e9">🎓</div>
-                    <div class="suitable-title">Mahasiswa Psikologi & PLB</div>
+
+                <div class="also-card">
+                    <div class="also-icon" style="background:#0ea5e9">🎓</div>
+                    <h3 class="also-card-title">Mahasiswa Psikologi & PLB</h3>
                 </div>
-                <div class="suitable-card">
-                    <div class="suitable-icon" style="background:#0ea5e9">🏢</div>
-                    <div class="suitable-title">Guru Inklusi & Shadow Teacher</div>
+
+                <div class="also-card">
+                    <div class="also-icon" style="background:#0ea5e9">🏢</div>
+                    <h3 class="also-card-title">Guru Inklusi & Shadow Teacher</h3>
                 </div>
-                <div class="suitable-card">
-                    <div class="suitable-icon" style="background:#0ea5e9">👥</div>
-                    <div class="suitable-title">Orang Tua Anak Berkebutuhan Khusus</div>
+
+                <div class="also-card">
+                    <div class="also-icon" style="background:#0ea5e9">👥</div>
+                    <h3 class="also-card-title">Orang Tua Anak Berkebutuhan Khusus</h3>
                 </div>
-                <div class="suitable-card">
-                    <div class="suitable-icon" style="background:#0ea5e9">🏢</div>
-                    <div class="suitable-title">Pengelola Klinik & Sekolah Inklusi</div>
+
+                <div class="also-card">
+                    <div class="also-icon" style="background:#0ea5e9">🏢</div>
+                    <h3 class="also-card-title">Pengelola Klinik & Sekolah Inklusi</h3>
+                </div>
+
+                <div class="also-card">
+                    <div class="also-icon" style="background:#f87171">🧠</div>
+                    <h3 class="also-card-title">Praktisi atau Konselor Pemula</h3>
                 </div>
             </div>
-        </div>
+        </section>
+
 
         <!-- Call to Action -->
         <div class="cta">
@@ -248,8 +460,7 @@
         <!-- Contact Section -->
         <div class="contact">
             <h2 class="section-title">Hubungi Kami</h2>
-            <p class="section-subtitle">Siap memulai perjalanan menjadi terapis ABA profesional? Hubungi kami untuk informasi lebih lanjut</p>
-            <div class="flex justify-center gap-6">
+            <div class="flex justify-center gap-6 my-16">
                 <div class="contact-card w-80">
                     <a href="#">
                         <div class="contact-icon email bg-white">
@@ -281,8 +492,6 @@
         </div>
     </div>
 
-    <div class="footer">
-        © 2005 ABATI - ABA Training Indonesia. Menyiapkan Terapis Perilaku Profesional Berstandar Nasional.
-    </div>
+    @include('footer')
 </body>
 </html>
