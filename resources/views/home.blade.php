@@ -69,8 +69,7 @@
         .formats{text-align:left}
         .formats h2{font-size:36px;font-weight:800;color:#1f2937;margin-bottom:16px;text-align:left}
 
-        .format-item{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:16px;
-            background:#f8fafc;border-radius:8px}
+        .format-item{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:16px; background:#f8fafc;border-radius:8px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
 
         .format-icon{width:40px;height:40px;background:#0ea5e9;border-radius:50%;
             display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
