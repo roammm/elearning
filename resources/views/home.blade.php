@@ -40,7 +40,7 @@
         /* SECTION GLOBAL */
         .section{margin-bottom:80px}
         .section-title{font-size:36px;font-weight:800;color:#1f2937;text-align:center;margin-bottom:16px}
-        .section-subtitle{font-size:18px;color:#6b7280;text-align:center;margin-bottom:48px; max-width:800px;line-height:1.6}
+        .section-subtitle{font-size:18px;color:#6b7280;text-align:center;margin: 0 auto 40px auto; max-width:800px;line-height:1.6}
 
         /* FEATURES */
         .features{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:80px}
@@ -134,10 +134,10 @@
         }
 
         .suitable-title{
-            font-size:22px;
-            font-weight:700;
+            font-size:36px;
+            font-weight:800;
             color:#1f2937;
-            margin-bottom:12px;
+            margin:0 auto 20px auto;
             line-height:1.4;
         }
 
@@ -145,6 +145,14 @@
             color:#6b7280;
             font-size:16px;
             line-height:1.7;
+        }
+
+        .suitable-subtitle{
+            font-size:18px;
+            color:#6b7280;
+            max-width:700px;
+            margin:0 auto 40px auto;
+            line-height:1.6;
         }
 
         /* =======================================================
@@ -211,10 +219,78 @@
             line-height:1.4;
         }
 
+        .also-flex-wrapper{
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .also-flex-left{
+            flex: 1 1 350px;
+            min-width: 320px;
+        }
+
+        .also-flex-right{
+            flex: 1 1 320px;
+            min-width: 280px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .also-flex-right img{
+            max-width: 500px;
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            background: #f9fafb;
+        }
+
+        .also-grid{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        
+        .also-card{
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 16px 18px;
+            gap: 14px;
+        }
+
+        .also-icon{
+            background: #fbbf24;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            border-radius: 50%;
+            font-size: 22px;
+            color: #222;
+            flex-shrink: 0;
+        }
+
+        .also-card-title{
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
         .cta{background:linear-gradient(135deg,#0ea5e9 0%,#22c55e 100%);color:#fff;padding:80px 0;text-align:center;border-radius:16px;margin-bottom:40px}
         .cta h2{font-size:36px;font-weight:800;margin-bottom:16px}
         .cta p{font-size:18px;opacity:0.9;margin-bottom:32px}
         .cta .btn{background:#fff;color:#0ea5e9;padding:16px 32px;font-size:16px;font-weight:600;border:1px solid #e5e7eb}
+        .btn:hover {
+            background-color: #3291B6;
+            color: white;
+            border: 1px solid #3291B6;
+        }
 
         /* contact card */
         .contact{text-align:center;margin-bottom:40px}
@@ -376,8 +452,8 @@
 
         <!-- Suitable For Section -->
         <div class="suitable-for">
-            <h2 class="also-title">Aselerasi Karir Terapis Anda Bersama ABATI</h2>
-            <p class="also-subtitle">Kami mengombinasikan kurikulum berstandar nasional dengan ekosistem praktik nyata untuk mencetak tenaga profesional yang siap kerja dan kompeten.</p>
+            <h2 class="suitable-title">Aselerasi Karir Terapis Anda Bersama ABATI</h2>
+            <p class="suitable-subtitle">Kami mengombinasikan kurikulum berstandar nasional dengan ekosistem praktik nyata untuk mencetak tenaga profesional yang siap kerja dan kompeten.</p>
             <div class="suitable-cards">
                 <div class="suitable-card">
                     <div class="card-image-wrapper">
@@ -414,36 +490,37 @@
         <section class="also-section">
             <h2 class="also-title">Juga Cocok Untuk</h2>
             <p class="also-subtitle">Berbagai profesi dan latar belakang yang ingin berkontribusi</p>
-
-            <div class="also-grid">
-                <div class="also-card">
-                    <div class="also-icon" style="background:#fbbf24">👤</div>
-                    <h3 class="also-card-title">Calon Terapis Perilaku</h3>
+            <div class="also-flex-wrapper">
+                <div class="also-flex-left">
+                    <div class="also-grid" ">
+                        <div class="also-card">
+                            <div class="also-icon" >👤</div>
+                            <div class="also-card-title">Calon Terapis Perilaku</div>
+                        </div>
+                        <div class="also-card">
+                            <div class="also-icon" >🎓</div>
+                            <div class="also-card-title">Mahasiswa Psikologi & PLB</div>
+                        </div>
+                        <div class="also-card">
+                            <div class="also-icon" >🏢</div>
+                            <div class="also-card-title">Guru Inklusi & Shadow Teacher</div>
+                        </div>
+                        <div class="also-card">
+                            <div class="also-icon" >👥</div>
+                            <div class="also-card-title">Orang Tua Anak Berkebutuhan Khusus</div>
+                        </div>
+                        <div class="also-card">
+                            <div class="also-icon" >🏢</div>
+                            <div class="also-card-title">Pengelola Klinik & Sekolah Inklusi</div>
+                        </div>
+                        <div class="also-card">
+                            <div class="also-icon" >🧠</div>
+                            <div class="also-card-title">Praktisi atau Konselor Pemula</div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="also-card">
-                    <div class="also-icon" style="background:#0ea5e9">🎓</div>
-                    <h3 class="also-card-title">Mahasiswa Psikologi & PLB</h3>
-                </div>
-
-                <div class="also-card">
-                    <div class="also-icon" style="background:#0ea5e9">🏢</div>
-                    <h3 class="also-card-title">Guru Inklusi & Shadow Teacher</h3>
-                </div>
-
-                <div class="also-card">
-                    <div class="also-icon" style="background:#0ea5e9">👥</div>
-                    <h3 class="also-card-title">Orang Tua Anak Berkebutuhan Khusus</h3>
-                </div>
-
-                <div class="also-card">
-                    <div class="also-icon" style="background:#0ea5e9">🏢</div>
-                    <h3 class="also-card-title">Pengelola Klinik & Sekolah Inklusi</h3>
-                </div>
-
-                <div class="also-card">
-                    <div class="also-icon" style="background:#f87171">🧠</div>
-                    <h3 class="also-card-title">Praktisi atau Konselor Pemula</h3>
+                <div class="also-flex-right" >
+                    <img src="/img/also-ilustrasion.png" alt="Ilustrasi Profesi" loading="lazy">
                 </div>
             </div>
         </section>

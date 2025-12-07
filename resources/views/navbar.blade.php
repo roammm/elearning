@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href="{{ route('home') }}" class="flex items-center">
             <img 
-                src="/img/logo-ABATi.png" 
+                src="/img/ABATRAINING-new.png" 
                 alt="Logo ABATI"
                 class="h-16 w-16 object-contain"
                 style="border:none;background:none;"

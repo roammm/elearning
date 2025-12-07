@@ -4,7 +4,7 @@
         <!-- Logo -->
         <div class="flex-shrink-0">
             <a href="{{ route('home') }}">
-                <img src="{{ asset('img/logo-ABATi.png') }}" alt="Logo ABA" class="h-14">
+                <img src="{{ asset('img/ABATRAINING-new.png') }}" alt="Logo ABA" class="h-14">
             </a>
         </div>
 
