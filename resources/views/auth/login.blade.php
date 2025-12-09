@@ -146,6 +146,7 @@
             }
         }
     </script>
+    @include('bubble_chat')
 </body>
 
 </html>

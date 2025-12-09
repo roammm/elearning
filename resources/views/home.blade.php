@@ -476,7 +476,6 @@
         }
 
         .also-icon {
-            background: #fbbf24;
             width: 40px;
             height: 40px;
             display: flex;
@@ -649,7 +648,7 @@
                 </div>
             </div>
             <div class="hero-image-container">
-                <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Medical professionals learning" class="hero-image">
+                <img src="/img/hero_section.jpg" alt="Medical professionals learning" class="hero-image">
             </div>
         </div>
 
@@ -791,27 +790,39 @@
                 <div class="also-flex-left">
                     <div class="also-grid" ">
                         <div class=" also-card">
-                        <div class="also-icon">👤</div>
+                        <div class="also-icon">
+                            <img src="/img/checklist.png" alt="">
+                        </div>
                         <div class="also-card-title">Calon Terapis Perilaku</div>
                     </div>
                     <div class="also-card">
-                        <div class="also-icon">🎓</div>
+                        <div class="also-icon">
+                            <img src="/img/checklist.png" alt="">
+                        </div>
                         <div class="also-card-title">Mahasiswa Psikologi & PLB</div>
                     </div>
                     <div class="also-card">
-                        <div class="also-icon">🏢</div>
+                        <div class="also-icon">
+                            <img src="/img/checklist.png" alt="">
+                        </div>
                         <div class="also-card-title">Guru Inklusi & Shadow Teacher</div>
                     </div>
                     <div class="also-card">
-                        <div class="also-icon">👥</div>
+                        <div class="also-icon">
+                            <img src="/img/checklist.png" alt="">
+                        </div>
                         <div class="also-card-title">Orang Tua Anak Berkebutuhan Khusus</div>
                     </div>
                     <div class="also-card">
-                        <div class="also-icon">🏢</div>
+                        <div class="also-icon">
+                            <img src="/img/checklist.png" alt="">
+                        </div>
                         <div class="also-card-title">Pengelola Klinik & Sekolah Inklusi</div>
                     </div>
                     <div class="also-card">
-                        <div class="also-icon">🧠</div>
+                        <div class="also-icon">
+                            <img src="/img/checklist.png" alt="">
+                        </div>
                         <div class="also-card-title">Praktisi atau Konselor Pemula</div>
                     </div>
                 </div>
@@ -865,6 +876,7 @@
     </div>
     </div>
 
+    @include('bubble_chat')
     @include('footer')
 </body>
 
