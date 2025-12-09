@@ -1,22 +1,95 @@
-<footer class="bg-whitepy-8">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-start gap-6 border-t border-gray-300 shadow-xl">
+<style>
+    /* STYLE FOOTER ADA DI SINI */
+    .site-footer {
+        background-color: #ffffff;
+        padding: 32px 0;
+        width: 100%;
+        margin-top: auto;
+    }
 
-        <!-- Logo -->
-        <div class="flex-shrink-0">
+    .footer-container {
+        max-width: 1152px;
+        margin: 0 auto;
+        padding: 24px 16px;
+        display: flex;
+        flex-direction: column;
+        /* Mobile: ke bawah */
+        align-items: flex-start;
+        gap: 24px;
+        border-top: 1px solid #d1d5db;
+
+    }
+
+    .footer-logo {
+        flex-shrink: 0;
+    }
+
+    .footer-logo img {
+        height: 56px;
+        width: auto;
+        display: block;
+    }
+
+    .footer-info {
+        text-align: left;
+        color: #000000;
+    }
+
+    .footer-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 8px 0;
+        color: #000;
+    }
+
+    .footer-text {
+        margin: 0 0 4px 0;
+        line-height: 1.5;
+        color: #1f2937;
+    }
+
+    .footer-text.mb-large {
+        margin-bottom: 24px;
+    }
+
+    .font-medium {
+        font-weight: 500;
+    }
+
+    .footer-copyright {
+        margin: 0;
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+    /* Desktop Footer */
+    @media (min-width: 768px) {
+        .footer-container {
+            flex-direction: row;
+            gap: 32px;
+        }
+    }
+</style>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-logo">
             <a href="{{ route('home') }}">
-                <img src="{{ asset('img/ABATRAINING-new.png') }}" alt="Logo ABA" class="h-14">
+                <img src="{{ asset('img/ABATRAINING-new.png') }}" alt="Logo ABA">
             </a>
         </div>
-
-        <!-- Info -->
-        <div class="text-left text-black">
-            <p class="font-semibold text-lg mb-2">ABA Therapy Indonesia</p>
-
-            <p class="mb-1"><span class="font-medium">Address:</span> Jl. Binalontar Raya No.41, Jaticempaka,
-                Kec. Pd. Gede, Kota Bks, Jawa Barat 17113</p>
-            <p class="mb-6"><span class="font-medium">Province:</span> West Java</p>
-            <p class="mb-1 text-gray-500"> © {{ date('Y') }} ABA Therapy Indonesia. All rights reserved.</p>
+        <div class="footer-info">
+            <p class="footer-title">ABA Therapy Indonesia</p>
+            <p class="footer-text">
+                <span class="font-medium">Address:</span>
+                Jl. Binalontar Raya No.41, Jaticempaka, Kec. Pd. Gede, Kota Bks, Jawa Barat 17113
+            </p>
+            <p class="footer-text mb-large">
+                <span class="font-medium">Province:</span> West Java
+            </p>
+            <p class="footer-copyright">
+                © {{ date('Y') }} ABA Therapy Indonesia. All rights reserved.
+            </p>
         </div>
-
     </div>
 </footer>

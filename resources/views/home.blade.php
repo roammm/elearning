@@ -9,32 +9,61 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        /* ============================
-    GLOBAL STYLE (dari style 1)
-    ============================ */
+        /* =========================================
+           GLOBAL & DESKTOP STYLES
+        ========================================= */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue',
-                Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background: #ffffff;
             margin: 0;
-            padding: 0
+            padding: 0;
+            /* Pastikan footer turun ke bawah jika konten sedikit */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px
+            padding: 0 24px;
+            width: 100%;
         }
 
-        /* HERO */
+        /* Padding Top untuk navbar fixed */
+        .main-content {
+            padding-top: 100px;
+            flex: 1;
+            /* Agar konten mengisi ruang kosong sebelum footer */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* --- HERO --- */
         .hero {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
             padding: 80px 0;
-            margin-bottom: 80px
+            margin-bottom: 80px;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .hero-content .label {
@@ -45,7 +74,7 @@
             font-size: 14px;
             font-weight: 500;
             display: inline-block;
-            margin-bottom: 24px
+            margin-bottom: 24px;
         }
 
         .hero-content h1 {
@@ -53,66 +82,72 @@
             font-weight: 800;
             color: #1f2937;
             margin-bottom: 24px;
-            line-height: 1.2
+            line-height: 1.2;
+            text-align: left;
         }
 
         .hero-content h1 .highlight {
-            color: #0ea5e9
+            color: #0ea5e9;
         }
 
         .hero-content p {
             font-size: 18px;
             color: #6b7280;
             margin-bottom: 32px;
-            line-height: 1.6
+            line-height: 1.6;
+            text-align: left;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 16px
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s
-        }
-
-        .btn-primary {
-            background: #0ea5e9;
-            color: #fff
-        }
-
-        .btn-primary:hover {
-            background: #0284c7
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #0ea5e9;
-            border: 2px solid #0ea5e9
-        }
-
-        .btn-secondary:hover {
-            background: #f0f9ff
+            gap: 16px;
         }
 
         .hero-image {
             width: 100%;
             height: 400px;
             border-radius: 12px;
-            object-fit: cover
+            object-fit: cover;
         }
 
-        /* SECTION GLOBAL */
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            margin-top: 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #0ea5e9;
+            color: #fff;
+            border: 1px solid #0ea5e9;
+        }
+
+        .btn-primary:hover {
+            background: #0284c7;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #0ea5e9;
+            border: 2px solid #0ea5e9;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f9ff;
+        }
+
+        /* --- SECTIONS --- */
         .section {
-            margin-bottom: 80px
+            margin-bottom: 80px;
         }
 
         .section-title {
@@ -120,7 +155,7 @@
             font-weight: 800;
             color: #1f2937;
             text-align: center;
-            margin-bottom: 16px
+            margin-bottom: 16px;
         }
 
         .section-subtitle {
@@ -129,15 +164,15 @@
             text-align: center;
             margin: 0 auto 40px auto;
             max-width: 800px;
-            line-height: 1.6
+            line-height: 1.6;
         }
 
-        /* FEATURES */
+        /* --- FEATURES --- */
         .features {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 24px;
-            margin-bottom: 80px
+            margin-bottom: 80px;
         }
 
         .feature-card {
@@ -146,7 +181,7 @@
             border-radius: 12px;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 1px solid #f3f4f6
+            border: 1px solid #f3f4f6;
         }
 
         .feature-icon {
@@ -159,29 +194,46 @@
             justify-content: center;
             margin: 0 auto 16px;
             font-size: 24px;
-            color: #fff
+            color: #fff;
+        }
+
+        .feature-icon.icon-transparent,
+        .format-icon.icon-transparent {
+            background: none;
+        }
+
+        .icon-img-lg {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+        }
+
+        .icon-img-sm {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
         }
 
         .feature-title {
             font-size: 20px;
             font-weight: 700;
             margin-bottom: 12px;
-            color: #1f2937
+            color: #1f2937;
         }
 
         .feature-desc {
             color: #6b7280;
             line-height: 1.6;
-            font-size: 14px
+            font-size: 14px;
         }
 
-        /* TRAINING LEVELS */
+        /* --- TRAINING LEVELS & FORMATS --- */
         .training-levels {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: start;
-            margin-bottom: 80px
+            margin-bottom: 80px;
         }
 
         .levels-content h2 {
@@ -189,20 +241,11 @@
             font-weight: 800;
             color: #1f2937;
             margin-bottom: 16px;
-            text-align: left
-        }
-
-        .levels-content p {
-            font-size: 18px;
-            color: #6b7280;
-            margin-bottom: 32px;
-            line-height: 1.6;
-            text-align: left
         }
 
         .levels-list {
             list-style: none;
-            padding: 0
+            padding: 0;
         }
 
         .levels-list li {
@@ -211,7 +254,7 @@
             gap: 12px;
             margin-bottom: 24px;
             font-size: 16px;
-            color: #374151
+            color: #374151;
         }
 
         .levels-list li::before {
@@ -219,32 +262,15 @@
             color: #22c55e;
             font-weight: bold;
             font-size: 18px;
-            margin-top: 2px
+            margin-top: 2px;
+            flex-shrink: 0;
         }
 
         .level-title {
             font-weight: 700;
             color: #1f2937;
-            margin-bottom: 8px
-        }
-
-        .level-desc {
-            color: #6b7280;
-            font-size: 14px;
-            line-height: 1.5
-        }
-
-        /* FORMATS */
-        .formats {
-            text-align: left
-        }
-
-        .formats h2 {
-            font-size: 36px;
-            font-weight: 800;
-            color: #1f2937;
-            margin-bottom: 16px;
-            text-align: left
+            margin-bottom: 8px;
+            display: block;
         }
 
         .format-item {
@@ -255,7 +281,7 @@
             padding: 16px;
             background: #f8fafc;
             border-radius: 8px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
         }
 
         .format-icon {
@@ -267,39 +293,23 @@
             align-items: center;
             justify-content: center;
             color: #fff;
-            font-size: 16px
-        }
-
-        .format-icon img {
-            width: 56px;
-            height: 56px;
-            object-fit: contain;
+            flex-shrink: 0;
         }
 
         .format-content .title {
             font-size: 20px;
             font-weight: 700;
             color: #1f2937;
-            margin-bottom: 6px
+            margin-bottom: 6px;
         }
 
-        .format-content .desc {
-            font-size: 16px;
-            color: #6b7280;
-            line-height: 1.6
-        }
-
-        /* =======================================================
-        SUITABLE SECTION
-        ======================================================= */
+        /* --- SUITABLE FOR --- */
         .suitable-for {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
-            text-align: center;
             background: #f0f9ff;
             border-radius: 16px;
+            padding: 60px 20px;
             margin-bottom: 80px;
+            text-align: center;
         }
 
         .suitable-cards {
@@ -315,12 +325,11 @@
             padding: 32px;
             text-align: left;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-            transition: all .3s ease;
+            transition: transform .3s ease;
         }
 
         .suitable-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
         }
 
         .card-image-wrapper {
@@ -330,7 +339,6 @@
             border-radius: 12px;
             overflow: hidden;
             margin-bottom: 24px;
-            position: relative;
         }
 
         .card-image-wrapper img {
@@ -348,27 +356,10 @@
             font-size: 36px;
             font-weight: 800;
             color: #1f2937;
-            margin: 0 auto 20px auto;
-            line-height: 1.4;
+            margin-bottom: 20px;
         }
 
-        .suitable-desc {
-            color: #6b7280;
-            font-size: 16px;
-            line-height: 1.7;
-        }
-
-        .suitable-subtitle {
-            font-size: 18px;
-            color: #6b7280;
-            max-width: 700px;
-            margin: 0 auto 40px auto;
-            line-height: 1.6;
-        }
-
-        /* =======================================================
-        ALSO SUITABLE SECTION (Baru, tidak bentrok!)
-        ======================================================= */
+        /* --- ALSO SUITABLE --- */
         .also-section {
             max-width: 1200px;
             margin: 0 auto;
@@ -389,45 +380,6 @@
             max-width: 700px;
             margin: 0 auto 40px auto;
             line-height: 1.6;
-        }
-
-        .also-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
-        }
-
-        .also-card {
-            background: #ffffff;
-            padding: 28px;
-            border-radius: 16px;
-            border: 1px solid #f3f4f6;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-            transition: 0.25s ease;
-        }
-
-        .also-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-        }
-
-        .also-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: #fff;
-            margin: 0 auto 16px;
-        }
-
-        .also-card-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1f2937;
-            line-height: 1.4;
         }
 
         .also-flex-wrapper {
@@ -473,6 +425,12 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             padding: 16px 18px;
             gap: 14px;
+            transition: 0.25s ease;
+        }
+
+        .also-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
         }
 
         .also-icon {
@@ -480,9 +438,11 @@
             height: 40px;
             display: flex;
             align-items: center;
+            justify-content: center;
             border-radius: 50%;
             font-size: 22px;
             color: #222;
+            background: #f3f4f6;
             flex-shrink: 0;
         }
 
@@ -490,64 +450,51 @@
             font-size: 16px;
             font-weight: 600;
             color: #1f2937;
+            line-height: 1.4;
+            text-align: left;
         }
 
+        /* --- CTA & CONTACT --- */
         .cta {
             background: linear-gradient(135deg, #0ea5e9 0%, #22c55e 100%);
             color: #fff;
-            padding: 80px 0;
+            padding: 80px 20px;
             text-align: center;
             border-radius: 16px;
-            margin-bottom: 40px
+            margin-bottom: 40px;
         }
 
         .cta h2 {
             font-size: 36px;
             font-weight: 800;
-            margin-bottom: 16px
-        }
-
-        .cta p {
-            font-size: 18px;
-            opacity: 0.9;
-            margin-bottom: 32px
+            margin-bottom: 16px;
         }
 
         .cta .btn {
             background: #fff;
             color: #0ea5e9;
-            padding: 16px 32px;
-            font-size: 16px;
-            font-weight: 600;
-            border: 1px solid #e5e7eb
-        }
-
-        .btn:hover {
-            background-color: #3291B6;
-            color: white;
-            border: 1px solid #3291B6;
-        }
-
-        /* contact card */
-        .contact {
-            text-align: center;
-            margin-bottom: 40px
+            border: 1px solid #fff;
         }
 
         .contact-cards {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
+            justify-content: center;
             gap: 24px;
-            margin-top: 32px
+            margin-top: 32px;
+            width: 100%;
         }
 
         .contact-card {
-            background: #fff;
             padding: 24px;
             border-radius: 12px;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border: 1px solid #f3f4f6
+            border: 1px solid #f3f4f6;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .contact-icon {
@@ -558,80 +505,139 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 12px;
+            color: #fff;
             font-size: 20px;
-            color: #fff
         }
 
         .contact-title {
-            font-size: 16px;
-            font-weight: 600;
             color: #1f2937;
-            margin-bottom: 4px
+            font-weight: 600;
+            margin-bottom: 4px;
         }
 
         .contact-desc {
             color: #6b7280;
-            font-size: 14px
+            word-break: break-all;
         }
 
-        /* Responsive */
-        @media (max-width:1024px) {
-            .also-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+        /* =========================================
+           RESPONSIVE MOBILE STYLES (Max 768px)
+        ========================================= */
+        @media (max-width: 768px) {
 
-        @media (max-width:640px) {
-            .also-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .also-title {
-                font-size: 28px
-            }
-        }
-
-        /* MOBILE */
-        @media (max-width:768px) {
-            .suitable-cards {
-                grid-template-columns: 1fr;
-                gap: 24px;
+            /* 1. GRID KE 1 KOLOM */
+            .hero,
+            .features,
+            .training-levels,
+            .suitable-cards,
+            .also-grid,
+            .contact-cards {
+                grid-template-columns: 1fr !important;
+                gap: 32px;
+                display: grid;
+                width: 100%;
             }
 
-            .section-title {
-                font-size: 28px
-            }
-
-            .suitable-card {
-                padding: 24px
-            }
-
+            /* 2. HERO FIX */
             .hero {
-                grid-template-columns: 1fr;
-                gap: 40px
+                display: flex !important;
+                flex-direction: column-reverse;
+                align-items: center !important;
+                padding: 40px 0;
             }
 
-            .hero h1 {
-                font-size: 32px
+            .hero-content {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center !important;
+                text-align: center !important;
             }
 
-            .hero p {
-                font-size: 16px
+            .hero-content h1 {
+                text-align: center !important;
+                font-size: 32px;
+                line-height: 1.3;
+            }
+
+            .hero-content p {
+                text-align: center !important;
             }
 
             .hero-buttons {
-                flex-direction: column
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                gap: 16px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-image {
+                height: 250px;
+                width: 100%;
+            }
+
+            /* 3. SECTION & TYPOGRAPHY */
+            .section-title,
+            .also-title {
+                font-size: 28px;
+            }
+
+            .levels-content h2,
+            .levels-content p,
+            .also-subtitle {
+                text-align: center !important;
+            }
+
+            /* 4. ALSO SUITABLE FIX */
+            .also-flex-wrapper {
+                flex-direction: column;
+                gap: 32px;
+                align-items: center;
+            }
+
+            .also-flex-left,
+            .also-flex-right {
+                width: 100%;
+            }
+
+            .also-card {
+                flex-direction: column;
+                text-align: center !important;
+                align-items: center !important;
+                padding: 24px;
+            }
+
+            .also-card-title {
+                text-align: center !important;
+            }
+
+            /* 5. CARD & CONTACT FIX */
+            .suitable-card,
+            .feature-card,
+            .contact-card {
+                text-align: center !important;
+                padding: 24px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-cards {
+                gap: 16px;
             }
         }
     </style>
-
 </head>
 
 <body>
     @include('navbar')
 
-    <div class="container" style="padding-top:100px">
-        <!-- Hero Section -->
+    <div class="container main-content">
         <div class="hero">
             <div class="hero-content">
                 <div class="label">ABA Training Indonesia</div>
@@ -648,47 +654,37 @@
                 </div>
             </div>
             <div class="hero-image-container">
-                <img src="/img/hero_section.jpg" alt="Medical professionals learning" class="hero-image">
+                <img src="/img/hero_section.jpg" alt="Hero Image" class="hero-image">
             </div>
         </div>
 
-        <!-- Why Choose Section -->
         <div class="section">
             <h2 class="section-title">Mengapa Pilih ABATI?</h2>
             <p class="section-subtitle">Pelatihan terapis perilaku dengan standar nasional dan internasional</p>
             <div class="features">
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: none;">
-                        <img src="/img/books.gif" alt="Books" style="width: 64px; height: 64px; object-fit: contain;">
-                    </div>
+                    <div class="feature-icon icon-transparent"><img src="/img/books.gif" alt="Books" class="icon-img-lg"></div>
                     <div class="feature-title">Kurikulum Evidence-Based</div>
                     <div class="feature-desc">Materi dan praktik berbasis penelitian ilmiah Applied Behavior Analysis (ABA), bukan hanya teori</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: none;">
-                        <img src="/img/certificate.gif" alt="Sertifikat" style="width: 64px; height: 64px; object-fit: contain;">
-                    </div>
+                    <div class="feature-icon icon-transparent"><img src="/img/certificate.gif" alt="Sertifikat" class="icon-img-lg"></div>
                     <div class="feature-title">Sertifikasi Nasional</div>
                     <div class="feature-desc">Berhubung dengan LSK TPIBK & Dirjen Vokasi Kemendikbudristek untuk sertifikasi terapis profesional</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: none;">
-                        <img src="/img/certificate-trainer.gif" alt="Trainer Bersertifikat" style="width: 64px; height: 64px; object-fit: contain;">
-                    </div>
+                    <div class="feature-icon icon-transparent"><img src="/img/certificate-trainer.gif" alt="Trainer" class="icon-img-lg"></div>
                     <div class="feature-title">Trainer Berlisensi</div>
                     <div class="feature-desc">Dibimbing oleh psikolog dan behavior analyst dengan pengalaman lebih dari 25 tahun</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon" style="background: none;">
-                        <img src="/img/report.gif" alt="Evaluasi Terukur" style="width: 64px; height: 64px; object-fit: contain;">
-                    </div>
+                    <div class="feature-icon icon-transparent"><img src="/img/report.gif" alt="Evaluasi" class="icon-img-lg"></div>
                     <div class="feature-title">Evaluasi Terukur</div>
                     <div class="feature-desc">Setiap jenjang memiliki learning outcome, rubrik penilaian, dan evaluasi kompetensi yang jelas</div>
                 </div>
             </div>
         </div>
 
-        <!-- Training Levels Section -->
         <div class="training-levels">
             <div class="levels-content">
                 <h2>Jenjang Pelatihan ABATI</h2>
@@ -716,28 +712,22 @@
             </div>
             <div class="formats">
                 <h2>Format Pelatihan Fleksibel</h2>
-                <div class="format-item rounded-lg">
-                    <div class="format-icon" style="background: none;">
-                        <img src="/img/online-study.png" alt="Full Onsite Training" style="width: 40px; height: 40px; object-fit: contain;">
-                    </div>
+                <div class="format-item">
+                    <div class="format-icon icon-transparent"><img src="/img/online-study.png" alt="Online" class="icon-img-sm"></div>
                     <div class="format-content">
                         <div class="title">Online Training</div>
                         <div class="desc">Belajar interaktif melalui platform digital dengan video case & diskusi</div>
                     </div>
                 </div>
                 <div class="format-item">
-                    <div class="format-icon" style="background: none;">
-                        <img src="/img/offline-study.png" alt="Full Onsite Training" style="width: 40px; height: 40px; object-fit: contain;">
-                    </div>
+                    <div class="format-icon icon-transparent"><img src="/img/offline-study.png" alt="Onsite" class="icon-img-sm"></div>
                     <div class="format-content">
                         <div class="title">Full Onsite Training</div>
                         <div class="desc">Pelatihan tatap muka di lokasi mitra dengan praktik langsung</div>
                     </div>
                 </div>
                 <div class="format-item">
-                    <div class="format-icon" style="background: none;">
-                        <img src="/img/mix-study.png" alt="Full Onsite Training" style="width: 40px; height: 40px; object-fit: contain;">
-                    </div>
+                    <div class="format-icon icon-transparent"><img src="/img/mix-study.png" alt="Mix" class="icon-img-sm"></div>
                     <div class="format-content">
                         <div class="title">Mix Training (Online + Onsite)</div>
                         <div class="desc">Kombinasi teori daring dan praktik lapangan - Fleksibel & Nyata</div>
@@ -746,134 +736,103 @@
             </div>
         </div>
 
-        <!-- Suitable For Section -->
         <div class="suitable-for">
             <h2 class="suitable-title">Aselerasi Karir Terapis Anda Bersama ABATI</h2>
             <p class="suitable-subtitle">Kami mengombinasikan kurikulum berstandar nasional dengan ekosistem praktik nyata untuk mencetak tenaga profesional yang siap kerja dan kompeten.</p>
             <div class="suitable-cards">
                 <div class="suitable-card">
-                    <div class="card-image-wrapper">
-                        <img src="/img/gambar-1.png" alt="Sertifikasi Kompetensi Nasional">
-                    </div>
+                    <div class="card-image-wrapper"><img src="/img/gambar-1.png" alt="Sertifikasi"></div>
                     <div class="suitable-title">Standar Kompetensi Nasional Terakreditasi</div>
                     <div class="suitable-desc">Kurikulum kami disusun mengikuti standar kompetensi nasional, memastikan Anda mendapatkan kualifikasi resmi yang diakui oleh industri dan lembaga profesional.</div>
                 </div>
                 <div class="suitable-card">
-                    <div class="card-image-wrapper">
-                        <img src="/img/gambar-2.png" alt="Metode Belajar Fleksibel">
-                    </div>
+                    <div class="card-image-wrapper"><img src="/img/gambar-2.png" alt="Metode"></div>
                     <div class="suitable-title">Metode Belajar Fleksibel: Online & Offline</div>
                     <div class="suitable-desc">Sesuaikan cara belajar dengan kesibukan Anda. Pilih kelas Online interaktif, Onsite tatap muka, atau Hybrid tanpa mengurangi kualitas materi yang diterima.</div>
                 </div>
                 <div class="suitable-card">
-                    <div class="card-image-wrapper">
-                        <img src="/img/gambar-3.png" alt="Magang dan Supervisi Klinis">
-                    </div>
+                    <div class="card-image-wrapper"><img src="/img/gambar-3.png" alt="Magang"></div>
                     <div class="suitable-title">Magang & Supervisi Klinis Terpadu</div>
                     <div class="suitable-desc">Dapatkan pengalaman tangan pertama menangani kasus nyata. Program magang kami didampingi langsung oleh praktisi ahli di jaringan klinik mitra terpercaya.</div>
                 </div>
                 <div class="suitable-card">
-                    <div class="card-image-wrapper">
-                        <img src="/img/gambar-4.png" alt="Komunitas Alumni Luas">
-                    </div>
+                    <div class="card-image-wrapper"><img src="/img/gambar-4.png" alt="Alumni"></div>
                     <div class="suitable-title">Akses Jaringan Alumni Profesional</div>
                     <div class="suitable-desc">Bergabunglah dengan ekosistem alumni terbesar se-Indonesia. Buka peluang kolaborasi, diskusi kasus, hingga informasi lowongan kerja eksklusif.</div>
                 </div>
             </div>
         </div>
 
-        <!-- Also Suitable For Section -->
         <section class="also-section">
             <h2 class="also-title">Juga Cocok Untuk</h2>
             <p class="also-subtitle">Berbagai profesi dan latar belakang yang ingin berkontribusi</p>
             <div class="also-flex-wrapper">
                 <div class="also-flex-left">
-                    <div class="also-grid" ">
-                        <div class=" also-card">
-                        <div class="also-icon">
-                            <img src="/img/checklist.png" alt="">
+                    <div class="also-grid">
+                        <div class="also-card">
+                            <div class="also-icon"><img src="/img/checklist.png" alt=""></div>
+                            <div class="also-card-title">Calon Terapis Perilaku</div>
                         </div>
-                        <div class="also-card-title">Calon Terapis Perilaku</div>
-                    </div>
-                    <div class="also-card">
-                        <div class="also-icon">
-                            <img src="/img/checklist.png" alt="">
+                        <div class="also-card">
+                            <div class="also-icon"><img src="/img/checklist.png" alt=""></div>
+                            <div class="also-card-title">Mahasiswa Psikologi & PLB</div>
                         </div>
-                        <div class="also-card-title">Mahasiswa Psikologi & PLB</div>
-                    </div>
-                    <div class="also-card">
-                        <div class="also-icon">
-                            <img src="/img/checklist.png" alt="">
+                        <div class="also-card">
+                            <div class="also-icon"><img src="/img/checklist.png" alt=""></div>
+                            <div class="also-card-title">Guru Inklusi & Shadow Teacher</div>
                         </div>
-                        <div class="also-card-title">Guru Inklusi & Shadow Teacher</div>
-                    </div>
-                    <div class="also-card">
-                        <div class="also-icon">
-                            <img src="/img/checklist.png" alt="">
+                        <div class="also-card">
+                            <div class="also-icon"><img src="/img/checklist.png" alt=""></div>
+                            <div class="also-card-title">Orang Tua ABK</div>
                         </div>
-                        <div class="also-card-title">Orang Tua Anak Berkebutuhan Khusus</div>
-                    </div>
-                    <div class="also-card">
-                        <div class="also-icon">
-                            <img src="/img/checklist.png" alt="">
+                        <div class="also-card">
+                            <div class="also-icon"><img src="/img/checklist.png" alt=""></div>
+                            <div class="also-card-title">Pengelola Klinik</div>
                         </div>
-                        <div class="also-card-title">Pengelola Klinik & Sekolah Inklusi</div>
-                    </div>
-                    <div class="also-card">
-                        <div class="also-icon">
-                            <img src="/img/checklist.png" alt="">
+                        <div class="also-card">
+                            <div class="also-icon"><img src="/img/checklist.png" alt=""></div>
+                            <div class="also-card-title">Praktisi Pemula</div>
                         </div>
-                        <div class="also-card-title">Praktisi atau Konselor Pemula</div>
                     </div>
                 </div>
+                <div class="also-flex-right">
+                    <img src="/img/also-ilustrasion.png" alt="Ilustrasi Profesi" loading="lazy">
+                </div>
             </div>
-            <div class="also-flex-right">
-                <img src="/img/also-ilustrasion.png" alt="Ilustrasi Profesi" loading="lazy">
-            </div>
-    </div>
-    </section>
+        </section>
 
+        <div class="cta">
+            <h2>Siap Menjadi Terapis ABA Profesional?</h2>
+            <p>Bergabunglah dengan komunitas terapis ABA profesional yang tersertifikasi nasional</p>
+            <a href="{{ route('register') }}" class="btn">Daftar Pelatihan Sekarang</a>
+        </div>
 
-    <!-- Call to Action -->
-    <div class="cta">
-        <h2>Siap Menjadi Terapis ABA Profesional?</h2>
-        <p>Bergabunglah dengan komunitas terapis ABA profesional yang tersertifikasi nasional</p>
-        <a href="{{ route('register') }}" class="btn">Daftar Pelatihan Sekarang</a>
-    </div>
-
-    <!-- Contact Section -->
-    <div class="contact">
-        <h2 class="section-title">Hubungi Kami</h2>
-        <div class="flex justify-center gap-6 my-16">
-            <div class="contact-card w-80">
-                <a href="mailto:abatrainingindonesia@gmail.com">
-                    <div class="contact-icon email bg-white">
-                        <img src="/img/gmail.png" alt="Email" class="w-12 h-12 object-contain mx-auto">
-                    </div>
-                    <div class="contact-title">Email</div>
-                    <div class="contact-desc">abatrainingindonesia@gmail.com</div>
-                </a>
-            </div>
-            <div class="contact-card w-80">
-                <a href="https://wa.me/082299385608">
-                    <div class="contact-icon whatsapp bg-white">
-                        <img src="/img/whatsapp.png" alt="WhatsApp" class="w-12 h-12 object-contain mx-auto">
-                    </div>
-                    <div class="contact-title">WhatsApp</div>
-                    <div class="contact-desc">+62 822-9938-5608</div>
-                </a>
-            </div>
-            <div class="contact-card w-80">
-                <a href="https://www.instagram.com/abatrainingindonesia">
-                    <div class="contact-icon instagram bg-white">
-                        <img src="/img/instagram.png" alt="Instagram" class="w-12 h-12 object-contain mx-auto">
-                    </div>
-                    <div class="contact-title">Instagram</div>
-                    <div class="contact-desc">@abatrainingindonesia</div>
-                </a>
+        <div class="contact">
+            <h2 class="section-title">Hubungi Kami</h2>
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <a href="mailto:abatrainingindonesia@gmail.com">
+                        <div class="contact-icon email bg-white"><img src="/img/gmail.png" alt="Email" class="icon-img-lg object-contain mx-auto"></div>
+                        <div class="contact-title">Email</div>
+                        <div class="contact-desc">abatrainingindonesia@gmail.com</div>
+                    </a>
+                </div>
+                <div class="contact-card">
+                    <a href="https://wa.me/082299385608">
+                        <div class="contact-icon whatsapp bg-white"><img src="/img/whatsapp.png" alt="WhatsApp" class="icon-img-lg object-contain mx-auto"></div>
+                        <div class="contact-title">WhatsApp</div>
+                        <div class="contact-desc">+62 822-9938-5608</div>
+                    </a>
+                </div>
+                <div class="contact-card">
+                    <a href="https://www.instagram.com/abatrainingindonesia">
+                        <div class="contact-icon instagram bg-white"><img src="/img/instagram.png" alt="Instagram" class="icon-img-lg object-contain mx-auto"></div>
+                        <div class="contact-title">Instagram</div>
+                        <div class="contact-desc">@abatrainingindonesia</div>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     @include('bubble_chat')
