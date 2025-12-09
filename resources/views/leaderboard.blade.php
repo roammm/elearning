@@ -6,223 +6,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MediLearn - Leaderboard</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
-    <style>
-        body {
-            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial;
-            background: #f5f7fb
-        }
-
-        .container {
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 24px
-        }
-
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 24px;
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            align-items: center
-        }
-
-        .nav-links a {
-            color: #2563eb;
-            font-weight: 500;
-            text-decoration: none
-        }
-
-        .title {
-            font-size: 28px;
-            font-weight: 800;
-            text-align: center;
-            margin: 18px 0 6px
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #64748b;
-            margin-bottom: 18px
-        }
-
-        .grid3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-bottom: 18px
-        }
-
-        .podium {
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, .04)
-        }
-
-        .podium.gold {
-            outline: 2px solid #facc15
-        }
-
-        .podium.silver {
-            outline: 2px solid #cbd5e1
-        }
-
-        .podium.bronze {
-            outline: 2px solid #f59e0b
-        }
-
-        .podium .initial {
-            width: 48px;
-            height: 48px;
-            border-radius: 999px;
-            border: 2px solid #cbd5e1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 6px;
-            background: #f8fafc;
-            font-weight: 700
-        }
-
-        .podium.gold .initial {
-            border-color: #facc15
-        }
-
-        .podium.bronze .initial {
-            border-color: #f59e0b
-        }
-
-        .podium .name {
-            text-align: center;
-            font-weight: 600
-        }
-
-        .podium .score {
-            text-align: center;
-            color: #0f172a;
-            font-weight: 800
-        }
-
-        .list {
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            overflow: hidden
-        }
-
-        .row {
-            display: grid;
-            grid-template-columns: 40px 1fr 90px;
-            align-items: center;
-            padding: 10px 12px;
-            border-top: 1px solid #e5e7eb
-        }
-
-        .row:first-child {
-            border-top: none
-        }
-
-        .rank {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #64748b
-        }
-
-        .name {
-            font-weight: 600
-        }
-
-        .pts {
-            text-align: right;
-            color: #1d4ed8;
-            font-weight: 700
-        }
-
-        .note {
-            margin-top: 14px;
-            background: #fff;
-            border: 1px dashed #cbd5e1;
-            border-radius: 12px;
-            padding: 12px;
-            color: #64748b
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="font-['Inter'] bg-slate-50 text-slate-800 m-0 p-0 antialiased">
     @include('navbar')
-    <div class="container" style="padding-top:100px">
-        <div class="title">Leaderboard</div>
-        <div class="subtitle">Peringkat peserta berdasarkan total skor dan modul yang diselesaikan</div>
+
+    <div class="max-w-[980px] mx-auto px-6 pt-[100px] pb-6">
+        <h1 class="text-3xl font-extrabold text-center text-slate-900 mb-2">Leaderboard</h1>
+        <div class="text-center text-slate-500 mb-8">Peringkat peserta berdasarkan total skor dan modul yang diselesaikan</div>
 
         @php
         $podiumSlots = [
-        ['class' => 'silver', 'entry' => $leaders->get(1)],
-        ['class' => 'gold', 'entry' => $leaders->get(0)],
-        ['class' => 'bronze', 'entry' => $leaders->get(2)],
+        ['color' => 'border-slate-300 shadow-slate-200', 'ring' => 'ring-slate-300', 'bg_initial' => 'bg-slate-50', 'entry' => $leaders->get(1)], // Silver
+        ['color' => 'border-yellow-400 shadow-yellow-100', 'ring' => 'ring-yellow-400', 'bg_initial' => 'bg-yellow-50', 'entry' => $leaders->get(0)], // Gold
+        ['color' => 'border-orange-400 shadow-orange-100', 'ring' => 'ring-orange-400', 'bg_initial' => 'bg-orange-50', 'entry' => $leaders->get(2)], // Bronze
         ];
         @endphp
 
-        <div class="grid3">
-            @foreach ($podiumSlots as $slot)
-            <div class="podium {{ $slot['class'] }}">
+        <div class="grid grid-cols-3 gap-4 mb-8 items-end">
+            @foreach ($podiumSlots as $index => $slot)
+            <div class="bg-white border rounded-xl p-4 shadow-sm flex flex-col items-center {{ $slot['color'] }} {{ $index == 1 ? 'order-2 h-full py-8' : ($index == 0 ? 'order-1 mt-8' : 'order-3 mt-12') }}">
                 @if($slot['entry'])
-                <div class="initial">{{ $slot['entry']->initials }}</div>
-                <div class="name">{{ $slot['entry']->name }}</div>
-                <div class="score">{{ number_format($slot['entry']->total_score) }}</div>
-                <div style="text-align:center;color:#64748b;font-size:12px">
+                <div class="w-12 h-12 rounded-full border-2 {{ $slot['ring'] }} flex items-center justify-center font-bold text-slate-700 mb-3 {{ $slot['bg_initial'] }}">
+                    {{ $slot['entry']->initials }}
+                </div>
+                <div class="font-semibold text-center text-slate-900 text-sm mb-1 line-clamp-1">{{ $slot['entry']->name }}</div>
+                <div class="font-extrabold text-slate-900 text-xl mb-1">{{ number_format($slot['entry']->total_score) }}</div>
+                <div class="text-center text-slate-400 text-xs">
                     {{ $slot['entry']->completions }} modul • {{ $slot['entry']->percentage }}%
                 </div>
                 @else
-                <div class="initial">—</div>
-                <div class="name">Peserta</div>
-                <div class="score">0</div>
-                <div style="text-align:center;color:#64748b;font-size:12px">Belum ada data</div>
+                <div class="w-12 h-12 rounded-full border-2 border-slate-200 bg-slate-50 flex items-center justify-center font-bold text-slate-300 mb-3">—</div>
+                <div class="font-semibold text-center text-slate-400 text-sm mb-1">Peserta</div>
+                <div class="font-extrabold text-slate-300 text-xl mb-1">0</div>
+                <div class="text-center text-slate-300 text-xs">Belum ada data</div>
                 @endif
             </div>
             @endforeach
         </div>
 
         @if($leaders->isEmpty())
-        <div class="note">Belum ada skor yang tercatat. Selesaikan kuis akhir modul pertama Anda untuk muncul di leaderboard.</div>
+        <div class="bg-white border border-dashed border-slate-300 rounded-xl p-4 text-slate-500 text-center text-sm">
+            Belum ada skor yang tercatat. Selesaikan kuis akhir modul pertama Anda untuk muncul di leaderboard.
+        </div>
         @else
-        <div class="list">
+
+        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
             @foreach ($leaders as $index => $leader)
-            @continue($index < 3)
-                <div class="row">
-                <div class="rank">{{ $index + 1 }}</div>
+            @continue($index < 3) <div class="grid grid-cols-[40px_1fr_90px] items-center px-4 py-3 border-t border-slate-100 first:border-t-0 hover:bg-slate-50 transition">
+                <div class="text-slate-500 font-medium text-center">{{ $index + 1 }}</div>
                 <div>
-                    <div style="display:flex;align-items:center;gap:10px">
-                        <div style="width:26px;height:26px;border-radius:999px;background:#f1f5f9;border:1px solid #cbd5e1;display:flex;align-items:center;justify-content:center;font-size:12px">
+                    <div class="flex items-center gap-3">
+                        <div class="w-7 h-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-semibold text-slate-600 shrink-0">
                             {{ $leader->initials }}
                         </div>
-                        <div class="name">{{ $leader->name }}</div>
+                        <div class="font-semibold text-slate-800 text-sm truncate">{{ $leader->name }}</div>
                     </div>
-                    <div style="color:#94a3b8;font-size:12px;margin-left:36px">
+                    <div class="text-slate-400 text-xs mt-0.5 ml-10">
                         {{ $leader->completions }} modul • {{ $leader->percentage }}%
                     </div>
                 </div>
-                <div class="pts">
-                    {{ number_format($leader->total_score) }}
-                    <span style="color:#94a3b8;font-size:12px;font-weight:500"> pts</span>
+                <div class="text-right">
+                    <div class="font-bold text-blue-700">{{ number_format($leader->total_score) }}</div>
+                    <span class="text-slate-400 text-xs font-medium">pts</span>
                 </div>
         </div>
         @endforeach
     </div>
 
-    <div class="note">
+    <div class="mt-6 bg-white border border-dashed border-slate-300 rounded-xl p-4 text-slate-600 text-sm shadow-sm">
         @if($currentUserEntry)
-        Posisi Anda: <strong>#{!! $currentUserPosition !!}</strong><br>
-        Total skor {{ number_format($currentUserEntry->total_score) }} dari {{ $currentUserEntry->completions }} modul.
+        <div class="flex items-center gap-2">
+            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-bold">ANDA</span>
+            <span>Posisi Anda: <strong class="text-slate-900">#{!! $currentUserPosition !!}</strong></span>
+        </div>
+        <div class="mt-1 text-slate-500">
+            Total skor {{ number_format($currentUserEntry->total_score) }} dari {{ $currentUserEntry->completions }} modul.
+        </div>
         @else
         Anda belum memiliki skor. Selesaikan kuis akhir modul VB-MAPP untuk mulai bersaing di leaderboard!
         @endif

@@ -1,147 +1,37 @@
-<style>
-    /* Reset sederhana untuk box-sizing agar padding tidak merusak lebar elemen */
-    *,
-    *::before,
-    *::after {
-        box-sizing: border-box;
-    }
+<header class="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 w-full font-sans">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
 
-    /* Container utama Navbar */
-    .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 50;
-        background-color: rgba(255, 255, 255, 0.8);
-        /* bg-white/80 */
-        backdrop-filter: blur(8px);
-        /* Efek blur opsional agar mirip modern UI */
-        border-bottom: 1px solid #f3f4f6;
-        /* border-gray-100 */
-        width: 100%;
-        font-family: sans-serif;
-        /* Pastikan font default ada */
-    }
-
-    /* Pembungkus konten agar rata tengah */
-    .navbar-container {
-        max-width: 80rem;
-        /* max-w-7xl (sekitar 1280px) */
-        margin-left: auto;
-        margin-right: auto;
-        padding: 0.8rem 1.5rem;
-        /* py-4 px-6 */
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    /* Logo Styling */
-    .logo-link {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-    }
-
-    .navbar-logo {
-        height: 70px;
-        /* h-16 */
-        width: auto;
-        /* w-16 */
-        object-fit: contain;
-        border: none;
-        background: none;
-    }
-
-    /* Navigasi Menu Wrapper */
-    .nav-menu {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        /* gap-6 */
-    }
-
-    .nav-menu.guest {
-        gap: 1rem;
-        /* gap-4 untuk guest */
-    }
-
-    /* Link Menu Biasa */
-    .nav-link {
-        color: #374151;
-        /* text-gray-700 */
-        font-weight: 500;
-        /* font-medium */
-        text-decoration: none;
-        transition: color 0.2s ease;
-    }
-
-    .nav-link:hover {
-        color: #111827;
-        /* hover:text-gray-900 */
-    }
-
-    /* Tombol Biru (Register & Logout) */
-    .btn-primary {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.5rem 1rem;
-        /* px-4 py-2 */
-        border-radius: 0.75rem;
-        /* rounded-xl */
-        background-color: #2563eb;
-        /* bg-blue-600 */
-        color: white;
-        font-weight: 600;
-        /* font-semibold */
-        text-decoration: none;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        font-size: 1rem;
-    }
-
-    .btn-primary:hover {
-        background-color: #1d4ed8;
-        /* hover:bg-blue-700 */
-    }
-</style>
-
-<!-- Navbar for all users -->
-<header class="navbar">
-    <div class="navbar-container">
         {{-- Logo Section --}}
-        <a href="{{ route('home') }}" class="logo-link">
+        <a href="{{ route('home') }}" class="flex items-center no-underline">
             <img
                 src="/img/ABATRAINING-new.png"
                 alt="Logo ABATI"
-                class="navbar-logo">
+                class="h-[70px] w-auto object-contain border-none bg-none">
         </a>
 
         @auth
         {{-- Navbar for authenticated users --}}
-        <nav class="nav-menu">
-            <a href="{{ route('home') }}" class="nav-link">Home</a>
-            <a href="{{ route('elearning') }}" class="nav-link">E-Learning</a>
-            <a href="{{ route('leaderboard') }}" class="nav-link">Leaderboard</a>
-            <a href="{{ route('profile') }}" class="nav-link">Profile</a>
+        <nav class="flex items-center gap-6">
+            <a href="{{ route('home') }}" class="text-gray-700 font-medium no-underline hover:text-gray-900 transition-colors duration-200">Home</a>
+            <a href="{{ route('elearning') }}" class="text-gray-700 font-medium no-underline hover:text-gray-900 transition-colors duration-200">E-Learning</a>
+            <a href="{{ route('leaderboard') }}" class="text-gray-700 font-medium no-underline hover:text-gray-900 transition-colors duration-200">Leaderboard</a>
+            <a href="{{ route('profile') }}" class="text-gray-700 font-medium no-underline hover:text-gray-900 transition-colors duration-200">Profile</a>
 
             @if(auth()->user()->role === 'admin')
-            <a href="{{ route('admin.index') }}" class="nav-link">Admin</a>
+            <a href="{{ route('admin.index') }}" class="text-gray-700 font-medium no-underline hover:text-gray-900 transition-colors duration-200">Admin</a>
             @endif
 
-            <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
+            <form method="POST" action="{{ route('logout') }}" class="m-0">
                 @csrf
-                <button type="submit" class="btn-primary">Logout</button>
+                <button type="submit" class="inline-flex items-center px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold no-underline border-none cursor-pointer transition-colors duration-200 text-base hover:bg-blue-700">Logout</button>
             </form>
         </nav>
 
         @else
         {{-- Navbar for guest users --}}
-        <nav class="nav-menu guest">
-            <a href="{{ route('login') }}" class="nav-link">Login</a>
-            <a href="{{ route('register') }}" class="btn-primary">Register</a>
+        <nav class="flex items-center gap-4">
+            <a href="{{ route('login') }}" class="text-gray-700 font-medium no-underline hover:text-gray-900 transition-colors duration-200">Login</a>
+            <a href="{{ route('register') }}" class="inline-flex items-center px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold no-underline border-none cursor-pointer transition-colors duration-200 text-base hover:bg-blue-700">Register</a>
         </nav>
         @endauth
     </div>

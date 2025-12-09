@@ -9,830 +9,268 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        /* =========================================
-           GLOBAL & DESKTOP STYLES
-        ========================================= */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: #ffffff;
-            margin: 0;
-            padding: 0;
-            /* Pastikan footer turun ke bawah jika konten sedikit */
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            width: 100%;
-        }
-
-        /* Padding Top untuk navbar fixed */
-        .main-content {
-            padding-top: 100px;
-            flex: 1;
-            /* Agar konten mengisi ruang kosong sebelum footer */
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* --- HERO --- */
-        .hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            padding: 80px 0;
-            margin-bottom: 80px;
-        }
-
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .hero-content .label {
-            background: #e0f2fe;
-            color: #0369a1;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            display: inline-block;
-            margin-bottom: 24px;
-        }
-
-        .hero-content h1 {
-            font-size: 48px;
-            font-weight: 800;
-            color: #1f2937;
-            margin-bottom: 24px;
-            line-height: 1.2;
-            text-align: left;
-        }
-
-        .hero-content h1 .highlight {
-            color: #0ea5e9;
-        }
-
-        .hero-content p {
-            font-size: 18px;
-            color: #6b7280;
-            margin-bottom: 32px;
-            line-height: 1.6;
-            text-align: left;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-        }
-
-        .hero-image {
-            width: 100%;
-            height: 400px;
-            border-radius: 12px;
-            object-fit: cover;
-        }
-
-        /* --- BUTTONS --- */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 24px;
-            margin-top: 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: #0ea5e9;
-            color: #fff;
-            border: 1px solid #0ea5e9;
-        }
-
-        .btn-primary:hover {
-            background: #0284c7;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #0ea5e9;
-            border: 2px solid #0ea5e9;
-        }
-
-        .btn-secondary:hover {
-            background: #f0f9ff;
-        }
-
-        /* --- SECTIONS --- */
-        .section {
-            margin-bottom: 80px;
-        }
-
-        .section-title {
-            font-size: 36px;
-            font-weight: 800;
-            color: #1f2937;
-            text-align: center;
-            margin-bottom: 16px;
-        }
-
-        .section-subtitle {
-            font-size: 18px;
-            color: #6b7280;
-            text-align: center;
-            margin: 0 auto 40px auto;
-            max-width: 800px;
-            line-height: 1.6;
-        }
-
-        /* --- FEATURES --- */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            margin-bottom: 80px;
-        }
-
-        .feature-card {
-            background: #fff;
-            padding: 32px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 1px solid #f3f4f6;
-        }
-
-        .feature-icon {
-            width: 64px;
-            height: 64px;
-            background: #0ea5e9;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
-            font-size: 24px;
-            color: #fff;
-        }
-
-        .feature-icon.icon-transparent,
-        .format-icon.icon-transparent {
-            background: none;
-        }
-
-        .icon-img-lg {
-            width: 64px;
-            height: 64px;
-            object-fit: contain;
-        }
-
-        .icon-img-sm {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-        }
-
-        .feature-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #1f2937;
-        }
-
-        .feature-desc {
-            color: #6b7280;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        /* --- TRAINING LEVELS & FORMATS --- */
-        .training-levels {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
-            margin-bottom: 80px;
-        }
-
-        .levels-content h2 {
-            font-size: 36px;
-            font-weight: 800;
-            color: #1f2937;
-            margin-bottom: 16px;
-        }
-
-        .levels-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .levels-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 24px;
-            font-size: 16px;
-            color: #374151;
-        }
-
-        .levels-list li::before {
-            content: '✓';
-            color: #22c55e;
-            font-weight: bold;
-            font-size: 18px;
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-
-        .level-title {
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .format-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-            padding: 16px;
-            background: #f8fafc;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-        }
-
-        .format-icon {
-            width: 40px;
-            height: 40px;
-            background: #0ea5e9;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            flex-shrink: 0;
-        }
-
-        .format-content .title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 6px;
-        }
-
-        /* --- SUITABLE FOR --- */
-        .suitable-for {
-            background: #f0f9ff;
-            border-radius: 16px;
-            padding: 60px 20px;
-            margin-bottom: 80px;
-            text-align: center;
-        }
-
-        .suitable-cards {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-        }
-
-        .suitable-card {
-            background: #ffffff;
-            border: 1px solid #f3f4f6;
-            border-radius: 20px;
-            padding: 32px;
-            text-align: left;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-            transition: transform .3s ease;
-        }
-
-        .suitable-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card-image-wrapper {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #f9fafb;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 24px;
-        }
-
-        .card-image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform .5s ease;
-        }
-
-        .suitable-card:hover .card-image-wrapper img {
-            transform: scale(1.05);
-        }
-
-        .suitable-title {
-            font-size: 36px;
-            font-weight: 800;
-            color: #1f2937;
-            margin-bottom: 20px;
-        }
-
-        /* --- ALSO SUITABLE --- */
-        .also-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .also-title {
-            font-size: 36px;
-            font-weight: 800;
-            color: #111827;
-            margin-bottom: 16px;
-        }
-
-        .also-subtitle {
-            font-size: 18px;
-            color: #6b7280;
-            max-width: 700px;
-            margin: 0 auto 40px auto;
-            line-height: 1.6;
-        }
-
-        .also-flex-wrapper {
-            display: flex;
-            gap: 40px;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .also-flex-left {
-            flex: 1 1 350px;
-            min-width: 320px;
-        }
-
-        .also-flex-right {
-            flex: 1 1 320px;
-            min-width: 280px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .also-flex-right img {
-            max-width: 500px;
-            width: 100%;
-            border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-            background: #f9fafb;
-        }
-
-        .also-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-        }
-
-        .also-card {
-            display: flex;
-            align-items: center;
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            padding: 16px 18px;
-            gap: 14px;
-            transition: 0.25s ease;
-        }
-
-        .also-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-        }
-
-        .also-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-size: 22px;
-            color: #222;
-            background: #f3f4f6;
-            flex-shrink: 0;
-        }
-
-        .also-card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1f2937;
-            line-height: 1.4;
-            text-align: left;
-        }
-
-        /* --- CTA & CONTACT --- */
-        .cta {
-            background: linear-gradient(135deg, #0ea5e9 0%, #22c55e 100%);
-            color: #fff;
-            padding: 80px 20px;
-            text-align: center;
-            border-radius: 16px;
-            margin-bottom: 40px;
-        }
-
-        .cta h2 {
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 16px;
-        }
-
-        .cta .btn {
-            background: #fff;
-            color: #0ea5e9;
-            border: 1px solid #fff;
-        }
-
-        .contact-cards {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            margin-top: 32px;
-            width: 100%;
-        }
-
-        .contact-card {
-            padding: 24px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border: 1px solid #f3f4f6;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .contact-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 12px;
-            color: #fff;
-            font-size: 20px;
-        }
-
-        .contact-title {
-            color: #1f2937;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .contact-desc {
-            color: #6b7280;
-            word-break: break-all;
-        }
-
-        /* =========================================
-           RESPONSIVE MOBILE STYLES (Max 768px)
-        ========================================= */
-        @media (max-width: 768px) {
-
-            /* 1. GRID KE 1 KOLOM */
-            .hero,
-            .features,
-            .training-levels,
-            .suitable-cards,
-            .also-grid,
-            .contact-cards {
-                grid-template-columns: 1fr !important;
-                gap: 32px;
-                display: grid;
-                width: 100%;
-            }
-
-            /* 2. HERO FIX */
-            .hero {
-                display: flex !important;
-                flex-direction: column-reverse;
-                align-items: center !important;
-                padding: 40px 0;
-            }
-
-            .hero-content {
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                align-items: center !important;
-                text-align: center !important;
-            }
-
-            .hero-content h1 {
-                text-align: center !important;
-                font-size: 32px;
-                line-height: 1.3;
-            }
-
-            .hero-content p {
-                text-align: center !important;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-                gap: 16px;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .hero-image {
-                height: 250px;
-                width: 100%;
-            }
-
-            /* 3. SECTION & TYPOGRAPHY */
-            .section-title,
-            .also-title {
-                font-size: 28px;
-            }
-
-            .levels-content h2,
-            .levels-content p,
-            .also-subtitle {
-                text-align: center !important;
-            }
-
-            /* 4. ALSO SUITABLE FIX */
-            .also-flex-wrapper {
-                flex-direction: column;
-                gap: 32px;
-                align-items: center;
-            }
-
-            .also-flex-left,
-            .also-flex-right {
-                width: 100%;
-            }
-
-            .also-card {
-                flex-direction: column;
-                text-align: center !important;
-                align-items: center !important;
-                padding: 24px;
-            }
-
-            .also-card-title {
-                text-align: center !important;
-            }
-
-            /* 5. CARD & CONTACT FIX */
-            .suitable-card,
-            .feature-card,
-            .contact-card {
-                text-align: center !important;
-                padding: 24px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .contact-cards {
-                gap: 16px;
-            }
-        }
-    </style>
 </head>
 
-<body>
+<body class="font-['Inter'] bg-white m-0 p-0 min-h-screen flex flex-col antialiased">
     @include('navbar')
 
-    <div class="container main-content">
-        <div class="hero">
-            <div class="hero-content">
-                <div class="label">ABA Training Indonesia</div>
-                <h1>Menyiapkan <span class="highlight">Terapis Perilaku Profesional</span> <span class="highlight">Berstandar Nasional</span></h1>
-                <p>ABATI adalah lembaga pelatihan profesional yang fokus pada pengembangan kompetensi terapis perilaku berbasis Applied Behavior Analysis (ABA) untuk anak berkebutuhan khusus.</p>
-                <div class="hero-buttons">
-                    <a href="{{ route('register') }}" class="btn btn-primary">
+    <div class="w-full max-w-[1200px] mx-auto px-6 pt-[100px] flex-1">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-[60px] items-center py-10 md:py-20 mb-20">
+            <div class="flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1">
+                <div class="bg-sky-100 text-sky-700 px-4 py-2 rounded-full text-sm font-medium mb-6 inline-block">
+                    ABA Training Indonesia
+                </div>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-gray-800 mb-6 leading-tight">
+                    Menyiapkan <span class="text-sky-500">Terapis Perilaku Profesional</span> <span class="text-sky-500">Berstandar Nasional</span>
+                </h1>
+                <p class="text-lg text-gray-500 mb-8 leading-relaxed">
+                    ABATI adalah lembaga pelatihan profesional yang fokus pada pengembangan kompetensi terapis perilaku berbasis Applied Behavior Analysis (ABA) untuk anak berkebutuhan khusus.
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+                    <a href="{{ route('register') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition duration-200 bg-sky-500 text-white hover:bg-sky-600 border border-sky-500">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
                         </svg>
                         Mulai Sekarang
                     </a>
-                    <a href="{{ route('elearning') }}" class="btn btn-secondary">Lihat Modul</a>
+                    <a href="{{ route('elearning') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition duration-200 bg-transparent text-sky-500 border-2 border-sky-500 hover:bg-sky-50">
+                        Lihat Modul
+                    </a>
                 </div>
             </div>
-            <div class="hero-image-container">
-                <img src="/img/hero_section.jpg" alt="Hero Image" class="hero-image">
-            </div>
-        </div>
-
-        <div class="section">
-            <h2 class="section-title">Mengapa Pilih ABATI?</h2>
-            <p class="section-subtitle">Pelatihan terapis perilaku dengan standar nasional dan internasional</p>
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon icon-transparent"><img src="/img/books.gif" alt="Books" class="icon-img-lg"></div>
-                    <div class="feature-title">Kurikulum Evidence-Based</div>
-                    <div class="feature-desc">Materi dan praktik berbasis penelitian ilmiah Applied Behavior Analysis (ABA), bukan hanya teori</div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon icon-transparent"><img src="/img/certificate.gif" alt="Sertifikat" class="icon-img-lg"></div>
-                    <div class="feature-title">Sertifikasi Nasional</div>
-                    <div class="feature-desc">Berhubung dengan LSK TPIBK & Dirjen Vokasi Kemendikbudristek untuk sertifikasi terapis profesional</div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon icon-transparent"><img src="/img/certificate-trainer.gif" alt="Trainer" class="icon-img-lg"></div>
-                    <div class="feature-title">Trainer Berlisensi</div>
-                    <div class="feature-desc">Dibimbing oleh psikolog dan behavior analyst dengan pengalaman lebih dari 25 tahun</div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon icon-transparent"><img src="/img/report.gif" alt="Evaluasi" class="icon-img-lg"></div>
-                    <div class="feature-title">Evaluasi Terukur</div>
-                    <div class="feature-desc">Setiap jenjang memiliki learning outcome, rubrik penilaian, dan evaluasi kompetensi yang jelas</div>
-                </div>
+            <div class="w-full order-1 md:order-2 h-[250px] md:h-[400px]">
+                <img src="/img/hero_section.jpg" alt="Hero Image" class="w-full h-full object-cover rounded-xl shadow-lg">
             </div>
         </div>
 
-        <div class="training-levels">
-            <div class="levels-content">
-                <h2>Jenjang Pelatihan ABATI</h2>
-                <p>Kami menyediakan berbagai jenjang pelatihan yang disesuaikan dengan kebutuhan Anda</p>
-                <ul class="levels-list">
-                    <li>
+        <div class="mb-20">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 text-center mb-4">Mengapa Pilih ABATI?</h2>
+            <p class="text-lg text-gray-500 text-center mb-10 max-w-3xl mx-auto leading-relaxed">Pelatihan terapis perilaku dengan standar nasional dan internasional</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-8 rounded-xl text-center shadow-md border border-gray-100 flex flex-col items-center">
+                    <div class="w-16 h-16 flex items-center justify-center mb-4">
+                        <img src="/img/books.gif" alt="Books" class="w-16 h-16 object-contain">
+                    </div>
+                    <div class="text-xl font-bold text-gray-800 mb-3">Kurikulum Evidence-Based</div>
+                    <div class="text-gray-500 text-sm leading-relaxed">Materi dan praktik berbasis penelitian ilmiah Applied Behavior Analysis (ABA), bukan hanya teori</div>
+                </div>
+                <div class="bg-white p-8 rounded-xl text-center shadow-md border border-gray-100 flex flex-col items-center">
+                    <div class="w-16 h-16 flex items-center justify-center mb-4">
+                        <img src="/img/certificate.gif" alt="Sertifikat" class="w-16 h-16 object-contain">
+                    </div>
+                    <div class="text-xl font-bold text-gray-800 mb-3">Sertifikasi Nasional</div>
+                    <div class="text-gray-500 text-sm leading-relaxed">Berhubung dengan LSK TPIBK & Dirjen Vokasi Kemendikbudristek untuk sertifikasi terapis profesional</div>
+                </div>
+                <div class="bg-white p-8 rounded-xl text-center shadow-md border border-gray-100 flex flex-col items-center">
+                    <div class="w-16 h-16 flex items-center justify-center mb-4">
+                        <img src="/img/certificate-trainer.gif" alt="Trainer" class="w-16 h-16 object-contain">
+                    </div>
+                    <div class="text-xl font-bold text-gray-800 mb-3">Trainer Berlisensi</div>
+                    <div class="text-gray-500 text-sm leading-relaxed">Dibimbing oleh psikolog dan behavior analyst dengan pengalaman lebih dari 25 tahun</div>
+                </div>
+                <div class="bg-white p-8 rounded-xl text-center shadow-md border border-gray-100 flex flex-col items-center">
+                    <div class="w-16 h-16 flex items-center justify-center mb-4">
+                        <img src="/img/report.gif" alt="Evaluasi" class="w-16 h-16 object-contain">
+                    </div>
+                    <div class="text-xl font-bold text-gray-800 mb-3">Evaluasi Terukur</div>
+                    <div class="text-gray-500 text-sm leading-relaxed">Setiap jenjang memiliki learning outcome, rubrik penilaian, dan evaluasi kompetensi yang jelas</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-[60px] items-start mb-20">
+            <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">Jenjang Pelatihan ABATI</h2>
+                <p class="text-lg text-gray-500 mb-8 leading-relaxed">Kami menyediakan berbagai jenjang pelatihan yang disesuaikan dengan kebutuhan Anda</p>
+                <ul class="space-y-6 w-full">
+                    <li class="flex flex-row items-start gap-3 text-left">
+                        <span class="text-green-500 font-bold text-lg mt-0.5 shrink-0">✓</span>
                         <div>
-                            <div class="level-title">Kelas ABA Dasar</div>
-                            <div class="level-desc">Prinsip dasar ABA, observasi perilaku, data recording, DTT, NET, dan Verbal Behavior. Cocok untuk pemula dan mahasiswa.</div>
+                            <div class="font-bold text-gray-800 mb-1">Kelas ABA Dasar</div>
+                            <div class="text-gray-600 text-sm leading-relaxed">Prinsip dasar ABA, observasi perilaku, data recording, DTT, NET, dan Verbal Behavior. Cocok untuk pemula dan mahasiswa.</div>
                         </div>
                     </li>
-                    <li>
+                    <li class="flex flex-row items-start gap-3 text-left">
+                        <span class="text-green-500 font-bold text-lg mt-0.5 shrink-0">✓</span>
                         <div>
-                            <div class="level-title">Kelas Case Manager ABA</div>
-                            <div class="level-desc">Analisis data, penyusunan program IEP, supervisi, dan komunikasi tim. Untuk terapis senior dan koordinator.</div>
+                            <div class="font-bold text-gray-800 mb-1">Kelas Case Manager ABA</div>
+                            <div class="text-gray-600 text-sm leading-relaxed">Analisis data, penyusunan program IEP, supervisi, dan komunikasi tim. Untuk terapis senior dan koordinator.</div>
                         </div>
                     </li>
-                    <li>
+                    <li class="flex flex-row items-start gap-3 text-left">
+                        <span class="text-green-500 font-bold text-lg mt-0.5 shrink-0">✓</span>
                         <div>
-                            <div class="level-title">Workshop Tematik ABA</div>
-                            <div class="level-desc">Workshop 1-2 hari: Toilet Training ABA, Manajemen Perilaku, Data Collection Tools, PECS/COMPIC, dan lainnya.</div>
+                            <div class="font-bold text-gray-800 mb-1">Workshop Tematik ABA</div>
+                            <div class="text-gray-600 text-sm leading-relaxed">Workshop 1-2 hari: Toilet Training ABA, Manajemen Perilaku, Data Collection Tools, PECS/COMPIC, dan lainnya.</div>
                         </div>
                     </li>
                 </ul>
             </div>
-            <div class="formats">
-                <h2>Format Pelatihan Fleksibel</h2>
-                <div class="format-item">
-                    <div class="format-icon icon-transparent"><img src="/img/online-study.png" alt="Online" class="icon-img-sm"></div>
-                    <div class="format-content">
-                        <div class="title">Online Training</div>
-                        <div class="desc">Belajar interaktif melalui platform digital dengan video case & diskusi</div>
+
+            <div class="w-full">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-6 text-center md:text-left">Format Pelatihan Fleksibel</h2>
+                <div class="space-y-5">
+                    <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-lg shadow-sm">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center">
+                            <img src="/img/online-study.png" alt="Online" class="w-10 h-10 object-contain">
+                        </div>
+                        <div class="text-left">
+                            <div class="text-xl font-bold text-gray-800 mb-1">Online Training</div>
+                            <div class="text-gray-600 text-sm">Belajar interaktif melalui platform digital dengan video case & diskusi</div>
+                        </div>
                     </div>
-                </div>
-                <div class="format-item">
-                    <div class="format-icon icon-transparent"><img src="/img/offline-study.png" alt="Onsite" class="icon-img-sm"></div>
-                    <div class="format-content">
-                        <div class="title">Full Onsite Training</div>
-                        <div class="desc">Pelatihan tatap muka di lokasi mitra dengan praktik langsung</div>
+                    <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-lg shadow-sm">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center">
+                            <img src="/img/offline-study.png" alt="Onsite" class="w-10 h-10 object-contain">
+                        </div>
+                        <div class="text-left">
+                            <div class="text-xl font-bold text-gray-800 mb-1">Full Onsite Training</div>
+                            <div class="text-gray-600 text-sm">Pelatihan tatap muka di lokasi mitra dengan praktik langsung</div>
+                        </div>
                     </div>
-                </div>
-                <div class="format-item">
-                    <div class="format-icon icon-transparent"><img src="/img/mix-study.png" alt="Mix" class="icon-img-sm"></div>
-                    <div class="format-content">
-                        <div class="title">Mix Training (Online + Onsite)</div>
-                        <div class="desc">Kombinasi teori daring dan praktik lapangan - Fleksibel & Nyata</div>
+                    <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-lg shadow-sm">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center">
+                            <img src="/img/mix-study.png" alt="Mix" class="w-10 h-10 object-contain">
+                        </div>
+                        <div class="text-left">
+                            <div class="text-xl font-bold text-gray-800 mb-1">Mix Training (Online + Onsite)</div>
+                            <div class="text-gray-600 text-sm">Kombinasi teori daring dan praktik lapangan - Fleksibel & Nyata</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="suitable-for">
-            <h2 class="suitable-title">Aselerasi Karir Terapis Anda Bersama ABATI</h2>
-            <p class="suitable-subtitle">Kami mengombinasikan kurikulum berstandar nasional dengan ekosistem praktik nyata untuk mencetak tenaga profesional yang siap kerja dan kompeten.</p>
-            <div class="suitable-cards">
-                <div class="suitable-card">
-                    <div class="card-image-wrapper"><img src="/img/gambar-1.png" alt="Sertifikasi"></div>
-                    <div class="suitable-title">Standar Kompetensi Nasional Terakreditasi</div>
-                    <div class="suitable-desc">Kurikulum kami disusun mengikuti standar kompetensi nasional, memastikan Anda mendapatkan kualifikasi resmi yang diakui oleh industri dan lembaga profesional.</div>
+        <div class="bg-sky-50 rounded-2xl p-8 md:p-14 mb-20 text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">Aselerasi Karir Terapis Anda Bersama ABATI</h2>
+            <p class="text-lg text-gray-500 mb-10 max-w-3xl mx-auto leading-relaxed">Kami mengombinasikan kurikulum berstandar nasional dengan ekosistem praktik nyata untuk mencetak tenaga profesional yang siap kerja dan kompeten.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="group bg-white border border-gray-100 rounded-2xl p-8 text-center md:text-left shadow-lg hover:-translate-y-2 transition duration-300 flex flex-col items-center md:items-start">
+                    <div class="w-full aspect-video bg-gray-50 rounded-xl overflow-hidden mb-6">
+                        <img src="/img/gambar-1.png" alt="Sertifikasi" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="text-2xl font-bold text-gray-800 mb-4">Standar Kompetensi Nasional Terakreditasi</div>
+                    <div class="text-gray-500 text-sm leading-relaxed">Kurikulum kami disusun mengikuti standar kompetensi nasional, memastikan Anda mendapatkan kualifikasi resmi yang diakui oleh industri dan lembaga profesional.</div>
                 </div>
-                <div class="suitable-card">
-                    <div class="card-image-wrapper"><img src="/img/gambar-2.png" alt="Metode"></div>
-                    <div class="suitable-title">Metode Belajar Fleksibel: Online & Offline</div>
-                    <div class="suitable-desc">Sesuaikan cara belajar dengan kesibukan Anda. Pilih kelas Online interaktif, Onsite tatap muka, atau Hybrid tanpa mengurangi kualitas materi yang diterima.</div>
+                <div class="group bg-white border border-gray-100 rounded-2xl p-8 text-center md:text-left shadow-lg hover:-translate-y-2 transition duration-300 flex flex-col items-center md:items-start">
+                    <div class="w-full aspect-video bg-gray-50 rounded-xl overflow-hidden mb-6">
+                        <img src="/img/gambar-2.png" alt="Metode" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="text-2xl font-bold text-gray-800 mb-4">Metode Belajar Fleksibel: Online & Offline</div>
+                    <div class="text-gray-500 text-sm leading-relaxed">Sesuaikan cara belajar dengan kesibukan Anda. Pilih kelas Online interaktif, Onsite tatap muka, atau Hybrid tanpa mengurangi kualitas materi yang diterima.</div>
                 </div>
-                <div class="suitable-card">
-                    <div class="card-image-wrapper"><img src="/img/gambar-3.png" alt="Magang"></div>
-                    <div class="suitable-title">Magang & Supervisi Klinis Terpadu</div>
-                    <div class="suitable-desc">Dapatkan pengalaman tangan pertama menangani kasus nyata. Program magang kami didampingi langsung oleh praktisi ahli di jaringan klinik mitra terpercaya.</div>
+                <div class="group bg-white border border-gray-100 rounded-2xl p-8 text-center md:text-left shadow-lg hover:-translate-y-2 transition duration-300 flex flex-col items-center md:items-start">
+                    <div class="w-full aspect-video bg-gray-50 rounded-xl overflow-hidden mb-6">
+                        <img src="/img/gambar-3.png" alt="Magang" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="text-2xl font-bold text-gray-800 mb-4">Magang & Supervisi Klinis Terpadu</div>
+                    <div class="text-gray-500 text-sm leading-relaxed">Dapatkan pengalaman tangan pertama menangani kasus nyata. Program magang kami didampingi langsung oleh praktisi ahli di jaringan klinik mitra terpercaya.</div>
                 </div>
-                <div class="suitable-card">
-                    <div class="card-image-wrapper"><img src="/img/gambar-4.png" alt="Alumni"></div>
-                    <div class="suitable-title">Akses Jaringan Alumni Profesional</div>
-                    <div class="suitable-desc">Bergabunglah dengan ekosistem alumni terbesar se-Indonesia. Buka peluang kolaborasi, diskusi kasus, hingga informasi lowongan kerja eksklusif.</div>
+                <div class="group bg-white border border-gray-100 rounded-2xl p-8 text-center md:text-left shadow-lg hover:-translate-y-2 transition duration-300 flex flex-col items-center md:items-start">
+                    <div class="w-full aspect-video bg-gray-50 rounded-xl overflow-hidden mb-6">
+                        <img src="/img/gambar-4.png" alt="Alumni" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="text-2xl font-bold text-gray-800 mb-4">Akses Jaringan Alumni Profesional</div>
+                    <div class="text-gray-500 text-sm leading-relaxed">Bergabunglah dengan ekosistem alumni terbesar se-Indonesia. Buka peluang kolaborasi, diskusi kasus, hingga informasi lowongan kerja eksklusif.</div>
                 </div>
             </div>
         </div>
 
-        <section class="also-section">
-            <h2 class="also-title">Juga Cocok Untuk</h2>
-            <p class="also-subtitle">Berbagai profesi dan latar belakang yang ingin berkontribusi</p>
-            <div class="also-flex-wrapper">
-                <div class="also-flex-left">
-                    <div class="also-grid">
-                        <div class="also-card">
-                            <div class="also-icon"><img src="/img/checklist.png" alt=""></div>
-                            <div class="also-card-title">Calon Terapis Perilaku</div>
+        <section class="max-w-[1200px] mx-auto py-16 px-5 text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Juga Cocok Untuk</h2>
+            <p class="text-lg text-gray-500 max-w-3xl mx-auto mb-10 leading-relaxed">Berbagai profesi dan latar belakang yang ingin berkontribusi</p>
+
+            <div class="flex flex-col md:flex-row gap-10 items-center justify-center">
+                <div class="flex-1 w-full min-w-0">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex flex-col items-center justify-center p-6 bg-white border border-gray-200 rounded-xl shadow-sm gap-3 hover:-translate-y-1 hover:shadow-md transition duration-200">
+                            <div class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full shrink-0">
+                                <img src="/img/checklist.png" alt="" class="w-6 h-6 object-contain">
+                            </div>
+                            <div class="text-base font-semibold text-gray-800 leading-snug text-center">Calon Terapis Perilaku</div>
                         </div>
-                        <div class="also-card">
-                            <div class="also-icon"><img src="/img/checklist.png" alt=""></div>
-                            <div class="also-card-title">Mahasiswa Psikologi & PLB</div>
+                        <div class="flex flex-col items-center justify-center p-6 bg-white border border-gray-200 rounded-xl shadow-sm gap-3 hover:-translate-y-1 hover:shadow-md transition duration-200">
+                            <div class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full shrink-0">
+                                <img src="/img/checklist.png" alt="" class="w-6 h-6 object-contain">
+                            </div>
+                            <div class="text-base font-semibold text-gray-800 leading-snug text-center">Mahasiswa Psikologi & PLB</div>
                         </div>
-                        <div class="also-card">
-                            <div class="also-icon"><img src="/img/checklist.png" alt=""></div>
-                            <div class="also-card-title">Guru Inklusi & Shadow Teacher</div>
+                        <div class="flex flex-col items-center justify-center p-6 bg-white border border-gray-200 rounded-xl shadow-sm gap-3 hover:-translate-y-1 hover:shadow-md transition duration-200">
+                            <div class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full shrink-0">
+                                <img src="/img/checklist.png" alt="" class="w-6 h-6 object-contain">
+                            </div>
+                            <div class="text-base font-semibold text-gray-800 leading-snug text-center">Guru Inklusi & Shadow Teacher</div>
                         </div>
-                        <div class="also-card">
-                            <div class="also-icon"><img src="/img/checklist.png" alt=""></div>
-                            <div class="also-card-title">Orang Tua ABK</div>
+                        <div class="flex flex-col items-center justify-center p-6 bg-white border border-gray-200 rounded-xl shadow-sm gap-3 hover:-translate-y-1 hover:shadow-md transition duration-200">
+                            <div class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full shrink-0">
+                                <img src="/img/checklist.png" alt="" class="w-6 h-6 object-contain">
+                            </div>
+                            <div class="text-base font-semibold text-gray-800 leading-snug text-center">Orang Tua ABK</div>
                         </div>
-                        <div class="also-card">
-                            <div class="also-icon"><img src="/img/checklist.png" alt=""></div>
-                            <div class="also-card-title">Pengelola Klinik</div>
+                        <div class="flex flex-col items-center justify-center p-6 bg-white border border-gray-200 rounded-xl shadow-sm gap-3 hover:-translate-y-1 hover:shadow-md transition duration-200">
+                            <div class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full shrink-0">
+                                <img src="/img/checklist.png" alt="" class="w-6 h-6 object-contain">
+                            </div>
+                            <div class="text-base font-semibold text-gray-800 leading-snug text-center">Pengelola Klinik</div>
                         </div>
-                        <div class="also-card">
-                            <div class="also-icon"><img src="/img/checklist.png" alt=""></div>
-                            <div class="also-card-title">Praktisi Pemula</div>
+                        <div class="flex flex-col items-center justify-center p-6 bg-white border border-gray-200 rounded-xl shadow-sm gap-3 hover:-translate-y-1 hover:shadow-md transition duration-200">
+                            <div class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full shrink-0">
+                                <img src="/img/checklist.png" alt="" class="w-6 h-6 object-contain">
+                            </div>
+                            <div class="text-base font-semibold text-gray-800 leading-snug text-center">Praktisi Pemula</div>
                         </div>
                     </div>
                 </div>
-                <div class="also-flex-right">
-                    <img src="/img/also-ilustrasion.png" alt="Ilustrasi Profesi" loading="lazy">
+                <div class="flex-1 w-full min-w-0 flex justify-center">
+                    <img src="/img/also-ilustrasion.png" alt="Ilustrasi Profesi" loading="lazy" class="w-full max-w-[500px] rounded-2xl shadow-lg bg-gray-50">
                 </div>
             </div>
         </section>
 
-        <div class="cta">
-            <h2>Siap Menjadi Terapis ABA Profesional?</h2>
-            <p>Bergabunglah dengan komunitas terapis ABA profesional yang tersertifikasi nasional</p>
-            <a href="{{ route('register') }}" class="btn">Daftar Pelatihan Sekarang</a>
+        <div class="bg-gradient-to-br from-sky-500 to-green-500 text-white p-10 md:p-20 text-center rounded-2xl mb-10 shadow-lg">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Siap Menjadi Terapis ABA Profesional?</h2>
+            <p class="text-lg opacity-90 mb-8">Bergabunglah dengan komunitas terapis ABA profesional yang tersertifikasi nasional</p>
+            <a href="{{ route('register') }}" class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg font-semibold bg-white text-sky-600 border border-white hover:bg-gray-100 transition duration-200 w-full md:w-auto">
+                Daftar Pelatihan Sekarang
+            </a>
         </div>
 
-        <div class="contact">
-            <h2 class="section-title">Hubungi Kami</h2>
-            <div class="contact-cards">
-                <div class="contact-card">
-                    <a href="mailto:abatrainingindonesia@gmail.com">
-                        <div class="contact-icon email bg-white"><img src="/img/gmail.png" alt="Email" class="icon-img-lg object-contain mx-auto"></div>
-                        <div class="contact-title">Email</div>
-                        <div class="contact-desc">abatrainingindonesia@gmail.com</div>
+        <div class="mb-20">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 text-center mb-8">Hubungi Kami</h2>
+            <div class="flex justify-center gap-6 w-full">
+                <div class="p-6 rounded-xl text-center shadow-sm border border-gray-100 bg-white flex flex-col items-center justify-center hover:shadow-md transition duration-200">
+                    <a href="mailto:abatrainingindonesia@gmail.com" class="flex flex-col items-center w-full">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center mb-3">
+                            <img src="/img/gmail.png" alt="Email" class="w-12 h-12 object-contain">
+                        </div>
+                        <div class="text-gray-800 font-semibold mb-1">Email</div>
+                        <div class="text-gray-500 text-sm break-all">abatrainingindonesia@gmail.com</div>
                     </a>
                 </div>
-                <div class="contact-card">
-                    <a href="https://wa.me/082299385608">
-                        <div class="contact-icon whatsapp bg-white"><img src="/img/whatsapp.png" alt="WhatsApp" class="icon-img-lg object-contain mx-auto"></div>
-                        <div class="contact-title">WhatsApp</div>
-                        <div class="contact-desc">+62 822-9938-5608</div>
+                <div class="p-6 rounded-xl text-center shadow-sm border border-gray-100 bg-white flex flex-col items-center justify-center hover:shadow-md transition duration-200">
+                    <a href="https://wa.me/082299385608" class="flex flex-col items-center w-full">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center mb-3">
+                            <img src="/img/whatsapp.png" alt="WhatsApp" class="w-12 h-12 object-contain">
+                        </div>
+                        <div class="text-gray-800 font-semibold mb-1">WhatsApp</div>
+                        <div class="text-gray-500 text-sm">+62 822-9938-5608</div>
                     </a>
                 </div>
-                <div class="contact-card">
-                    <a href="https://www.instagram.com/abatrainingindonesia">
-                        <div class="contact-icon instagram bg-white"><img src="/img/instagram.png" alt="Instagram" class="icon-img-lg object-contain mx-auto"></div>
-                        <div class="contact-title">Instagram</div>
-                        <div class="contact-desc">@abatrainingindonesia</div>
+                <div class="p-6 rounded-xl text-center shadow-sm border border-gray-100 bg-white flex flex-col items-center justify-center hover:shadow-md transition duration-200">
+                    <a href="https://www.instagram.com/abatrainingindonesia" class="flex flex-col items-center w-full">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center mb-3">
+                            <img src="/img/instagram.png" alt="Instagram" class="w-12 h-12 object-contain">
+                        </div>
+                        <div class="text-gray-800 font-semibold mb-1">Instagram</div>
+                        <div class="text-gray-500 text-sm">@abatrainingindonesia</div>
                     </a>
                 </div>
             </div>
         </div>
+
     </div>
 
     @include('bubble_chat')

@@ -11,30 +11,14 @@
     @else
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
     @endif
 </head>
 
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
-    <!-- Header -->
-    <header class="bg-white/80 backdrop-blur border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="{{ route('home') }}" class="flex items-center">
-                <img
-                    src="/img/ABATRAINING-new.png"
-                    alt="Logo ABATI"
-                    class="h-16 w-16 object-contain"
-                    style="border:none;background:none;">
-            </a>
-            <div class="flex items-center gap-3">
-                <a href="{{ route('login') }}" class="px-4 py-2 text-blue-600 font-medium bg-white rounded-lg border border-blue-200">Login</a>
-                <a href="{{ route('register') }}" class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700">Register</a>
-            </div>
-        </div>
-    </header>
+    @include('navbar')
 
     <!-- Main Content -->
-    <main class="flex items-center justify-center min-h-[calc(100vh-80px)] px-4 py-12">
+    <main class="flex items-center justify-center min-h-[calc(100vh-80px)] px-4  my-36">
         <div class="w-full max-w-md">
             <!-- Logo and Title -->
             <div class="text-center mb-8">
