@@ -835,30 +835,30 @@
         <h2 class="section-title">Hubungi Kami</h2>
         <div class="flex justify-center gap-6 my-16">
             <div class="contact-card w-80">
-                <a href="#">
+                <a href="mailto:abatrainingindonesia@gmail.com">
                     <div class="contact-icon email bg-white">
                         <img src="/img/gmail.png" alt="Email" class="w-12 h-12 object-contain mx-auto">
                     </div>
                     <div class="contact-title">Email</div>
-                    <div class="contact-desc">info@abati.id</div>
+                    <div class="contact-desc">abatrainingindonesia@gmail.com</div>
                 </a>
             </div>
             <div class="contact-card w-80">
-                <a href="#">
+                <a href="https://wa.me/082299385608">
                     <div class="contact-icon whatsapp bg-white">
                         <img src="/img/whatsapp.png" alt="WhatsApp" class="w-12 h-12 object-contain mx-auto">
                     </div>
                     <div class="contact-title">WhatsApp</div>
-                    <div class="contact-desc">+62 812-3456-7890</div>
+                    <div class="contact-desc">+62 822-9938-5608</div>
                 </a>
             </div>
             <div class="contact-card w-80">
-                <a href="#">
+                <a href="https://www.instagram.com/abatrainingindonesia">
                     <div class="contact-icon instagram bg-white">
                         <img src="/img/instagram.png" alt="Instagram" class="w-12 h-12 object-contain mx-auto">
                     </div>
                     <div class="contact-title">Instagram</div>
-                    <div class="contact-desc">@abati_indonesia</div>
+                    <div class="contact-desc">@abatrainingindonesia</div>
                 </a>
             </div>
         </div>
