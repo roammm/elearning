@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/elearning', [HomeController::class, 'elearning'])->name('elearning');
     Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
+    Route::get('/profile/edit', [HomeController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [HomeController::class, 'update'])->name('profile.update');
     Route::get('/courses/{slug}', [HomeController::class, 'course'])->name('course.show');
     Route::get('/courses/{slug}/quiz', [HomeController::class, 'showQuiz'])->name('course.quiz.show');
     Route::post('/courses/{slug}/quiz', [HomeController::class, 'submitQuiz'])->name('course.quiz.submit');
@@ -43,7 +45,7 @@ Route::get('/auth/google/callback', [App\Http\Controllers\AuthController::class,
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('index');
-    
+
     // Courses
     Route::get('/courses', [App\Http\Controllers\AdminController::class, 'courses'])->name('courses');
     Route::get('/courses/create', [App\Http\Controllers\AdminController::class, 'createCourse'])->name('courses.create');
@@ -51,7 +53,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/courses/{course}/edit', [App\Http\Controllers\AdminController::class, 'editCourse'])->name('courses.edit');
     Route::put('/courses/{course}', [App\Http\Controllers\AdminController::class, 'updateCourse'])->name('courses.update');
     Route::delete('/courses/{course}', [App\Http\Controllers\AdminController::class, 'destroyCourse'])->name('courses.destroy');
-    
+
     // Chapters
     Route::get('/courses/{course}/chapters', [App\Http\Controllers\AdminController::class, 'chapters'])->name('chapters');
     Route::get('/courses/{course}/chapters/create', [App\Http\Controllers\AdminController::class, 'createChapter'])->name('chapters.create');
@@ -59,7 +61,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/chapters/{chapter}/edit', [App\Http\Controllers\AdminController::class, 'editChapter'])->name('chapters.edit');
     Route::put('/chapters/{chapter}', [App\Http\Controllers\AdminController::class, 'updateChapter'])->name('chapters.update');
     Route::delete('/chapters/{chapter}', [App\Http\Controllers\AdminController::class, 'destroyChapter'])->name('chapters.destroy');
-    
+
     // Parts
     Route::get('/chapters/{chapter}/parts', [App\Http\Controllers\AdminController::class, 'parts'])->name('parts');
     Route::get('/chapters/{chapter}/parts/create', [App\Http\Controllers\AdminController::class, 'createPart'])->name('parts.create');
@@ -67,7 +69,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/parts/{part}/edit', [App\Http\Controllers\AdminController::class, 'editPart'])->name('parts.edit');
     Route::put('/parts/{part}', [App\Http\Controllers\AdminController::class, 'updatePart'])->name('parts.update');
     Route::delete('/parts/{part}', [App\Http\Controllers\AdminController::class, 'destroyPart'])->name('parts.destroy');
-    
+
     // Quizzes
     Route::get('/courses/{course}/quizzes', [App\Http\Controllers\AdminController::class, 'quizzes'])->name('quizzes');
     Route::get('/courses/{course}/quizzes/{quizName}', [App\Http\Controllers\AdminController::class, 'quizQuestions'])->name('quizzes.questions');
@@ -76,7 +78,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/quizzes/{quiz}/edit', [App\Http\Controllers\AdminController::class, 'editQuiz'])->name('quizzes.edit');
     Route::put('/quizzes/{quiz}', [App\Http\Controllers\AdminController::class, 'updateQuiz'])->name('quizzes.update');
     Route::delete('/quizzes/{quiz}', [App\Http\Controllers\AdminController::class, 'destroyQuiz'])->name('quizzes.destroy');
-    
+
     // Users
     Route::get('/users', [App\Http\Controllers\AdminController::class, 'users'])->name('users');
     Route::put('/users/{user}/role', [App\Http\Controllers\AdminController::class, 'updateUserRole'])->name('users.update-role');

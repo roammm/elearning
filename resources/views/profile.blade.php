@@ -26,9 +26,9 @@
                     <div class="text-slate-500 text-sm">{{ $user->email }}</div>
                 </div>
                 <div class="ml-auto">
-                    <button class="bg-sky-500 text-white border-none rounded-lg px-4 py-2 text-sm font-medium cursor-pointer hover:bg-sky-600 transition">
+                    <a href="{{ route('profile.edit') }}" class="bg-sky-500 text-white border-none rounded-lg px-4 py-2 text-sm font-medium hover:bg-sky-600 transition inline-block">
                         Edit Profile
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5">

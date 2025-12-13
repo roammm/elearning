@@ -30,7 +30,7 @@ class HomeController extends Controller
     {
         // Load courses from database
         $courses = Course::all();
-        
+
         $modules = $courses->map(function ($course) {
             // Get progress from completions if user is logged in
             $progress = 0;
@@ -61,18 +61,18 @@ class HomeController extends Controller
 
         // Fallback to hardcoded if no courses in database
         if (empty($modules)) {
-        $modules = [
-            [
-                'title' => 'VB-MAPP - Verbal Behavior Program',
-                'desc' => 'Materi lengkap VB-MAPP dalam bentuk presentasi interaktif',
-                'hours' => 'Self-paced',
-                'lessons' => 'PowerPoint',
-                'progress' => 0,
-                'badge' => 'VB-MAPP',
-                'cta' => 'Buka Materi',
-                'slug' => 'vb-mapp'
-            ],
-        ];
+            $modules = [
+                [
+                    'title' => 'VB-MAPP - Verbal Behavior Program',
+                    'desc' => 'Materi lengkap VB-MAPP dalam bentuk presentasi interaktif',
+                    'hours' => 'Self-paced',
+                    'lessons' => 'PowerPoint',
+                    'progress' => 0,
+                    'badge' => 'VB-MAPP',
+                    'cta' => 'Buka Materi',
+                    'slug' => 'vb-mapp'
+                ],
+            ];
         }
 
         return view('elearning', ['modules' => $modules]);
@@ -201,6 +201,60 @@ class HomeController extends Controller
         ]);
     }
 
+    // -------------------------------------------------------------------------
+    //  NEW: Edit Profile Methods
+    // -------------------------------------------------------------------------
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(): View
+    {
+        return view('profileedit', [
+            'user' => Auth::user(),
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request): RedirectResponse
+    {
+        $user = Auth::user();
+
+        // Validate the request
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            // Ensure email is unique but ignore current user's id
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+        ], [
+            'name.required' => 'Nama wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.unique' => 'Email ini sudah digunakan oleh pengguna lain.',
+        ]);
+
+        // Update user data (explicit cast to User model for IDE support)
+        /** @var \App\Models\User $user */
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+
+        // Handle Avatar Upload (Optional - jika nanti ingin diaktifkan)
+        /*
+        if ($request->hasFile('avatar')) {
+             $path = $request->file('avatar')->store('avatars', 'public');
+             $user->avatar = $path;
+        }
+        */
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profile berhasil diperbarui!');
+    }
+
+    // -------------------------------------------------------------------------
+    //  End Edit Profile Methods
+    // -------------------------------------------------------------------------
+
     /**
      * Display a course page by slug with dynamic chapters & quiz.
      */
@@ -242,10 +296,10 @@ class HomeController extends Controller
     {
         // Try to load from database first
         $courseModel = Course::where('slug', $slug)->with('quizzes')->first();
-        
+
         if ($courseModel) {
             $quizzes = $courseModel->quizzes->sortBy('order')->values();
-            
+
             if ($quizzes->isEmpty()) {
                 abort(404, 'Quiz tidak ditemukan untuk course ini.');
             }
@@ -295,11 +349,11 @@ class HomeController extends Controller
     {
         // Try to load from database first
         $courseModel = Course::where('slug', $slug)->with('quizzes')->first();
-        
+
         if ($courseModel) {
             // Use database quizzes
             $quizzes = $courseModel->quizzes->sortBy('order')->values();
-            
+
             if ($quizzes->isEmpty()) {
                 abort(404, 'Quiz tidak ditemukan untuk course ini.');
             }
@@ -323,34 +377,34 @@ class HomeController extends Controller
             $percentage = $total > 0 ? round(($score / $total) * 100) : 0;
         } else {
             // Fallback to catalog (hardcoded)
-        $catalog = $this->getCatalog();
-        if (! isset($catalog[$slug])) {
-            abort(404);
-        }
-
-        $course = $catalog[$slug];
-        $quiz = $course['quiz'] ?? [];
-        if (empty($quiz)) {
-            abort(404);
-        }
-
-        $rules = [];
-        foreach ($quiz as $index => $_question) {
-            $rules["question{$index}"] = ['required', 'string'];
-        }
-        $validated = $request->validate($rules, [
-            'required' => 'Pertanyaan ini wajib dijawab.',
-        ]);
-
-        $score = 0;
-        foreach ($quiz as $index => $question) {
-            if (($validated["question{$index}"] ?? null) === $question['answer']) {
-                $score++;
+            $catalog = $this->getCatalog();
+            if (! isset($catalog[$slug])) {
+                abort(404);
             }
-        }
 
-        $total = count($quiz);
-        $percentage = $total > 0 ? round(($score / $total) * 100) : 0;
+            $course = $catalog[$slug];
+            $quiz = $course['quiz'] ?? [];
+            if (empty($quiz)) {
+                abort(404);
+            }
+
+            $rules = [];
+            foreach ($quiz as $index => $_question) {
+                $rules["question{$index}"] = ['required', 'string'];
+            }
+            $validated = $request->validate($rules, [
+                'required' => 'Pertanyaan ini wajib dijawab.',
+            ]);
+
+            $score = 0;
+            foreach ($quiz as $index => $question) {
+                if (($validated["question{$index}"] ?? null) === $question['answer']) {
+                    $score++;
+                }
+            }
+
+            $total = count($quiz);
+            $percentage = $total > 0 ? round(($score / $total) * 100) : 0;
         }
 
         CourseCompletion::updateOrCreate(
@@ -405,7 +459,7 @@ class HomeController extends Controller
         $chapters = $course['chapters'];
         if ($chapterIndex < 1 || $chapterIndex > count($chapters)) abort(404);
         $chapter = $chapters[$chapterIndex - 1];
-        $parts = $chapter['parts'] ?? [ ['title' => $chapter['title'], 'content' => $chapter['content'] ?? []] ];
+        $parts = $chapter['parts'] ?? [['title' => $chapter['title'], 'content' => $chapter['content'] ?? []]];
         if ($partIndex < 1 || $partIndex > count($parts)) abort(404);
         $part = $parts[$partIndex - 1];
 
@@ -436,7 +490,7 @@ class HomeController extends Controller
     private function getCatalog(): array
     {
         $catalog = [];
-        
+
         // Load courses from database
         $courses = Course::with(['quizzes' => function ($query) {
             $query->orderBy('order');
@@ -485,68 +539,68 @@ class HomeController extends Controller
 
         // Fallback to hardcoded data if database is empty
         if (empty($catalog)) {
-        return [
-            'vb-mapp' => [
-                'title' => 'Verbal Behavior - Milestone Assessment and Placement Program (VB-MAPP)',
-                'subtitle' => 'Materi presentasi VB-MAPP lengkap',
-                'chapters' => [],
-                'type' => 'ppt',
-                'file' => 'files/VBMAPP-PPT-2025.pptx',
-                'pdf' => 'files/VBMAPP-PPT-2025.pdf',
-                'quiz' => [
-                    [
-                        'question' => 'Apa tujuan utama dari VB-MAPP?',
-                        'options' => [
-                            'Mengukur milestone kemampuan verbal anak.',
-                            'Menentukan skor IQ anak.',
-                            'Mencatat riwayat medis keluarga.',
-                            'Mengukur kemampuan motorik kasar.',
+            return [
+                'vb-mapp' => [
+                    'title' => 'Verbal Behavior - Milestone Assessment and Placement Program (VB-MAPP)',
+                    'subtitle' => 'Materi presentasi VB-MAPP lengkap',
+                    'chapters' => [],
+                    'type' => 'ppt',
+                    'file' => 'files/VBMAPP-PPT-2025.pptx',
+                    'pdf' => 'files/VBMAPP-PPT-2025.pdf',
+                    'quiz' => [
+                        [
+                            'question' => 'Apa tujuan utama dari VB-MAPP?',
+                            'options' => [
+                                'Mengukur milestone kemampuan verbal anak.',
+                                'Menentukan skor IQ anak.',
+                                'Mencatat riwayat medis keluarga.',
+                                'Mengukur kemampuan motorik kasar.',
+                            ],
+                            'answer' => 'Mengukur milestone kemampuan verbal anak.'
                         ],
-                        'answer' => 'Mengukur milestone kemampuan verbal anak.'
-                    ],
-                    [
-                        'question' => 'Bagian Transition Assessment pada VB-MAPP digunakan untuk?',
-                        'options' => [
-                            'Menilai kesiapan pindah ke lingkungan belajar baru.',
-                            'Mengukur tinggi badan anak.',
-                            'Mengetes kemampuan membaca cepat.',
-                            'Menentukan skor akademik rapor.',
+                        [
+                            'question' => 'Bagian Transition Assessment pada VB-MAPP digunakan untuk?',
+                            'options' => [
+                                'Menilai kesiapan pindah ke lingkungan belajar baru.',
+                                'Mengukur tinggi badan anak.',
+                                'Mengetes kemampuan membaca cepat.',
+                                'Menentukan skor akademik rapor.',
+                            ],
+                            'answer' => 'Menilai kesiapan pindah ke lingkungan belajar baru.'
                         ],
-                        'answer' => 'Menilai kesiapan pindah ke lingkungan belajar baru.'
-                    ],
-                    [
-                        'question' => 'Berapa tingkat milestone yang dicakup VB-MAPP?',
-                        'options' => [
-                            'Level 1-3 (0-48 bulan perkembangan).',
-                            'Level 1-2 saja.',
-                            'Level sekolah dasar kelas 4-6.',
-                            'Level remaja SMP.',
+                        [
+                            'question' => 'Berapa tingkat milestone yang dicakup VB-MAPP?',
+                            'options' => [
+                                'Level 1-3 (0-48 bulan perkembangan).',
+                                'Level 1-2 saja.',
+                                'Level sekolah dasar kelas 4-6.',
+                                'Level remaja SMP.',
+                            ],
+                            'answer' => 'Level 1-3 (0-48 bulan perkembangan).'
                         ],
-                        'answer' => 'Level 1-3 (0-48 bulan perkembangan).'
-                    ],
-                    [
-                        'question' => 'Apa fungsi Barriers Assessment dalam VB-MAPP?',
-                        'options' => [
-                            'Mengidentifikasi hambatan belajar seperti prompt dependency atau behavior problem.',
-                            'Mengukur tinggi badan anak.',
-                            'Menghitung jumlah kata yang diketahui.',
-                            'Menilai kemampuan olahraga.',
+                        [
+                            'question' => 'Apa fungsi Barriers Assessment dalam VB-MAPP?',
+                            'options' => [
+                                'Mengidentifikasi hambatan belajar seperti prompt dependency atau behavior problem.',
+                                'Mengukur tinggi badan anak.',
+                                'Menghitung jumlah kata yang diketahui.',
+                                'Menilai kemampuan olahraga.',
+                            ],
+                            'answer' => 'Mengidentifikasi hambatan belajar seperti prompt dependency atau behavior problem.'
                         ],
-                        'answer' => 'Mengidentifikasi hambatan belajar seperti prompt dependency atau behavior problem.'
-                    ],
-                    [
-                        'question' => 'Siapa yang idealnya menggunakan VB-MAPP?',
-                        'options' => [
-                            'Analyzer perilaku, terapis ABA, dan pendidik khusus.',
-                            'Hanya orang tua tanpa pendamping profesional.',
-                            'Instruktur olahraga.',
-                            'Petugas administrasi sekolah umum.',
+                        [
+                            'question' => 'Siapa yang idealnya menggunakan VB-MAPP?',
+                            'options' => [
+                                'Analyzer perilaku, terapis ABA, dan pendidik khusus.',
+                                'Hanya orang tua tanpa pendamping profesional.',
+                                'Instruktur olahraga.',
+                                'Petugas administrasi sekolah umum.',
+                            ],
+                            'answer' => 'Analyzer perilaku, terapis ABA, dan pendidik khusus.'
                         ],
-                        'answer' => 'Analyzer perilaku, terapis ABA, dan pendidik khusus.'
                     ],
                 ],
-            ],
-        ];
+            ];
         }
 
         return $catalog;
@@ -563,11 +617,11 @@ class HomeController extends Controller
         return CourseCompletion::query()
             ->selectRaw(
                 'course_completions.user_id, ' .
-                'SUM(course_completions.score) as total_score, ' .
-                'SUM(course_completions.total_questions) as total_questions, ' .
-                'COUNT(course_completions.id) as completions, ' .
-                'MAX(course_completions.completed_at) as last_completed_at, ' .
-                $userTable . '.name as name'
+                    'SUM(course_completions.score) as total_score, ' .
+                    'SUM(course_completions.total_questions) as total_questions, ' .
+                    'COUNT(course_completions.id) as completions, ' .
+                    'MAX(course_completions.completed_at) as last_completed_at, ' .
+                    $userTable . '.name as name'
             )
             ->join($userTable, $userTable . '.' . $userKey, '=', 'course_completions.user_id')
             ->groupBy('course_completions.user_id', $userTable . '.name')
@@ -578,7 +632,7 @@ class HomeController extends Controller
                 $parts = collect(preg_split('/\s+/', trim((string) $row->name)))->filter()->take(2);
                 $row->initials = $parts->isEmpty()
                     ? Str::upper(Str::substr($row->name ?? 'U', 0, 1))
-                    : $parts->map(fn ($part) => Str::upper(Str::substr($part, 0, 1)))->implode('');
+                    : $parts->map(fn($part) => Str::upper(Str::substr($part, 0, 1)))->implode('');
                 $row->percentage = ($row->total_questions ?? 0) > 0
                     ? round(($row->total_score / $row->total_questions) * 100)
                     : 0;
