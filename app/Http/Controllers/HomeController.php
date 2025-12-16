@@ -22,6 +22,15 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function contact(): View
+    {
+        return view('contact');
+    }
+
+    public function about(): View
+    {
+        return view('about');
+    }
 
     /**
      * Elearning modules page (moved from previous home content)

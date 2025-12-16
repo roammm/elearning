@@ -34,9 +34,11 @@ Route::middleware('auth')->group(function () {
 Route::get('/login', [App\Http\Controllers\AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [App\Http\Controllers\AuthController::class, 'login']);
 Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
-Route::get('/register', [App\Http\Controllers\AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [App\Http\Controllers\AuthController::class, 'register']);
+// Route::get('/register', [App\Http\Controllers\AuthController::class, 'showRegisterForm'])->name('register');
+// Route::post('/register', [App\Http\Controllers\AuthController::class, 'register']);
 
 // Google OAuth routes
 Route::get('/auth/google', [App\Http\Controllers\AuthController::class, 'redirectToGoogle'])->name('google.login');
