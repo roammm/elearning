@@ -54,13 +54,11 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="order-1 lg:order-2 flex justify-center lg:justify-end">
                     <img src="img/contact-us.png"
                         alt="Customer Service Team"
                         class="w-full max-w-lg h-auto shadow-lg ">
                 </div>
-
             </div>
         </div>
     </div>
