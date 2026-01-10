@@ -263,113 +263,77 @@
             </div>
         </section>
 
-        <section class="mb-24 relative bg-sky-50/70 rounded-[40px] p-10 shadow">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Apa Kata Mereka?</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Kisah sukses dari berbagai profesi yang telah bergabung dalam ekosistem ABATI.</p>
-            </div>
-
-            <div class="swiper testimonial-swiper pb-12 px-4">
-                <div class="swiper-wrapper">
-
-                    <div class="swiper-slide h-auto">
-                        <div class="bg-white p-8 rounded-[32px] shadow-md border-b-4 border-sky-500 h-full flex flex-col group transition-all duration-300 hover:shadow-xl">
-                            <div class="flex gap-1 mb-4 text-amber-400 text-sm">★★★★★</div>
-                            <p class="text-gray-600 italic mb-8 leading-relaxed flex-1">"Materi DTT dan NET-nya sangat aplikatif. Saya langsung bisa mempraktikkannya di klinik tempat saya bekerja. Sangat direkomendasikan!"</p>
-                            <div class="flex items-center gap-4 pt-6 border-t border-slate-50">
-                                <div class="w-12 h-12 rounded-2xl bg-sky-100 flex items-center justify-center text-sky-600 font-bold">AS</div>
-                                <div class="text-left">
-                                    <div class="font-bold text-gray-900 text-sm">Anisa Septiani</div>
-                                    <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">Alumni Batch 12 • Terapis</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide h-auto">
-                        <div class="bg-white p-8 rounded-[32px] shadow-md border-b-4 border-indigo-500 h-full flex flex-col group transition-all duration-300 hover:shadow-xl">
-                            <div class="flex gap-1 mb-4 text-amber-400 text-sm">★★★★★</div>
-                            <p class="text-gray-600 italic mb-8 leading-relaxed flex-1">"Workshop Toilet Training benar-benar membantu saya memahami prosedur yang benar. Sekarang anak saya jauh lebih mandiri."</p>
-                            <div class="flex items-center gap-4 pt-6 border-t border-slate-50">
-                                <div class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">BP</div>
-                                <div class="text-left">
-                                    <div class="font-bold text-gray-900 text-sm">Budi Pratama</div>
-                                    <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">Orang Tua • Workshop</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide h-auto">
-                        <div class="bg-white p-8 rounded-[32px] shadow-md border-b-4 border-teal-500 h-full flex flex-col group transition-all duration-300 hover:shadow-xl">
-                            <div class="flex gap-1 mb-4 text-amber-400 text-sm">★★★★★</div>
-                            <p class="text-gray-600 italic mb-8 leading-relaxed flex-1">"Sebagai mahasiswa psikologi, ABATI memberikan pemahaman praktis yang tidak saya dapatkan di bangku kuliah. Sangat membantu tugas akhir saya."</p>
-                            <div class="flex items-center gap-4 pt-6 border-t border-slate-50">
-                                <div class="w-12 h-12 rounded-2xl bg-teal-100 flex items-center justify-center text-teal-600 font-bold">RR</div>
-                                <div class="text-left">
-                                    <div class="font-bold text-gray-900 text-sm">Rina Rahmawati</div>
-                                    <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">Mahasiswa • Kelas Dasar</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide h-auto">
-                        <div class="bg-white p-8 rounded-[32px] shadow-md border-b-4 border-rose-500 h-full flex flex-col group transition-all duration-300 hover:shadow-xl">
-                            <div class="flex gap-1 mb-4 text-amber-400 text-sm">★★★★★</div>
-                            <p class="text-gray-600 italic mb-8 leading-relaxed flex-1">"Manajemen perilaku yang diajarkan sangat membantu saya mengelola kelas inklusi dengan lebih tenang dan terstruktur."</p>
-                            <div class="flex items-center gap-4 pt-6 border-t border-slate-50">
-                                <div class="w-12 h-12 rounded-2xl bg-rose-100 flex items-center justify-center text-rose-600 font-bold">DM</div>
-                                <div class="text-left">
-                                    <div class="font-bold text-gray-900 text-sm">Dina Maria</div>
-                                    <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">Guru • Workshop Inklusi</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide h-auto">
-                        <div class="bg-white p-8 rounded-[32px] shadow-md border-b-4 border-amber-500 h-full flex flex-col group transition-all duration-300 hover:shadow-xl">
-                            <div class="flex gap-1 mb-4 text-amber-400 text-sm">★★★★★</div>
-                            <p class="text-gray-600 italic mb-8 leading-relaxed flex-1">"Mengirim staf ke ABATI adalah investasi terbaik. Sistem data recording-nya membuat laporan perkembangan anak jadi jauh lebih rapi."</p>
-                            <div class="flex items-center gap-4 pt-6 border-t border-slate-50">
-                                <div class="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-600 font-bold">HW</div>
-                                <div class="text-left">
-                                    <div class="font-bold text-gray-900 text-sm">Hendra Wijaya</div>
-                                    <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">Owner Klinik • Case Manager</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide h-auto">
-                        <div class="bg-white p-8 rounded-[32px] shadow-md border-b-4 border-violet-500 h-full flex flex-col group transition-all duration-300 hover:shadow-xl">
-                            <div class="flex gap-1 mb-4 text-amber-400 text-sm">★★★★★</div>
-                            <p class="text-gray-600 italic mb-8 leading-relaxed flex-1">"Supervisi klinis di ABATI benar-benar mendetail. Saya belajar banyak soal etika dan ketelitian data sebagai behavior analyst."</p>
-                            <div class="flex items-center gap-4 pt-6 border-t border-slate-50">
-                                <div class="w-12 h-12 rounded-2xl bg-violet-100 flex items-center justify-center text-violet-600 font-bold">FK</div>
-                                <div class="text-left">
-                                    <div class="font-bold text-gray-900 text-sm">Fahmi Kurniawan</div>
-                                    <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">Praktisi • Supervisi Klinik</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <section class="py-24 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-16">
+                    <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-4 inline-block shadow-sm">Testimonials</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4">Apa Kata Mereka?</h2>
+                    <p class="text-slate-600">Cerita sukses dari para alumni, orang tua, dan praktisi yang telah bergabung dengan ABATI.</p>
                 </div>
-                <div class="swiper-pagination !-bottom-2"></div>
-            </div>
 
-            <div class="flex justify-center gap-4 mt-8">
-                <button class="swiper-prev bg-white p-3 rounded-full shadow-md text-sky-600 hover:bg-sky-500 hover:text-white transition duration-300">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-                <button class="swiper-next bg-white p-3 rounded-full shadow-md text-sky-600 hover:bg-sky-500 hover:text-white transition duration-300">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
+                <div class="swiper testimonial-swiper pb-16">
+                    <div class="swiper-wrapper items-stretch">
+
+                        <div class="swiper-slide h-auto flex">
+                            <div class="bg-white p-8 rounded-[32px] shadow-md border-b-4 border-sky-500 h-full w-full flex flex-col group transition-all duration-300 hover:shadow-xl">
+                                <div class="flex gap-1 mb-4 text-amber-400 text-sm">★★★★★</div>
+                                <p class="text-gray-600 italic mb-2 leading-relaxed flex-1">"Materi DTT dan NET-nya sangat aplikatif. Saya langsung bisa mempraktikkannya di klinik tempat saya bekerja. Sangat direkomendasikan!"</p>
+                                <div class="flex items-center gap-4 pt-6 border-t border-slate-50 mt-auto">
+                                    <div class="w-12 h-12 rounded-2xl bg-sky-100 flex items-center justify-center text-sky-600 font-bold shrink-0">AS</div>
+                                    <div class="text-left">
+                                        <div class="font-bold text-gray-900 text-sm">Anisa Septiani</div>
+                                        <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">Alumni Batch 12 • Terapis</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide h-auto flex">
+                            <div class="bg-white p-8 rounded-[32px] shadow-md border-b-4 border-indigo-500 h-full w-full flex flex-col group transition-all duration-300 hover:shadow-xl">
+                                <div class="flex gap-1 mb-4 text-amber-400 text-sm">★★★★★</div>
+                                <p class="text-gray-600 italic mb-8 leading-relaxed flex-1">"Workshop Toilet Training benar-benar membantu saya memahami prosedur yang benar. Sekarang anak saya jauh lebih mandiri."</p>
+                                <div class="flex items-center gap-4 pt-6 border-t border-slate-50 mt-auto">
+                                    <div class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold shrink-0">BP</div>
+                                    <div class="text-left">
+                                        <div class="font-bold text-gray-900 text-sm">Budi Pratama</div>
+                                        <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">Orang Tua • Workshop</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide h-auto flex">
+                            <div class="bg-white p-8 rounded-[32px] shadow-md border-b-4 border-teal-500 h-full w-full flex flex-col group transition-all duration-300 hover:shadow-xl">
+                                <div class="flex gap-1 mb-4 text-amber-400 text-sm">★★★★★</div>
+                                <p class="text-gray-600 italic mb-8 leading-relaxed flex-1">"Sebagai mahasiswa psikologi, ABATI memberikan pemahaman praktis yang tidak saya dapatkan di bangku kuliah. Sangat membantu tugas akhir saya."</p>
+                                <div class="flex items-center gap-4 pt-6 border-t border-slate-50 mt-auto">
+                                    <div class="w-12 h-12 rounded-2xl bg-teal-100 flex items-center justify-center text-teal-600 font-bold shrink-0">RR</div>
+                                    <div class="text-left">
+                                        <div class="font-bold text-gray-900 text-sm">Rina Rahmawati</div>
+                                        <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">Mahasiswa • Kelas Dasar</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide h-auto flex">
+                            <div class="bg-white p-8 rounded-[32px] shadow-md border-b-4 border-rose-500 h-full w-full flex flex-col group transition-all duration-300 hover:shadow-xl">
+                                <div class="flex gap-1 mb-4 text-amber-400 text-sm">★★★★★</div>
+                                <p class="text-gray-600 italic mb-8 leading-relaxed flex-1">"Manajemen perilaku yang diajarkan sangat membantu saya mengelola kelas inklusi dengan lebih tenang dan terstruktur."</p>
+                                <div class="flex items-center gap-4 pt-6 border-t border-slate-50 mt-auto">
+                                    <div class="w-12 h-12 rounded-2xl bg-rose-100 flex items-center justify-center text-rose-600 font-bold shrink-0">DM</div>
+                                    <div class="text-left">
+                                        <div class="font-bold text-gray-900 text-sm">Dina Maria</div>
+                                        <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">Guru • Workshop Inklusi</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+                </div>
             </div>
         </section>
 
@@ -507,25 +471,23 @@
                 slidesPerView: 1,
                 spaceBetween: 20,
                 loop: true,
+                autoHeight: false,
+                observer: true,
+                observeParents: true,
+                watchSlidesProgress: true,
                 autoplay: {
                     delay: 4000,
                     disableOnInteraction: false,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
                 },
                 navigation: {
                     nextEl: '.swiper-next',
                     prevEl: '.swiper-prev',
                 },
                 breakpoints: {
-                    // Saat layar >= 640px (tablet)
                     640: {
                         slidesPerView: 2,
                         spaceBetween: 30,
                     },
-                    // Saat layar >= 1024px (desktop)
                     1024: {
                         slidesPerView: 3,
                         spaceBetween: 30,

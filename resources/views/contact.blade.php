@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
-<body class="font-['Inter'] bg-slate-50 text-slate-800 m-0 p-0 antialiased">
+<body class="font-['Inter'] bg-slate-50 text-slate-800 m-0 p-0 antialiased mb-10">
 
     @include('navbar')
 

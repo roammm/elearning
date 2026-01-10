@@ -9,7 +9,7 @@
             </a>
 
             {{-- Desktop Navbar (Hidden on Mobile) --}}
-            <div class="hidden md:flex items-center gap-6">
+            <div class="hidden md:flex items-center gap-6 mr-10">
                 @auth
                 {{-- Authenticated Desktop Menu --}}
                 <nav class="flex items-center gap-6">
