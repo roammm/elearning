@@ -10,6 +10,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -236,10 +238,14 @@ class HomeController extends Controller
             'name' => ['required', 'string', 'max:255'],
             // Ensure email is unique but ignore current user's id
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,jpg,png,gif', 'max:1024'],
         ], [
             'name.required' => 'Nama wajib diisi.',
             'email.required' => 'Email wajib diisi.',
             'email.unique' => 'Email ini sudah digunakan oleh pengguna lain.',
+            'avatar.image' => 'File harus berupa gambar.',
+            'avatar.mimes' => 'Format gambar harus JPG, JPEG, PNG, atau GIF.',
+            'avatar.max' => 'Ukuran gambar maksimal 1MB.',
         ]);
 
         // Update user data (explicit cast to User model for IDE support)
@@ -247,17 +253,78 @@ class HomeController extends Controller
         $user->name = $validated['name'];
         $user->email = $validated['email'];
 
-        // Handle Avatar Upload (Optional - jika nanti ingin diaktifkan)
-        /*
+        // Handle Avatar Upload
         if ($request->hasFile('avatar')) {
-             $path = $request->file('avatar')->store('avatars', 'public');
-             $user->avatar = $path;
+            // Delete old avatar if exists
+            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+            
+            // Store new avatar
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
         }
-        */
 
         $user->save();
 
         return redirect()->back()->with('success', 'Profile berhasil diperbarui!');
+    }
+
+    /**
+     * Update user password.
+     */
+    public function updatePassword(Request $request): RedirectResponse
+    {
+        $user = Auth::user();
+
+        // Validate the request
+        $validated = $request->validate([
+            'current_password' => ['required', 'string'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'current_password.required' => 'Password saat ini wajib diisi.',
+            'password.required' => 'Password baru wajib diisi.',
+            'password.min' => 'Password baru minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak sesuai.',
+        ]);
+
+        // Verify current password
+        if (!Hash::check($validated['current_password'], $user->password)) {
+            return redirect()->back()->withErrors(['current_password' => 'Password saat ini tidak sesuai.'])->withInput();
+        }
+
+        // Update password
+        /** @var \App\Models\User $user */
+        $user->password = Hash::make($validated['password']);
+        $user->save();
+
+        return redirect()->back()->with('success-password', 'Password berhasil diubah!');
+    }
+
+    /**
+     * Delete user account.
+     */
+    public function destroyAccount(Request $request): RedirectResponse
+    {
+        $user = Auth::user();
+
+        // Delete user's avatar if exists
+        if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+            Storage::disk('public')->delete($user->avatar);
+        }
+
+        // Delete user's course completions
+        CourseCompletion::where('user_id', $user->id)->delete();
+
+        // Logout user before deleting account
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Delete user account
+        $user->delete();
+
+        return redirect()->route('home')->with('success', 'Akun Anda telah berhasil dihapus.');
     }
 
     // -------------------------------------------------------------------------
@@ -542,6 +609,7 @@ class HomeController extends Controller
                 'type' => $course->type ?? 'standard',
                 'file' => $course->file,
                 'pdf' => $course->pdf,
+                'video_url' => $course->video_url,
                 'quiz' => $quizzes,
             ];
         }

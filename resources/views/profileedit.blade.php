@@ -39,16 +39,37 @@
                     <h2 class="font-bold text-slate-900 text-lg mb-1">Informasi Dasar</h2>
                     <p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">Foto profil dan detail kontak Anda.</p>
 
-                    <form action="#" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @if(session('success'))
+                        <div class="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
+                            {{ session('success') }}
+                        </div>
+                        @endif
+                        @if($errors->any())
+                        <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                            <ul class="list-disc list-inside">
+                                @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                         <div class="flex items-center gap-5 mb-6">
-                            <div class="w-16 h-16 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-700 text-2xl shrink-0 overflow-hidden border-2 border-slate-100">
-                                {{-- Placeholder Inisial --}}
-                                {{ strtoupper(substr($user->name ?? 'U', 0, 1)) }}
+                            <div class="w-20 h-20 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-700 text-2xl shrink-0 overflow-hidden border-2 border-slate-100 relative">
+                                @php
+                                    $hasAvatar = $user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar);
+                                @endphp
+                                @if($hasAvatar)
+                                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="w-full h-full object-cover" id="avatar-preview">
+                                @else
+                                    <span id="avatar-initial">{{ strtoupper(substr($user->name ?? 'U', 0, 1)) }}</span>
+                                    <img src="" alt="Avatar" class="w-full h-full object-cover hidden" id="avatar-preview">
+                                @endif
                             </div>
                             <div class="flex-1">
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Ganti Foto</label>
-                                <input type="file" class="block w-full text-sm text-slate-500
+                                <input type="file" name="avatar" id="avatar-input" accept="image/jpeg,image/jpg,image/png,image/gif" class="block w-full text-sm text-slate-500
                                     file:mr-4 file:py-2 file:px-4
                                     file:rounded-full file:border-0
                                     file:text-xs file:font-semibold
@@ -75,8 +96,60 @@
                         </div>
 
                         <div class="mt-6 flex justify-end">
-                            <button type="button" class="bg-sky-500 text-white border-none rounded-lg px-5 py-2.5 text-sm font-medium cursor-pointer hover:bg-sky-600 transition shadow-sm">
+                            <button type="submit" class="bg-sky-500 text-white border-none rounded-lg px-5 py-2.5 text-sm font-medium cursor-pointer hover:bg-sky-600 transition shadow-sm">
                                 Simpan Perubahan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6">
+                    <h2 class="font-bold text-slate-900 text-lg mb-1">Ganti Password</h2>
+                    <p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">Perbarui kata sandi untuk keamanan akun Anda.</p>
+
+                    <form action="{{ route('profile.update-password') }}" method="POST">
+                        @csrf
+                        @if(session('success-password'))
+                        <div class="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
+                            {{ session('success-password') }}
+                        </div>
+                        @endif
+                        @if($errors->has('current_password') || $errors->has('password'))
+                        <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                            <ul class="list-disc list-inside">
+                                @if($errors->has('current_password'))
+                                <li>{{ $errors->first('current_password') }}</li>
+                                @endif
+                                @if($errors->has('password'))
+                                <li>{{ $errors->first('password') }}</li>
+                                @endif
+                            </ul>
+                        </div>
+                        @endif
+
+                        <div class="grid grid-cols-1 gap-4">
+                            <div>
+                                <label for="current_password" class="block text-sm font-medium text-slate-700 mb-1">Password Saat Ini</label>
+                                <input type="password" name="current_password" id="current_password" required
+                                    class="w-full rounded-lg border-slate-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm px-3 py-2 border text-slate-800 placeholder-slate-400">
+                            </div>
+
+                            <div>
+                                <label for="password" class="block text-sm font-medium text-slate-700 mb-1">Password Baru</label>
+                                <input type="password" name="password" id="password" required
+                                    class="w-full rounded-lg border-slate-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm px-3 py-2 border text-slate-800 placeholder-slate-400">
+                            </div>
+
+                            <div>
+                                <label for="password_confirmation" class="block text-sm font-medium text-slate-700 mb-1">Konfirmasi Password Baru</label>
+                                <input type="password" name="password_confirmation" id="password_confirmation" required
+                                    class="w-full rounded-lg border-slate-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm px-3 py-2 border text-slate-800 placeholder-slate-400">
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex justify-end">
+                            <button type="submit" class="bg-sky-500 text-white border-none rounded-lg px-5 py-2.5 text-sm font-medium cursor-pointer hover:bg-sky-600 transition shadow-sm">
+                                Ubah Password
                             </button>
                         </div>
                     </form>
@@ -103,14 +176,40 @@
                 <div class="border-t border-slate-200 pt-6">
                     <h3 class="font-bold text-slate-900 text-sm mb-2">Hapus Akun</h3>
                     <p class="text-xs text-slate-500 mb-3">Menghapus akun akan menghilangkan semua progres belajar dan sertifikat secara permanen.</p>
-                    <button class="w-full border border-red-200 bg-white text-red-600 hover:bg-red-50 hover:border-red-300 text-sm font-medium py-2 px-4 rounded-lg transition duration-200">
-                        Hapus Akun Saya
-                    </button>
+                    <form action="{{ route('profile.destroy') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan dan akan menghapus semua progres belajar serta sertifikat Anda secara permanen.');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="w-full border border-red-200 bg-white text-red-600 hover:bg-red-50 hover:border-red-300 text-sm font-medium py-2 px-4 rounded-lg transition duration-200">
+                            Hapus Akun Saya
+                        </button>
+                    </form>
                 </div>
             </div>
 
         </div>
     </div>
+
+    <script>
+        // Preview avatar when file is selected
+        document.getElementById('avatar-input')?.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('avatar-preview');
+                    const initial = document.getElementById('avatar-initial');
+                    if (preview) {
+                        preview.src = e.target.result;
+                        preview.classList.remove('hidden');
+                    }
+                    if (initial) {
+                        initial.classList.add('hidden');
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 
 </body>
 

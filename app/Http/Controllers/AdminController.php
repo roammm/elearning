@@ -52,22 +52,42 @@ class AdminController extends Controller
 
     public function storeCourse(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
+        $rules = [
             'title' => 'required|string|max:255',
             'subtitle' => 'nullable|string|max:255',
-            'type' => 'required|in:ppt,standard',
+            'type' => 'required|in:ppt,standard,video',
             'file' => 'nullable|file|mimes:pptx,ppt',
             'pdf' => 'nullable|file|mimes:pdf',
-        ]);
+            'video_url' => 'nullable|url|max:500',
+        ];
+
+        // Require video_url if type is video
+        if ($request->type === 'video') {
+            $rules['video_url'] = 'required|url|max:500';
+        }
+
+        $validated = $request->validate($rules);
 
         $slug = Str::slug($validated['title']);
 
-        if ($request->hasFile('file')) {
-            $validated['file'] = $request->file('file')->store('files', 'public');
+        // Only handle file uploads if type is ppt
+        if ($validated['type'] === 'ppt') {
+            if ($request->hasFile('file')) {
+                $validated['file'] = $request->file('file')->store('files', 'public');
+            }
+
+            if ($request->hasFile('pdf')) {
+                $validated['pdf'] = $request->file('pdf')->store('files', 'public');
+            }
+        } else {
+            // Clear file fields if not ppt type
+            $validated['file'] = null;
+            $validated['pdf'] = null;
         }
 
-        if ($request->hasFile('pdf')) {
-            $validated['pdf'] = $request->file('pdf')->store('files', 'public');
+        // Only store video_url if type is video
+        if ($validated['type'] !== 'video') {
+            $validated['video_url'] = null;
         }
 
         Course::create(array_merge($validated, ['slug' => $slug]));
@@ -82,28 +102,54 @@ class AdminController extends Controller
 
     public function updateCourse(Request $request, Course $course): RedirectResponse
     {
-        $validated = $request->validate([
+        $rules = [
             'title' => 'required|string|max:255',
             'subtitle' => 'nullable|string|max:255',
-            'type' => 'required|in:ppt,standard',
+            'type' => 'required|in:ppt,standard,video',
             'file' => 'nullable|file|mimes:pptx,ppt',
             'pdf' => 'nullable|file|mimes:pdf',
-        ]);
+            'video_url' => 'nullable|url|max:500',
+        ];
+
+        // Require video_url if type is video
+        if ($request->type === 'video') {
+            $rules['video_url'] = 'required|url|max:500';
+        }
+
+        $validated = $request->validate($rules);
 
         $slug = Str::slug($validated['title']);
 
-        if ($request->hasFile('file')) {
+        // Only handle file uploads if type is ppt
+        if ($validated['type'] === 'ppt') {
+            if ($request->hasFile('file')) {
+                if ($course->file) {
+                    Storage::disk('public')->delete($course->file);
+                }
+                $validated['file'] = $request->file('file')->store('files', 'public');
+            }
+
+            if ($request->hasFile('pdf')) {
+                if ($course->pdf) {
+                    Storage::disk('public')->delete($course->pdf);
+                }
+                $validated['pdf'] = $request->file('pdf')->store('files', 'public');
+            }
+        } else {
+            // Clear file fields if changing from ppt to other type
             if ($course->file) {
                 Storage::disk('public')->delete($course->file);
             }
-            $validated['file'] = $request->file('file')->store('files', 'public');
-        }
-
-        if ($request->hasFile('pdf')) {
             if ($course->pdf) {
                 Storage::disk('public')->delete($course->pdf);
             }
-            $validated['pdf'] = $request->file('pdf')->store('files', 'public');
+            $validated['file'] = null;
+            $validated['pdf'] = null;
+        }
+
+        // Only store video_url if type is video
+        if ($validated['type'] !== 'video') {
+            $validated['video_url'] = null;
         }
 
         $course->update(array_merge($validated, ['slug' => $slug]));

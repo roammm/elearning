@@ -2,8 +2,37 @@
 <html lang="id">
 @php
 $isPresentation = isset($course['type']) && $course['type'] === 'ppt' && !empty($course['file']);
+$isVideo = isset($course['type']) && $course['type'] === 'video' && !empty($course['video_url']);
 $presentationPdf = $isPresentation ? ($course['pdf'] ?? null) : null;
 $quizResult = session('quiz_result');
+
+// Function to convert video URL to embeddable format
+function getEmbedUrl($url) {
+    if (empty($url)) return null;
+    
+    // YouTube URL handling
+    if (preg_match('/youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $url, $matches)) {
+        return 'https://www.youtube.com/embed/' . $matches[1];
+    }
+    if (preg_match('/youtu\.be\/([a-zA-Z0-9_-]+)/', $url, $matches)) {
+        return 'https://www.youtube.com/embed/' . $matches[1];
+    }
+    if (preg_match('/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/', $url, $matches)) {
+        return $url; // Already embed format
+    }
+    
+    // Google Drive URL handling - check if already in preview format
+    if (preg_match('/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/preview/', $url, $matches)) {
+        return $url; // Already in preview format
+    }
+    if (preg_match('/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/', $url, $matches)) {
+        return 'https://drive.google.com/file/d/' . $matches[1] . '/preview';
+    }
+    
+    return $url; // Return as-is if no match
+}
+
+$embedUrl = $isVideo ? getEmbedUrl($course['video_url']) : null;
 @endphp
 
 <head>
@@ -101,6 +130,58 @@ $quizResult = session('quiz_result');
         </div>
         @endif
 
+        @elseif($isVideo)
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 mb-4">
+            <div class="font-bold text-slate-900 mb-4 text-base">Materi Video</div>
+            @if($embedUrl)
+            <div class="relative w-full" style="padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #000;">
+                <iframe 
+                    id="video-player"
+                    src="{{ $embedUrl }}" 
+                    class="absolute top-0 left-0 w-full h-full border-none rounded-lg"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    style="width: 100%; height: 100%;">
+                </iframe>
+            </div>
+            <div class="mt-4 flex gap-3 flex-wrap">
+                <a href="{{ $course['video_url'] }}" target="_blank" class="inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition shadow-sm no-underline">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Buka di Tab Baru
+                </a>
+                <button onclick="toggleFullscreen()" class="inline-flex items-center justify-center px-4 py-2 bg-slate-600 text-white text-sm font-medium rounded-lg hover:bg-slate-700 transition shadow-sm">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                    </svg>
+                    Fullscreen
+                </button>
+                <a href="{{ $course['video_url'] }}" download class="inline-flex items-center justify-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition shadow-sm no-underline">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    Download
+                </a>
+            </div>
+            @else
+            <p class="text-slate-500 text-sm italic">Video belum tersedia.</p>
+            @endif
+        </div>
+
+        @if(!empty($course['quiz']) && count($course['quiz']) > 0)
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 flex items-center justify-between mt-4">
+            <div>
+                <div class="font-bold text-slate-900 mb-0.5">Kuis Akhir Modul</div>
+                <div class="text-xs text-slate-500">Selesaikan kuis untuk mendapatkan sertifikat</div>
+            </div>
+            <a href="{{ route('course.quiz.show', $slug) }}" class="inline-flex items-center justify-center px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition shadow-sm no-underline">
+                Mulai Kuis
+            </a>
+        </div>
+        @endif
+
         @else
         <div class="flex flex-col gap-0 border-t border-slate-200 bg-white rounded-xl overflow-hidden shadow-sm mt-4">
             @foreach ($course['chapters'] as $chapter)
@@ -140,6 +221,45 @@ $quizResult = session('quiz_result');
         @endif
 
     </div>
+
+    @if($isVideo)
+    <script>
+        function toggleFullscreen() {
+            const iframe = document.getElementById('video-player');
+            const container = iframe.parentElement;
+            
+            if (!document.fullscreenElement) {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        // Handle fullscreen change event
+        document.addEventListener('fullscreenchange', function() {
+            const iframe = document.getElementById('video-player');
+            if (document.fullscreenElement) {
+                iframe.style.width = '100vw';
+                iframe.style.height = '100vh';
+            } else {
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+            }
+        });
+    </script>
+    @endif
 </body>
 
 </html>

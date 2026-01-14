@@ -136,6 +136,38 @@
             }
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const typeSelect = document.getElementById('type-select');
+            const pptFields = document.getElementById('ppt-fields');
+            const pdfFields = document.getElementById('pdf-fields');
+            const videoFields = document.getElementById('video-fields');
+
+            function toggleFields() {
+                const type = typeSelect.value;
+                const videoUrlInput = document.getElementById('video-url-input');
+                if (type === 'ppt') {
+                    pptFields.style.display = 'block';
+                    pdfFields.style.display = 'block';
+                    videoFields.style.display = 'none';
+                    if (videoUrlInput) videoUrlInput.removeAttribute('required');
+                } else if (type === 'video') {
+                    pptFields.style.display = 'none';
+                    pdfFields.style.display = 'none';
+                    videoFields.style.display = 'block';
+                    if (videoUrlInput) videoUrlInput.setAttribute('required', 'required');
+                } else {
+                    pptFields.style.display = 'none';
+                    pdfFields.style.display = 'none';
+                    videoFields.style.display = 'none';
+                    if (videoUrlInput) videoUrlInput.removeAttribute('required');
+                }
+            }
+
+            typeSelect.addEventListener('change', toggleFields);
+            toggleFields(); // Initial call
+        });
+    </script>
 </head>
 
 <body>
@@ -165,14 +197,15 @@
 
                 <div class="form-group">
                     <label class="form-label">Type *</label>
-                    <select name="type" class="form-select" required>
+                    <select name="type" id="type-select" class="form-select" required>
                         <option value="standard" {{ old('type', $course->type) == 'standard' ? 'selected' : '' }}>Standard</option>
                         <option value="ppt" {{ old('type', $course->type) == 'ppt' ? 'selected' : '' }}>PowerPoint</option>
+                        <option value="video" {{ old('type', $course->type) == 'video' ? 'selected' : '' }}>Video</option>
                     </select>
                     @error('type')<div class="error">{{ $message }}</div>@enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="ppt-fields">
                     <label class="form-label">PowerPoint File (PPT/PPTX)</label>
                     <input type="file" name="file" class="form-file" accept=".ppt,.pptx">
                     @if($course->file)
@@ -181,13 +214,20 @@
                     @error('file')<div class="error">{{ $message }}</div>@enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="pdf-fields">
                     <label class="form-label">PDF File</label>
                     <input type="file" name="pdf" class="form-file" accept=".pdf">
                     @if($course->pdf)
                     <div class="file-info">File saat ini: {{ basename($course->pdf) }}</div>
                     @endif
                     @error('pdf')<div class="error">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="form-group" id="video-fields" style="display: none;">
+                    <label class="form-label">Video URL (YouTube/GDrive) *</label>
+                    <input type="url" name="video_url" id="video-url-input" class="form-input" value="{{ old('video_url', $course->video_url) }}" placeholder="https://www.youtube.com/watch?v=... atau https://drive.google.com/file/d/...">
+                    <div class="file-info" style="margin-top: 4px;">Masukkan link YouTube atau Google Drive</div>
+                    @error('video_url')<div class="error">{{ $message }}</div>@enderror
                 </div>
 
                 <div style="display:flex;gap:12px;margin-top:32px">

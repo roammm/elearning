@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     Route::get('/profile/edit', [HomeController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [HomeController::class, 'update'])->name('profile.update');
+    Route::post('/profile/update-password', [HomeController::class, 'updatePassword'])->name('profile.update-password');
+    Route::delete('/profile', [HomeController::class, 'destroyAccount'])->name('profile.destroy');
     Route::get('/courses/{slug}', [HomeController::class, 'course'])->name('course.show');
     Route::get('/courses/{slug}/quiz', [HomeController::class, 'showQuiz'])->name('course.quiz.show');
     Route::post('/courses/{slug}/quiz', [HomeController::class, 'submitQuiz'])->name('course.quiz.submit');

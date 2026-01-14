@@ -14,6 +14,7 @@ class Course extends Model
         'type',
         'file',
         'pdf',
+        'video_url',
     ];
 
     public function chapters(): HasMany
