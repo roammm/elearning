@@ -58,13 +58,13 @@
                         <div class="flex items-center gap-5 mb-6">
                             <div class="w-20 h-20 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-700 text-2xl shrink-0 overflow-hidden border-2 border-slate-100 relative">
                                 @php
-                                    $hasAvatar = $user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar);
+                                $hasAvatar = $user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar);
                                 @endphp
                                 @if($hasAvatar)
-                                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="w-full h-full object-cover" id="avatar-preview">
+                                <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="w-full h-full object-cover" id="avatar-preview">
                                 @else
-                                    <span id="avatar-initial">{{ strtoupper(substr($user->name ?? 'U', 0, 1)) }}</span>
-                                    <img src="" alt="Avatar" class="w-full h-full object-cover hidden" id="avatar-preview">
+                                <span id="avatar-initial">{{ strtoupper(substr($user->name ?? 'U', 0, 1)) }}</span>
+                                <img src="" alt="Avatar" class="w-full h-full object-cover hidden" id="avatar-preview">
                                 @endif
                             </div>
                             <div class="flex-1">
@@ -129,22 +129,63 @@
 
                         <div class="grid grid-cols-1 gap-4">
                             <div>
-                                <label for="current_password" class="block text-sm font-medium text-slate-700 mb-1">Password Saat Ini</label>
-                                <input type="password" name="current_password" id="current_password" required
-                                    class="w-full rounded-lg border-slate-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm px-3 py-2 border text-slate-800 placeholder-slate-400">
+                                <label for="current_password" class="block text-sm font-medium text-slate-700 mb-1">
+                                    Password Saat Ini
+                                </label>
+
+                                <div class="relative">
+                                    <input type="password" name="current_password" id="current_password" required
+                                        class="w-full pr-10 rounded-lg border-slate-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm px-3 py-2 border text-slate-800 placeholder-slate-400">
+
+                                    <button type="button"
+                                        onclick="togglePasswordVisibility('current_password', this)"
+                                        class="absolute inset-y-0 right-0 px-3 flex items-center">
+
+                                        <img src="/img/eye-open.svg" class="h-5 w-5" style="display:inline">
+                                        <img src="/img/eye-close.svg" class="h-5 w-5 hidden" style="display:none">
+                                    </button>
+                                </div>
                             </div>
 
                             <div>
-                                <label for="password" class="block text-sm font-medium text-slate-700 mb-1">Password Baru</label>
-                                <input type="password" name="password" id="password" required
-                                    class="w-full rounded-lg border-slate-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm px-3 py-2 border text-slate-800 placeholder-slate-400">
+                                <label for="password" class="block text-sm font-medium text-slate-700 mb-1">
+                                    Password Baru
+                                </label>
+
+                                <div class="relative">
+                                    <input type="password" name="password" id="password" required
+                                        class="w-full pr-10 rounded-lg border-slate-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm px-3 py-2 border text-slate-800 placeholder-slate-400">
+
+                                    <button type="button"
+                                        onclick="togglePasswordVisibility('password', this)"
+                                        class="absolute inset-y-0 right-0 px-3 flex items-center">
+
+                                        <img src="/img/eye-open.svg" class="h-5 w-5" style="display:inline">
+                                        <img src="/img/eye-close.svg" class="h-5 w-5 hidden" style="display:none">
+                                    </button>
+                                </div>
                             </div>
 
+
                             <div>
-                                <label for="password_confirmation" class="block text-sm font-medium text-slate-700 mb-1">Konfirmasi Password Baru</label>
-                                <input type="password" name="password_confirmation" id="password_confirmation" required
-                                    class="w-full rounded-lg border-slate-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm px-3 py-2 border text-slate-800 placeholder-slate-400">
+                                <label for="password_confirmation" class="block text-sm font-medium text-slate-700 mb-1">
+                                    Konfirmasi Password Baru
+                                </label>
+
+                                <div class="relative">
+                                    <input type="password" name="password_confirmation" id="password_confirmation" required
+                                        class="w-full pr-10 rounded-lg border-slate-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm px-3 py-2 border text-slate-800 placeholder-slate-400">
+
+                                    <button type="button"
+                                        onclick="togglePasswordVisibility('password_confirmation', this)"
+                                        class="absolute inset-y-0 right-0 px-3 flex items-center">
+
+                                        <img src="/img/eye-open.svg" class="h-5 w-5" style="display:inline">
+                                        <img src="/img/eye-close.svg" class="h-5 w-5 hidden" style="display:none">
+                                    </button>
+                                </div>
                             </div>
+
                         </div>
 
                         <div class="mt-6 flex justify-end">
@@ -209,6 +250,21 @@
                 reader.readAsDataURL(file);
             }
         });
+
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icons = btn.querySelectorAll('img');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icons[0].style.display = 'none';
+                icons[1].style.display = 'inline';
+            } else {
+                input.type = 'password';
+                icons[1].style.display = 'none';
+                icons[0].style.display = 'inline';
+            }
+        }
     </script>
 
 </body>
