@@ -217,6 +217,27 @@
                     @error('video_url')<div class="error">{{ $message }}</div>@enderror
                 </div>
 
+                <div class="form-group">
+                    <label class="form-label">Role yang dapat mengakses course ini</label>
+                    <div style="display:flex;flex-wrap:wrap;gap:10px">
+                        @foreach(($roles ?? []) as $role)
+                        <label style="display:flex;align-items:center;gap:8px;border:1px solid #e5e7eb;padding:8px 10px;border-radius:10px;background:#fff">
+                            <input type="checkbox" name="role_ids[]" value="{{ $role->id }}" {{ in_array($role->id, old('role_ids', [])) ? 'checked' : '' }}>
+                            <span style="font-size:13px;color:#111827;font-weight:600">{{ $role->name }}</span>
+                            <span style="font-size:12px;color:#6b7280">({{ $role->slug }})</span>
+                        </label>
+                        @endforeach
+                    </div>
+                    <div class="file-info" style="margin-top:8px">Jika kosong, sistem tetap akan membuat role default sesuai slug course (contoh: vbmapp).</div>
+                    @error('role_ids')<div class="error">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Tambah role baru (opsional)</label>
+                    <input type="text" name="new_role_name" class="form-input" value="{{ old('new_role_name') }}" placeholder="contoh: vbmapp">
+                    @error('new_role_name')<div class="error">{{ $message }}</div>@enderror
+                </div>
+
                 <div style="display:flex;gap:12px;margin-top:32px">
                     <button type="submit" class="btn">Simpan</button>
                     <a href="{{ route('admin.courses') }}" class="btn btn-secondary">Batal</a>

@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Chapter;
 use App\Models\Part;
 use App\Models\Quiz;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -47,7 +48,8 @@ class AdminController extends Controller
 
     public function createCourse(): View
     {
-        return view('admin.courses.create');
+        $roles = Role::orderBy('name')->get();
+        return view('admin.courses.create', compact('roles'));
     }
 
     public function storeCourse(Request $request): RedirectResponse
@@ -59,6 +61,9 @@ class AdminController extends Controller
             'file' => 'nullable|file|mimes:pptx,ppt',
             'pdf' => 'nullable|file|mimes:pdf',
             'video_url' => 'nullable|url|max:500',
+            'role_ids' => 'nullable|array',
+            'role_ids.*' => 'integer|exists:roles,id',
+            'new_role_name' => 'nullable|string|max:255',
         ];
 
         // Require video_url if type is video
@@ -90,14 +95,42 @@ class AdminController extends Controller
             $validated['video_url'] = null;
         }
 
-        Course::create(array_merge($validated, ['slug' => $slug]));
+        $course = Course::create(array_merge($validated, ['slug' => $slug]));
+
+        // Ensure default role for this course exists (slug == course slug)
+        $defaultRole = Role::firstOrCreate(
+            ['slug' => $slug],
+            ['name' => $validated['title']]
+        );
+
+        $selectedRoleIds = $request->input('role_ids', []);
+
+        // Optionally create a new role from input
+        if ($request->filled('new_role_name')) {
+            $newRoleSlug = Str::slug($request->input('new_role_name'));
+            if ($newRoleSlug) {
+                $newRole = Role::firstOrCreate(
+                    ['slug' => $newRoleSlug],
+                    ['name' => $request->input('new_role_name')]
+                );
+                $selectedRoleIds[] = $newRole->id;
+            }
+        }
+
+        // Always include the default role
+        $selectedRoleIds[] = $defaultRole->id;
+        $selectedRoleIds = array_values(array_unique(array_map('intval', $selectedRoleIds)));
+
+        $course->roles()->sync($selectedRoleIds);
 
         return redirect()->route('admin.courses')->with('success', 'Course berhasil ditambahkan.');
     }
 
     public function editCourse(Course $course): View
     {
-        return view('admin.courses.edit', compact('course'));
+        $roles = Role::orderBy('name')->get();
+        $course->load('roles');
+        return view('admin.courses.edit', compact('course', 'roles'));
     }
 
     public function updateCourse(Request $request, Course $course): RedirectResponse
@@ -109,6 +142,9 @@ class AdminController extends Controller
             'file' => 'nullable|file|mimes:pptx,ppt',
             'pdf' => 'nullable|file|mimes:pdf',
             'video_url' => 'nullable|url|max:500',
+            'role_ids' => 'nullable|array',
+            'role_ids.*' => 'integer|exists:roles,id',
+            'new_role_name' => 'nullable|string|max:255',
         ];
 
         // Require video_url if type is video
@@ -153,6 +189,31 @@ class AdminController extends Controller
         }
 
         $course->update(array_merge($validated, ['slug' => $slug]));
+
+        // Ensure default role for this course exists (slug == course slug)
+        $defaultRole = Role::firstOrCreate(
+            ['slug' => $slug],
+            ['name' => $validated['title']]
+        );
+
+        $selectedRoleIds = $request->input('role_ids', []);
+
+        if ($request->filled('new_role_name')) {
+            $newRoleSlug = Str::slug($request->input('new_role_name'));
+            if ($newRoleSlug) {
+                $newRole = Role::firstOrCreate(
+                    ['slug' => $newRoleSlug],
+                    ['name' => $request->input('new_role_name')]
+                );
+                $selectedRoleIds[] = $newRole->id;
+            }
+        }
+
+        // Always include the default role
+        $selectedRoleIds[] = $defaultRole->id;
+        $selectedRoleIds = array_values(array_unique(array_map('intval', $selectedRoleIds)));
+
+        $course->roles()->sync($selectedRoleIds);
 
         return redirect()->route('admin.courses')->with('success', 'Course berhasil diperbarui.');
     }
@@ -363,23 +424,68 @@ class AdminController extends Controller
         return redirect()->route('admin.quizzes', $course)->with('success', 'Quiz berhasil dihapus.');
     }
 
+    // ==================== ROLES ====================
+
+    public function storeRole(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9_-]+$/', 'unique:roles,name'],
+        ], [
+            'name.required' => 'Nama role wajib diisi.',
+            'name.regex' => 'Nama role hanya boleh mengandung huruf, angka, underscore (_), dan dash (-).',
+            'name.unique' => 'Role dengan nama ini sudah ada.',
+        ]);
+
+        $slug = Str::slug($validated['name']);
+
+        Role::create([
+            'name' => $validated['name'],
+            'slug' => $slug,
+        ]);
+
+        return redirect()->route('admin.users')->with('success', 'Role "' . $validated['name'] . '" berhasil ditambahkan.');
+    }
+
+    public function destroyRole(Role $role): RedirectResponse
+    {
+        $roleName = $role->name;
+        $role->delete();
+
+        return redirect()->route('admin.users')->with('success', 'Role "' . $roleName . '" berhasil dihapus.');
+    }
+
     // ==================== USERS ====================
 
     public function users(): View
     {
-        $users = User::latest()->get();
-        return view('admin.users.index', compact('users'));
+        $users = User::with('roles')->latest()->get();
+        $roles = Role::orderBy('name')->get();
+        return view('admin.users.index', compact('users', 'roles'));
     }
 
     public function updateUserRole(Request $request, User $user): RedirectResponse
     {
         $validated = $request->validate([
+            // Keep admin flag role for access to admin area; "user" remains as non-admin.
             'role' => 'required|in:admin,user',
         ]);
 
         $user->update($validated);
 
         return redirect()->route('admin.users')->with('success', 'Role user berhasil diperbarui.');
+    }
+
+    public function updateUserRoles(Request $request, User $user): RedirectResponse
+    {
+        $validated = $request->validate([
+            'role_ids' => 'nullable|array',
+            'role_ids.*' => 'integer|exists:roles,id',
+        ]);
+
+        $roleIds = array_values(array_unique(array_map('intval', $validated['role_ids'] ?? [])));
+        $user->roles()->sync($roleIds);
+
+        return redirect()->route('admin.users')->with('success', 'Akses course user berhasil diperbarui.');
     }
 
     public function destroyUser(User $user): RedirectResponse

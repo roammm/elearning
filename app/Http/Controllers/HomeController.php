@@ -17,6 +17,34 @@ use Illuminate\View\View;
 
 class HomeController extends Controller
 {
+    private function ensureCourseAccess(string $slug): void
+    {
+        // Admin bypass
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return;
+        }
+
+        $course = Course::where('slug', $slug)->with('roles')->first();
+        if (! $course) {
+            // fallback catalog courses are allowed for authenticated users
+            return;
+        }
+
+        // If course has no roles assigned, allow all authenticated users
+        if ($course->roles->isEmpty()) {
+            return;
+        }
+
+        $user = Auth::user();
+        if (! $user) {
+            abort(403, 'Unauthorized access.');
+        }
+
+        $hasAccess = $user->roles()->whereIn('roles.id', $course->roles->pluck('id'))->exists();
+        if (! $hasAccess) {
+            abort(403, 'Anda tidak memiliki akses ke course ini.');
+        }
+    }
     /**
      * Display the home page (accessible to all users).
      */
@@ -40,7 +68,34 @@ class HomeController extends Controller
     public function elearning(): View
     {
         // Load courses from database
-        $courses = Course::all();
+        $allCourses = Course::with('roles')->get();
+        
+        // Filter courses based on user access
+        $user = Auth::user();
+        $isAdmin = $user && $user->role === 'admin';
+        
+        $courses = $allCourses->filter(function ($course) use ($user, $isAdmin) {
+            // Admin can see all courses
+            if ($isAdmin) {
+                return true;
+            }
+            
+            // If user is not logged in, show nothing
+            if (!$user) {
+                return false;
+            }
+            
+            // If course has no roles assigned, allow all authenticated users
+            if ($course->roles->isEmpty()) {
+                return true;
+            }
+            
+            // Check if user has at least one role that matches course roles
+            $userRoleIds = $user->roles()->pluck('roles.id');
+            $courseRoleIds = $course->roles->pluck('id');
+            
+            return $userRoleIds->intersect($courseRoleIds)->isNotEmpty();
+        });
 
         $modules = $courses->map(function ($course) {
             // Get progress from completions if user is logged in
@@ -336,6 +391,7 @@ class HomeController extends Controller
      */
     public function course(string $slug): View
     {
+        $this->ensureCourseAccess($slug);
         $catalog = $this->getCatalog();
 
         $course = $catalog[$slug] ?? [
@@ -370,6 +426,7 @@ class HomeController extends Controller
      */
     public function showQuiz(string $slug): View
     {
+        $this->ensureCourseAccess($slug);
         // Try to load from database first
         $courseModel = Course::where('slug', $slug)->with('quizzes')->first();
 
@@ -423,6 +480,7 @@ class HomeController extends Controller
      */
     public function submitQuiz(Request $request, string $slug): RedirectResponse
     {
+        $this->ensureCourseAccess($slug);
         // Try to load from database first
         $courseModel = Course::where('slug', $slug)->with('quizzes')->first();
 
@@ -510,6 +568,7 @@ class HomeController extends Controller
      */
     public function chapter(string $slug, int $index): View
     {
+        $this->ensureCourseAccess($slug);
         // Reuse same catalog as in course()
         $catalog = $this->getCatalog();
         if (!isset($catalog[$slug])) {
@@ -529,6 +588,7 @@ class HomeController extends Controller
      */
     public function chapterPart(string $slug, int $chapterIndex, int $partIndex): View
     {
+        $this->ensureCourseAccess($slug);
         $catalog = $this->getCatalog();
         if (!isset($catalog[$slug])) abort(404);
         $course = $catalog[$slug];

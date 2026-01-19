@@ -83,8 +83,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('/quizzes/{quiz}', [App\Http\Controllers\AdminController::class, 'updateQuiz'])->name('quizzes.update');
     Route::delete('/quizzes/{quiz}', [App\Http\Controllers\AdminController::class, 'destroyQuiz'])->name('quizzes.destroy');
 
+    // Roles
+    Route::post('/roles', [App\Http\Controllers\AdminController::class, 'storeRole'])->name('roles.store');
+    Route::delete('/roles/{role}', [App\Http\Controllers\AdminController::class, 'destroyRole'])->name('roles.destroy');
+
     // Users
     Route::get('/users', [App\Http\Controllers\AdminController::class, 'users'])->name('users');
     Route::put('/users/{user}/role', [App\Http\Controllers\AdminController::class, 'updateUserRole'])->name('users.update-role');
+    Route::put('/users/{user}/roles', [App\Http\Controllers\AdminController::class, 'updateUserRoles'])->name('users.update-roles');
     Route::delete('/users/{user}', [App\Http\Controllers\AdminController::class, 'destroyUser'])->name('users.destroy');
 });
