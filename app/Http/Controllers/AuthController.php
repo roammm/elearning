@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
@@ -43,6 +44,10 @@ class AuthController extends Controller
      */
     public function showRegisterForm(): View
     {
+        // Extra safety: only admin can access (route already protected by middleware)
+        if (!Auth::check() || Auth::user()->role !== 'admin') {
+            abort(403, 'Unauthorized access.');
+        }
         return view('auth.register');
     }
 
@@ -51,6 +56,11 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
+        // Extra safety: only admin can create accounts
+        if (!Auth::check() || Auth::user()->role !== 'admin') {
+            abort(403, 'Unauthorized access.');
+        }
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -62,12 +72,12 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+            'password' => Hash::make($request->password),
+            'role' => 'user', // default member
         ]);
 
-        Auth::login($user);
-
-        return redirect()->route('home');
+        // IMPORTANT: do not log in as the newly created user
+        return redirect()->route('admin.users')->with('success', 'Member baru berhasil dibuat: ' . $user->email);
     }
 
     /**

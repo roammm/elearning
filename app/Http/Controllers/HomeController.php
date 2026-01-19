@@ -569,7 +569,6 @@ class HomeController extends Controller
     public function chapter(string $slug, int $index): View
     {
         $this->ensureCourseAccess($slug);
-        // Reuse same catalog as in course()
         $catalog = $this->getCatalog();
         if (!isset($catalog[$slug])) {
             abort(404);
@@ -579,8 +578,31 @@ class HomeController extends Controller
         if ($index < 1 || $index > count($chapters)) {
             abort(404);
         }
-        // Default redirect to first part of this chapter
-        return $this->chapterPart($slug, $index, 1);
+        $chapter = $chapters[$index - 1];
+
+        // Load actual chapter model from database to access material fields
+        $chapterModel = Course::where('slug', $slug)
+            ->with(['chapters' => function ($q) {
+                $q->orderBy('order');
+            }])
+            ->first()?->chapters[$index - 1] ?? null;
+
+        // Get parts for this chapter
+        $parts = $chapter['parts'] ?? [];
+        $totalParts = count($parts);
+        $doneParts = 0; // TODO: Implement progress tracking
+
+        return view('chapter', [
+            'slug' => $slug,
+            'course' => $course,
+            'chapter' => $chapter,
+            'chapterIndex' => $index,
+            'chapterCount' => count($chapters),
+            'parts' => $parts,
+            'totalParts' => $totalParts,
+            'doneParts' => $doneParts,
+            'chapterModel' => $chapterModel,
+        ]);
     }
 
     /**
@@ -605,6 +627,13 @@ class HomeController extends Controller
         $nextPartIndex = $partIndex < count($parts) ? $partIndex + 1 : null;
         $nextChapterIndex = ($nextPartIndex === null && $chapterIndex < count($chapters)) ? $chapterIndex + 1 : null;
 
+        // Load actual chapter model to access material fields (type, file, pdf, video_url)
+        $chapterModel = Course::where('slug', $slug)
+            ->with(['chapters' => function ($q) {
+                $q->orderBy('order');
+            }])
+            ->first()?->chapters[$chapterIndex - 1] ?? null;
+
         return view('chapter_part', [
             'slug' => $slug,
             'course' => $course,
@@ -617,6 +646,7 @@ class HomeController extends Controller
             'chapterProgressPct' => $chapterProgressPct,
             'nextPartIndex' => $nextPartIndex,
             'nextChapterIndex' => $nextChapterIndex,
+            'chapterModel' => $chapterModel,
         ]);
     }
 

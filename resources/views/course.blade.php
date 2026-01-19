@@ -117,20 +117,9 @@ $embedUrl = $isVideo ? getEmbedUrl($course['video_url']) : null;
             <p class="text-slate-500 text-sm italic">Materi belum tersedia.</p>
             @endif
         </div>
-
-        @if(!empty($course['quiz']) && count($course['quiz']) > 0)
-        <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 flex items-center justify-between mt-4">
-            <div>
-                <div class="font-bold text-slate-900 mb-0.5">Kuis Akhir Modul</div>
-                <div class="text-xs text-slate-500">Selesaikan kuis untuk mendapatkan sertifikat</div>
-            </div>
-            <a href="{{ route('course.quiz.show', $slug) }}" class="inline-flex items-center justify-center px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition shadow-sm no-underline">
-                Mulai Kuis
-            </a>
-        </div>
         @endif
 
-        @elseif($isVideo)
+        @if($isVideo)
         <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 mb-4">
             <div class="font-bold text-slate-900 mb-4 text-base">Materi Video</div>
             @if($embedUrl)
@@ -169,23 +158,13 @@ $embedUrl = $isVideo ? getEmbedUrl($course['video_url']) : null;
             <p class="text-slate-500 text-sm italic">Video belum tersedia.</p>
             @endif
         </div>
-
-        @if(!empty($course['quiz']) && count($course['quiz']) > 0)
-        <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 flex items-center justify-between mt-4">
-            <div>
-                <div class="font-bold text-slate-900 mb-0.5">Kuis Akhir Modul</div>
-                <div class="text-xs text-slate-500">Selesaikan kuis untuk mendapatkan sertifikat</div>
-            </div>
-            <a href="{{ route('course.quiz.show', $slug) }}" class="inline-flex items-center justify-center px-5 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition shadow-sm no-underline">
-                Mulai Kuis
-            </a>
-        </div>
         @endif
 
-        @else
+        {{-- Chapters selalu ditampilkan jika ada --}}
+        @if(!empty($course['chapters']) && count($course['chapters']) > 0)
         <div class="flex flex-col gap-0 border-t border-slate-200 bg-white rounded-xl overflow-hidden shadow-sm mt-4">
             @foreach ($course['chapters'] as $chapter)
-            <a href="{{ route('course.chapter.part', ['slug'=>$slug,'chapterIndex'=>$loop->iteration,'partIndex'=>1]) }}" class="flex justify-between items-center p-4 border-b border-slate-100 last:border-b-0 hover:bg-slate-50 transition no-underline group">
+            <a href="{{ route('course.chapter', ['slug'=>$slug,'index'=>$loop->iteration]) }}" class="flex justify-between items-center p-4 border-b border-slate-100 last:border-b-0 hover:bg-slate-50 transition no-underline group">
                 <div class="flex items-start gap-4">
                     <div class="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-blue-600 text-lg shrink-0 group-hover:bg-white group-hover:border-blue-200 transition">
                         📘
@@ -206,7 +185,9 @@ $embedUrl = $isVideo ? getEmbedUrl($course['video_url']) : null;
             </a>
             @endforeach
         </div>
+        @endif
 
+        {{-- Quiz selalu menjadi bab terakhir --}}
         @if(!empty($course['quiz']) && count($course['quiz']) > 0)
         <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-5 flex items-center justify-between mt-4">
             <div>
@@ -217,7 +198,6 @@ $embedUrl = $isVideo ? getEmbedUrl($course['video_url']) : null;
                 Mulai Kuis
             </a>
         </div>
-        @endif
         @endif
 
     </div>

@@ -39,8 +39,11 @@ Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
-// Route::get('/register', [App\Http\Controllers\AuthController::class, 'showRegisterForm'])->name('register');
-// Route::post('/register', [App\Http\Controllers\AuthController::class, 'register']);
+// Register member (ADMIN only)
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/register', [App\Http\Controllers\AuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [App\Http\Controllers\AuthController::class, 'register']);
+});
 
 // Google OAuth routes
 Route::get('/auth/google', [App\Http\Controllers\AuthController::class, 'redirectToGoogle'])->name('google.login');

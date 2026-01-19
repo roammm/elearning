@@ -12,6 +12,10 @@ class Chapter extends Model
         'course_id',
         'title',
         'description',
+        'type',
+        'file',
+        'pdf',
+        'video_url',
         'order',
     ];
 

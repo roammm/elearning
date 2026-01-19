@@ -27,6 +27,13 @@
                         class="text-gray-700 font-medium no-underline hover:text-gray-900 transition-colors duration-200">Admin</a>
                     @endif
 
+                    @if (auth()->user()->role === 'admin')
+                    <a href="{{ route('register') }}"
+                        class="inline-flex items-center px-4 py-2 rounded-xl bg-emerald-600 text-white font-semibold no-underline border-none cursor-pointer transition-colors duration-200 text-base hover:bg-emerald-700">
+                        Register Member
+                    </a>
+                    @endif
+
                     <form method="POST" action="{{ route('logout') }}" class="m-0">
                         @csrf
                         <button type="submit"
@@ -82,6 +89,11 @@
                 @if (auth()->user()->role === 'admin')
                 <a href="{{ route('admin.index') }}"
                     class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50">Admin</a>
+                @endif
+
+                @if (auth()->user()->role === 'admin')
+                <a href="{{ route('register') }}"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-emerald-700 hover:text-emerald-800 hover:bg-emerald-50">Register Member</a>
                 @endif
 
                 <div class="pt-2 border-t border-gray-100">

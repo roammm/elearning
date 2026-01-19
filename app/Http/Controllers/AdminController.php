@@ -249,8 +249,36 @@ class AdminController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'type' => 'required|in:standard,ppt,video',
+            'file' => 'nullable|file|mimes:pptx,ppt',
+            'pdf' => 'nullable|file|mimes:pdf',
+            'video_url' => 'nullable|url|max:500',
             'order' => 'required|integer|min:0',
         ]);
+
+        // Require video_url if type is video
+        if ($validated['type'] === 'video') {
+            $request->validate([
+                'video_url' => 'required|url|max:500',
+            ]);
+        }
+
+        // Handle file uploads for PPT chapters
+        if ($validated['type'] === 'ppt') {
+            if ($request->hasFile('file')) {
+                $validated['file'] = $request->file('file')->store('files', 'public');
+            }
+            if ($request->hasFile('pdf')) {
+                $validated['pdf'] = $request->file('pdf')->store('files', 'public');
+            }
+        } else {
+            $validated['file'] = null;
+            $validated['pdf'] = null;
+        }
+
+        if ($validated['type'] !== 'video') {
+            $validated['video_url'] = null;
+        }
 
         $course->chapters()->create($validated);
 
@@ -267,8 +295,50 @@ class AdminController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'type' => 'required|in:standard,ppt,video',
+            'file' => 'nullable|file|mimes:pptx,ppt',
+            'pdf' => 'nullable|file|mimes:pdf',
+            'video_url' => 'nullable|url|max:500',
             'order' => 'required|integer|min:0',
         ]);
+
+        // Require video_url if type is video
+        if ($validated['type'] === 'video') {
+            $request->validate([
+                'video_url' => 'required|url|max:500',
+            ]);
+        }
+
+        // Handle file uploads for PPT chapters
+        if ($validated['type'] === 'ppt') {
+            if ($request->hasFile('file')) {
+                if ($chapter->file) {
+                    Storage::disk('public')->delete($chapter->file);
+                }
+                $validated['file'] = $request->file('file')->store('files', 'public');
+            }
+
+            if ($request->hasFile('pdf')) {
+                if ($chapter->pdf) {
+                    Storage::disk('public')->delete($chapter->pdf);
+                }
+                $validated['pdf'] = $request->file('pdf')->store('files', 'public');
+            }
+        } else {
+            // Clear existing files if changing type away from PPT
+            if ($chapter->file) {
+                Storage::disk('public')->delete($chapter->file);
+            }
+            if ($chapter->pdf) {
+                Storage::disk('public')->delete($chapter->pdf);
+            }
+            $validated['file'] = null;
+            $validated['pdf'] = null;
+        }
+
+        if ($validated['type'] !== 'video') {
+            $validated['video_url'] = null;
+        }
 
         $chapter->update($validated);
 
@@ -278,6 +348,13 @@ class AdminController extends Controller
     public function destroyChapter(Chapter $chapter): RedirectResponse
     {
         $course = $chapter->course;
+        // Delete associated files if any
+        if ($chapter->file) {
+            Storage::disk('public')->delete($chapter->file);
+        }
+        if ($chapter->pdf) {
+            Storage::disk('public')->delete($chapter->pdf);
+        }
         $chapter->delete();
 
         return redirect()->route('admin.chapters', $course)->with('success', 'Chapter berhasil dihapus.');

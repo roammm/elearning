@@ -138,7 +138,7 @@
         </div>
 
         <div class="card">
-            <form action="{{ route('admin.chapters.update', $chapter) }}" method="POST">
+            <form action="{{ route('admin.chapters.update', $chapter) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -155,6 +155,40 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label">Type Materi *</label>
+                    <select name="type" id="type-select" class="form-input" required>
+                        <option value="standard" {{ old('type', $chapter->type) == 'standard' ? 'selected' : '' }}>Teks (Standard)</option>
+                        <option value="ppt" {{ old('type', $chapter->type) == 'ppt' ? 'selected' : '' }}>PowerPoint</option>
+                        <option value="video" {{ old('type', $chapter->type) == 'video' ? 'selected' : '' }}>Video</option>
+                    </select>
+                    @error('type')<div class="error">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="form-group" id="ppt-fields" style="display:none">
+                    <label class="form-label">PowerPoint File (PPT/PPTX)</label>
+                    <input type="file" name="file" class="form-input" accept=".ppt,.pptx">
+                    @if($chapter->file)
+                    <div class="form-help">File saat ini: {{ basename($chapter->file) }}</div>
+                    @endif
+                    @error('file')<div class="error">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="form-group" id="pdf-fields" style="display:none">
+                    <label class="form-label">PDF File</label>
+                    <input type="file" name="pdf" class="form-input" accept=".pdf">
+                    @if($chapter->pdf)
+                    <div class="form-help">File saat ini: {{ basename($chapter->pdf) }}</div>
+                    @endif
+                    @error('pdf')<div class="error">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="form-group" id="video-fields" style="display:none">
+                    <label class="form-label">Video URL (YouTube/GDrive)</label>
+                    <input type="url" name="video_url" id="video-url-input" class="form-input" value="{{ old('video_url', $chapter->video_url) }}" placeholder="https://www.youtube.com/watch?v=... atau https://drive.google.com/file/d/...">
+                    @error('video_url')<div class="error">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">Order *</label>
                     <input type="number" name="order" class="form-input" value="{{ old('order', $chapter->order) }}" min="0" required>
                     @error('order')<div class="error">{{ $message }}</div>@enderror
@@ -168,5 +202,37 @@
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const typeSelect = document.getElementById('type-select');
+        const pptFields = document.getElementById('ppt-fields');
+        const pdfFields = document.getElementById('pdf-fields');
+        const videoFields = document.getElementById('video-fields');
+        const videoUrlInput = document.getElementById('video-url-input');
+
+        function toggleFields() {
+            const type = typeSelect.value;
+            if (type === 'ppt') {
+                pptFields.style.display = 'block';
+                pdfFields.style.display = 'block';
+                videoFields.style.display = 'none';
+                if (videoUrlInput) videoUrlInput.removeAttribute('required');
+            } else if (type === 'video') {
+                pptFields.style.display = 'none';
+                pdfFields.style.display = 'none';
+                videoFields.style.display = 'block';
+                if (videoUrlInput) videoUrlInput.setAttribute('required', 'required');
+            } else {
+                pptFields.style.display = 'none';
+                pdfFields.style.display = 'none';
+                videoFields.style.display = 'none';
+                if (videoUrlInput) videoUrlInput.removeAttribute('required');
+            }
+        }
+
+        typeSelect.addEventListener('change', toggleFields);
+        toggleFields();
+    });
+</script>
 
 </html>
