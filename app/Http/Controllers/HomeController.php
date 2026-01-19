@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -291,8 +292,8 @@ class HomeController extends Controller
         // Validate the request
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            // Ensure email is unique but ignore current user's id
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            // Ensure email is unique but ignore current user's user_id
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->user_id, 'user_id')],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,jpg,png,gif', 'max:1024'],
         ], [
             'name.required' => 'Nama wajib diisi.',
