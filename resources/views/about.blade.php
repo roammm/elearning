@@ -111,14 +111,32 @@
 
                         <div class="grid grid-cols-2 gap-4 mt-10 md:mt-12">
                             <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-sky-300 transition group">
-                                <div class="text-sky-500 font-black text-xl md:text-2xl mb-1 group-hover:scale-105 transition duration-300">40.000+</div>
-                                <div class="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-tight leading-tight">Jam Mengajar Praktis</div>
+                                <div
+                                    class="count-up text-sky-500 font-black text-xl md:text-2xl mb-1 group-hover:scale-105 transition duration-300"
+                                    data-from="0"
+                                    data-to="40000"
+                                    data-duration="2000">
+                                    0
+                                </div>
+                                <div class="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-tight leading-tight">
+                                    Jam Mengajar Praktis
+                                </div>
                             </div>
+
                             <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-indigo-300 transition group">
-                                <div class="text-indigo-500 font-black text-xl md:text-2xl mb-1 group-hover:scale-105 transition duration-300">300+</div>
-                                <div class="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-tight leading-tight">Alumni Terapis Terlatih</div>
+                                <div
+                                    class="count-up text-indigo-500 font-black text-xl md:text-2xl mb-1 group-hover:scale-105 transition duration-300"
+                                    data-from="0"
+                                    data-to="300"
+                                    data-duration="1800">
+                                    0
+                                </div>
+                                <div class="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-tight leading-tight">
+                                    Alumni Terapis Terlatih
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -157,7 +175,7 @@
                             <div class="absolute inset-0 bg-gradient-to-t from-indigo-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
                         <div class="p-6 md:p-8 text-center">
-                            <h3 class="text-lg md:text-xl font-bold text-slate-900 mb-1 group-hover:text-indigo-600 transition">Sartikayati</h3>
+                            <h3 class="text-lg md:text-xl font-bold text-slate-900 mb-1 group-hover:text-indigo-600 transition">Sartikayati, Amd.MI</h3>
                             <p class="text-[10px] text-indigo-600 font-bold uppercase tracking-widest mb-3">Behavior Therapist & Trainer</p>
                             <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-6">
                                 Terapis perilaku dan Case Manager sejak 2016. Berfokus melatih orang tua menerapkan prinsip ABA dengan empati.
@@ -172,7 +190,7 @@
                             <div class="absolute inset-0 bg-gradient-to-t from-teal-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
                         <div class="p-6 md:p-8 text-center">
-                            <h3 class="text-lg md:text-xl font-bold text-slate-900 mb-1 group-hover:text-teal-600 transition">Riyan Anugerah</h3>
+                            <h3 class="text-lg md:text-xl font-bold text-slate-900 mb-1 group-hover:text-teal-600 transition">Riyan Anugerah, S.Psi</h3>
                             <p class="text-[10px] text-teal-600 font-bold uppercase tracking-widest mb-3">Behavior Therapist & Trainer</p>
                             <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-6">
                                 Pendidik dengan 7 tahun pengalaman. Alumnus Wardah Inspiring Teacher yang berfokus pada metode ABA eksploratif.
@@ -186,6 +204,47 @@
         </div>
     </div>
     @include('footer')
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const animateCounter = (el) => {
+                const start = parseInt(el.getAttribute("data-from") || 0);
+                const end = parseInt(el.getAttribute("data-to"));
+                const duration = parseInt(el.getAttribute("data-duration") || 2000);
+                let startTimestamp = null;
+
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const currentVal = Math.floor(progress * (end - start) + start);
+                    el.textContent = currentVal.toLocaleString("id-ID");
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        el.textContent = end.toLocaleString("id-ID");
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            const options = {
+                root: null,
+                threshold: 0.5
+            };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, options);
+
+            document.querySelectorAll(".count-up").forEach((counter) => {
+                observer.observe(counter);
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -62,7 +62,7 @@
 
             <div class="w-full order-1 md:order-2 h-[250px] md:h-[400px] relative group">
                 <div class="absolute inset-0 bg-gradient-to-tr from-sky-400 to-indigo-400 rounded-2xl"></div>
-                <img src="/img/hero_section.jpg" alt="Pelatihan Terapis ABA Profesional"
+                <img src="/img/hero.jpeg" alt="Pelatihan Terapis ABA Profesional"
                     class="w-full h-full object-cover rounded-2xl shadow-2xl relative z-10 border-4 border-white">
             </div>
         </div>
@@ -107,65 +107,93 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start mb-24">
             <div class="flex flex-col items-center md:items-start text-center md:text-left">
                 <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Jenjang Pelatihan ABATI</h2>
-                <p class="text-lg text-gray-600 mb-8 leading-relaxed">Kami menyediakan berbagai jenjang pelatihan yang disesuaikan dengan kebutuhan Anda</p>
+                <p class="text-lg text-gray-600 mb-8 leading-relaxed text-justify w-lg">Kami menyediakan berbagai jenjang pelatihan yang dirancang secara sistematis untuk menyesuaikan kebutuhan pengembangan kompetensi Anda.</p>
 
                 <ul class="space-y-4 w-full">
                     <li class="flex flex-row items-start gap-4 text-left bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-sky-200 transition">
                         <span class="text-sky-500 font-bold text-xl shrink-0 bg-sky-100 w-8 h-8 flex items-center justify-center rounded-full">✓</span>
                         <div>
                             <div class="font-bold text-gray-900 mb-1 text-lg">Kelas ABA Dasar</div>
-                            <div class="text-gray-600 text-sm leading-relaxed">Prinsip dasar ABA, observasi perilaku, data recording, DTT, NET.</div>
+                            <div class="text-gray-600 text-sm leading-relaxed">Pengenalan prinsip dasar Applied Behavior Analysis (ABA), teknik observasi perilaku, pencatatan data, Discrete Trial Training (DTT), dan Natural Environment Teaching (NET).</div>
                         </div>
                     </li>
                     <li class="flex flex-row items-start gap-4 text-left bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-indigo-200 transition">
                         <span class="text-indigo-500 font-bold text-xl shrink-0 bg-indigo-100 w-8 h-8 flex items-center justify-center rounded-full">✓</span>
                         <div>
-                            <div class="font-bold text-gray-900 mb-1 text-lg">Kelas Case Manager ABA</div>
-                            <div class="text-gray-600 text-sm leading-relaxed">Analisis data, penyusunan program IEP, supervisi, dan komunikasi tim.</div>
+                            <div class="font-bold text-gray-900 mb-1 text-lg">Kelas VBMAPP</div>
+                            <div class="text-gray-600 text-sm leading-relaxed">Pembelajaran penggunaan alat asesmen VB-MAPP sebagai dasar penyusunan dan penempatan program intervensi yang tepat.</div>
                         </div>
                     </li>
                     <li class="flex flex-row items-start gap-4 text-left bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-teal-200 transition">
                         <span class="text-teal-500 font-bold text-xl shrink-0 bg-teal-100 w-8 h-8 flex items-center justify-center rounded-full">✓</span>
                         <div>
-                            <div class="font-bold text-gray-900 mb-1 text-lg">Workshop Tematik ABA</div>
-                            <div class="text-gray-600 text-sm leading-relaxed">Workshop intensif: Toilet Training, Manajemen Perilaku, PECS, dll.</div>
+                            <div class="font-bold text-gray-900 mb-1 text-lg">Kelas DDST-II (Denver Developmental Screening Test II)</div>
+                            <div class="text-gray-600 text-sm leading-relaxed">Pelatihan penggunaan DDST-II sebagai alat skrining perkembangan anak untuk deteksi dini keterlambatan perkembangan.</div>
+                        </div>
+                    </li>
+                    <li class="flex flex-row items-start gap-4 text-left bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:border-teal-200 transition">
+                        <span class="text-teal-500 font-bold text-xl shrink-0 bg-teal-100 w-8 h-8 flex items-center justify-center rounded-full">✓</span>
+                        <div>
+                            <div class="font-bold text-gray-900 mb-1 text-lg">Kelas COMPIC (Communication Pictograph)</div>
+                            <div class="text-gray-600 text-sm leading-relaxed">Pelatihan penggunaan alat bantu komunikasi visual untuk mendukung kemampuan komunikasi anak secara fungsional.</div>
                         </div>
                     </li>
                 </ul>
             </div>
 
             <div class="w-full">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 text-center md:text-left">Format Pelatihan Fleksibel</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 text-center md:text-left">
+                    Format Pelatihan Fleksibel
+                </h2>
+                <p class="text-lg text-gray-600 mb-8 leading-relaxed text-center md:text-justify w-lg">
+                    Format pelatihan dirancang secara adaptif untuk mengakomodasi kebutuhan peserta, baik dari sisi waktu, metode pembelajaran, maupun tingkat pengalaman, dengan tetap menjaga kualitas dan efektivitas proses belajar.
+                </p>
+
                 <div class="space-y-5">
                     <div class="flex items-center gap-5 p-6 bg-gradient-to-r from-sky-500 to-sky-600 rounded-2xl shadow-lg shadow-sky-200/50 text-white hover:scale-[1.02] transition">
                         <div class="w-12 h-12 shrink-0 flex items-center justify-center bg-white/20 rounded-full">
                             <img src="/img/online-study.png" alt="Online" class="w-7 h-7 object-contain brightness-0 invert">
                         </div>
                         <div class="text-left">
-                            <div class="text-xl font-bold mb-1">Online Training</div>
-                            <div class="text-sky-100 text-sm font-medium">Belajar interaktif via platform digital dengan video case.</div>
+                            <div class="text-xl font-bold mb-1">
+                                Online Training
+                            </div>
+                            <div class="text-sky-100 text-sm font-medium">
+                                Pembelajaran berbasis daring yang interaktif melalui platform digital, dilengkapi materi terstruktur, diskusi terpandu, dan studi kasus berbasis praktik.
+                            </div>
                         </div>
                     </div>
+
                     <div class="flex items-center gap-5 p-6 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-2xl shadow-lg shadow-indigo-200/50 text-white hover:scale-[1.02] transition">
                         <div class="w-12 h-12 shrink-0 flex items-center justify-center bg-white/20 rounded-full">
                             <img src="/img/offline-study.png" alt="Onsite" class="w-7 h-7 object-contain brightness-0 invert">
                         </div>
                         <div class="text-left">
-                            <div class="text-xl font-bold mb-1">Full Onsite Training</div>
-                            <div class="text-indigo-100 text-sm font-medium">Pelatihan tatap muka di lokasi mitra dengan praktik langsung.</div>
+                            <div class="text-xl font-bold mb-1">
+                                Full Onsite Training
+                            </div>
+                            <div class="text-indigo-100 text-sm font-medium">
+                                Pelatihan tatap muka secara langsung di lokasi mitra dengan pendekatan praktik intensif, observasi lapangan, dan pendampingan instruktur.
+                            </div>
                         </div>
                     </div>
+
                     <div class="flex items-center gap-5 p-6 bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl shadow-lg shadow-teal-200/50 text-white hover:scale-[1.02] transition">
                         <div class="w-12 h-12 shrink-0 flex items-center justify-center bg-white/20 rounded-full">
                             <img src="/img/mix-study.png" alt="Mix" class="w-7 h-7 object-contain brightness-0 invert">
                         </div>
                         <div class="text-left">
-                            <div class="text-xl font-bold mb-1">Mix Training (Hybrid)</div>
-                            <div class="text-teal-100 text-sm font-medium">Kombinasi teori daring dan praktik lapangan.</div>
+                            <div class="text-xl font-bold mb-1">
+                                Mix Training (Hybrid)
+                            </div>
+                            <div class="text-teal-100 text-sm font-medium">
+                                Model pembelajaran kombinatif yang mengintegrasikan sesi teori daring dengan praktik lapangan terjadwal untuk memperkuat pemahaman dan keterampilan aplikatif.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div class="bg-sky-50/70 rounded-[40px] p-8 md:p-14 mb-24 text-center border border-sky-100">

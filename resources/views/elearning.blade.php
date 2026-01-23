@@ -27,7 +27,9 @@
 
                 <div class="flex items-start justify-between mb-4">
                     <div class="w-8 h-8 bg-sky-100 rounded-lg flex items-center justify-center text-sky-700 text-base">
-                        📚
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
+                        </svg>
                     </div>
                     <span class="text-xs bg-green-100 text-green-800 rounded-full px-3 py-1 font-medium border border-green-200">
                         {{ $module['badge'] }}
@@ -38,8 +40,13 @@
                 <p class="text-slate-500 text-sm mb-4 leading-relaxed line-clamp-2">{{ $module['desc'] }}</p>
 
                 <div class="flex items-center gap-4 text-slate-500 text-[13px] mb-4">
-                    <span class="flex items-center gap-1">⏱️ {{ $module['hours'] }}</span>
-                    <span class="flex items-center gap-1">📚 {{ $module['lessons'] }}</span>
+                    <span class="flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg> {{ $module['hours'] }}</span>
+                    <span class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84a50.53 50.53 0 00-2.658.813m-15.482 0A50.698 50.698 0 0012 11.528a50.7 50.7 0 007.74-1.381M4.26 10.147a60.481 60.481 0 003.493 8.356L12 20.905m4.247-2.402a60.481 60.481 0 003.493-8.356" />
+                        </svg> {{ $module['lessons'] }}</span>
                 </div>
 
                 <div class="mt-auto">

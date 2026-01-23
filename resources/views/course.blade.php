@@ -8,28 +8,28 @@ $quizResult = session('quiz_result');
 
 // Function to convert video URL to embeddable format
 function getEmbedUrl($url) {
-    if (empty($url)) return null;
-    
-    // YouTube URL handling
-    if (preg_match('/youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $url, $matches)) {
-        return 'https://www.youtube.com/embed/' . $matches[1];
-    }
-    if (preg_match('/youtu\.be\/([a-zA-Z0-9_-]+)/', $url, $matches)) {
-        return 'https://www.youtube.com/embed/' . $matches[1];
-    }
-    if (preg_match('/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/', $url, $matches)) {
-        return $url; // Already embed format
-    }
-    
-    // Google Drive URL handling - check if already in preview format
-    if (preg_match('/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/preview/', $url, $matches)) {
-        return $url; // Already in preview format
-    }
-    if (preg_match('/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/', $url, $matches)) {
-        return 'https://drive.google.com/file/d/' . $matches[1] . '/preview';
-    }
-    
-    return $url; // Return as-is if no match
+if (empty($url)) return null;
+
+// YouTube URL handling
+if (preg_match('/youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $url, $matches)) {
+return 'https://www.youtube.com/embed/' . $matches[1];
+}
+if (preg_match('/youtu\.be\/([a-zA-Z0-9_-]+)/', $url, $matches)) {
+return 'https://www.youtube.com/embed/' . $matches[1];
+}
+if (preg_match('/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/', $url, $matches)) {
+return $url; // Already embed format
+}
+
+// Google Drive URL handling - check if already in preview format
+if (preg_match('/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/preview/', $url, $matches)) {
+return $url; // Already in preview format
+}
+if (preg_match('/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/', $url, $matches)) {
+return 'https://drive.google.com/file/d/' . $matches[1] . '/preview';
+}
+
+return $url; // Return as-is if no match
 }
 
 $embedUrl = $isVideo ? getEmbedUrl($course['video_url']) : null;
@@ -124,9 +124,9 @@ $embedUrl = $isVideo ? getEmbedUrl($course['video_url']) : null;
             <div class="font-bold text-slate-900 mb-4 text-base">Materi Video</div>
             @if($embedUrl)
             <div class="relative w-full" style="padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #000;">
-                <iframe 
+                <iframe
                     id="video-player"
-                    src="{{ $embedUrl }}" 
+                    src="{{ $embedUrl }}"
                     class="absolute top-0 left-0 w-full h-full border-none rounded-lg"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen
@@ -167,7 +167,9 @@ $embedUrl = $isVideo ? getEmbedUrl($course['video_url']) : null;
             <a href="{{ route('course.chapter', ['slug'=>$slug,'index'=>$loop->iteration]) }}" class="flex justify-between items-center p-4 border-b border-slate-100 last:border-b-0 hover:bg-slate-50 transition no-underline group">
                 <div class="flex items-start gap-4">
                     <div class="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-blue-600 text-lg shrink-0 group-hover:bg-white group-hover:border-blue-200 transition">
-                        📘
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4.5 h-4.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
+                        </svg>
                     </div>
                     <div>
                         <div class="font-bold text-slate-800 text-sm mb-0.5 group-hover:text-blue-700 transition">{{ $chapter['title'] }}</div>
@@ -207,7 +209,7 @@ $embedUrl = $isVideo ? getEmbedUrl($course['video_url']) : null;
         function toggleFullscreen() {
             const iframe = document.getElementById('video-player');
             const container = iframe.parentElement;
-            
+
             if (!document.fullscreenElement) {
                 if (container.requestFullscreen) {
                     container.requestFullscreen();
